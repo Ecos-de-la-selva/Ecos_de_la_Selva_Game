@@ -1,0 +1,148 @@
+[gd_scene load_steps=22 format=3 uid="uid://b62g15bbgmn33"]
+
+[ext_resource type="Script" uid="uid://ba5s3krf60uck" path="res://Scenes/Characters/personaje_1.gd" id="1_aclfa"]
+[ext_resource type="Texture2D" uid="uid://bfdcakg0ynhrc" path="res://Assets/Characters/Personaje 1/Idle.png" id="1_xkl2q"]
+[ext_resource type="Texture2D" uid="uid://6cgly4bhhuxs" path="res://Assets/Characters/Personaje 1/walk.png" id="3_ankml"]
+[ext_resource type="Texture2D" uid="uid://j5gqe41wofk2" path="res://Assets/Characters/Personaje 1/JumpDown.png" id="3_bre8c"]
+[ext_resource type="Texture2D" uid="uid://nbecy1iintkr" path="res://Assets/Characters/Personaje 1/JumpUp.png" id="4_reej2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bre8c"]
+atlas = ExtResource("1_xkl2q")
+region = Rect2(0, 0, 32, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_reej2"]
+atlas = ExtResource("1_xkl2q")
+region = Rect2(32, 0, 32, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v7e55"]
+atlas = ExtResource("1_xkl2q")
+region = Rect2(64, 0, 32, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3jv6a"]
+atlas = ExtResource("1_xkl2q")
+region = Rect2(96, 0, 32, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_00m6n"]
+atlas = ExtResource("3_bre8c")
+region = Rect2(0, 0, 32, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_66yon"]
+atlas = ExtResource("3_bre8c")
+region = Rect2(32, 0, 32, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ankml"]
+atlas = ExtResource("4_reej2")
+region = Rect2(0, 0, 32, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j2h5k"]
+atlas = ExtResource("4_reej2")
+region = Rect2(32, 0, 32, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gc30u"]
+atlas = ExtResource("4_reej2")
+region = Rect2(64, 0, 32, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xfiey"]
+atlas = ExtResource("4_reej2")
+region = Rect2(64, 0, 32, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bf354"]
+atlas = ExtResource("3_ankml")
+region = Rect2(0, 0, 32, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ewi8o"]
+atlas = ExtResource("3_ankml")
+region = Rect2(32, 0, 32, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vxrnu"]
+atlas = ExtResource("3_ankml")
+region = Rect2(64, 0, 32, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4143k"]
+atlas = ExtResource("3_ankml")
+region = Rect2(96, 0, 32, 23)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kjqji"]
+animations = [{
+"frames": [{
+"duration": 1.5,
+"texture": SubResource("AtlasTexture_bre8c")
+}, {
+"duration": 1.5,
+"texture": SubResource("AtlasTexture_reej2")
+}, {
+"duration": 1.5,
+"texture": SubResource("AtlasTexture_v7e55")
+}, {
+"duration": 1.5,
+"texture": SubResource("AtlasTexture_3jv6a")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_00m6n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_66yon")
+}],
+"loop": true,
+"name": &"jump_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_ankml")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_j2h5k")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_gc30u")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_xfiey")
+}],
+"loop": true,
+"name": &"jump_up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bf354")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ewi8o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vxrnu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4143k")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0dhxt"]
+size = Vector2(17, 23)
+
+[node name="Personaje1" type="CharacterBody2D"]
+scale = Vector2(4, 4)
+script = ExtResource("1_aclfa")
+
+[node name="Animaciones" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_kjqji")
+animation = &"jump_up"
+frame_progress = 0.5721233
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_0dhxt")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+editor_draw_limits = true
+editor_draw_drag_margin = true
