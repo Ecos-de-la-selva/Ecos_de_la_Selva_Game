@@ -1,11 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://cq67fmiphoogw"]
+[gd_scene format=3 uid="uid://cq67fmiphoogw"]
 
 [ext_resource type="PackedScene" uid="uid://b62g15bbgmn33" path="res://Scenes/Characters/Personaje-1.tscn" id="1_5t1h8"]
 [ext_resource type="PackedScene" uid="uid://bhftnb32q2jv4" path="res://Scenes/Escenarios/escenario1.tscn" id="2_wol88"]
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D" type="Node2D" unique_id=1743488872]
 
-[node name="Personaje1" parent="." instance=ExtResource("1_5t1h8")]
+[node name="Personaje1" parent="." unique_id=800605113 instance=ExtResource("1_5t1h8")]
 position = Vector2(212, 145)
 
-[node name="TileMapLayer" parent="." instance=ExtResource("2_wol88")]
+[node name="TileMapLayer" parent="." unique_id=1248919767 instance=ExtResource("2_wol88")]

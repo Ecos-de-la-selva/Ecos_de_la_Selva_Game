@@ -1,10 +1,12 @@
-[gd_scene load_steps=22 format=3 uid="uid://b62g15bbgmn33"]
+[gd_scene format=3 uid="uid://b62g15bbgmn33"]
 
 [ext_resource type="Script" uid="uid://ba5s3krf60uck" path="res://Scenes/Characters/personaje_1.gd" id="1_aclfa"]
 [ext_resource type="Texture2D" uid="uid://bfdcakg0ynhrc" path="res://Assets/Characters/Personaje 1/Idle.png" id="1_xkl2q"]
 [ext_resource type="Texture2D" uid="uid://6cgly4bhhuxs" path="res://Assets/Characters/Personaje 1/walk.png" id="3_ankml"]
 [ext_resource type="Texture2D" uid="uid://j5gqe41wofk2" path="res://Assets/Characters/Personaje 1/JumpDown.png" id="3_bre8c"]
+[ext_resource type="Texture2D" uid="uid://b7jvt8m0r7s4m" path="res://Assets/Characters/Personaje 1/Attack.png" id="3_reej2"]
 [ext_resource type="Texture2D" uid="uid://nbecy1iintkr" path="res://Assets/Characters/Personaje 1/JumpUp.png" id="4_reej2"]
+[ext_resource type="Texture2D" uid="uid://pk7jtab3636c" path="res://Assets/Characters/Personaje 1/AttackAir.png" id="4_v7e55"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bre8c"]
 atlas = ExtResource("1_xkl2q")
@@ -20,6 +22,38 @@ region = Rect2(64, 0, 32, 23)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3jv6a"]
 atlas = ExtResource("1_xkl2q")
+region = Rect2(96, 0, 32, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kjqji"]
+atlas = ExtResource("3_reej2")
+region = Rect2(0, 0, 32, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0dhxt"]
+atlas = ExtResource("3_reej2")
+region = Rect2(32, 0, 32, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7m73v"]
+atlas = ExtResource("3_reej2")
+region = Rect2(64, 0, 32, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h3bg7"]
+atlas = ExtResource("3_reej2")
+region = Rect2(96, 0, 32, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i7dut"]
+atlas = ExtResource("4_v7e55")
+region = Rect2(0, 0, 32, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ni2wg"]
+atlas = ExtResource("4_v7e55")
+region = Rect2(32, 0, 32, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ijsqf"]
+atlas = ExtResource("4_v7e55")
+region = Rect2(64, 0, 32, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c4gor"]
+atlas = ExtResource("4_v7e55")
 region = Rect2(96, 0, 32, 23)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_00m6n"]
@@ -82,6 +116,40 @@ animations = [{
 "speed": 5.0
 }, {
 "frames": [{
+"duration": 0.2,
+"texture": SubResource("AtlasTexture_kjqji")
+}, {
+"duration": 0.4,
+"texture": SubResource("AtlasTexture_0dhxt")
+}, {
+"duration": 0.4,
+"texture": SubResource("AtlasTexture_7m73v")
+}, {
+"duration": 0.4,
+"texture": SubResource("AtlasTexture_h3bg7")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 0.2,
+"texture": SubResource("AtlasTexture_i7dut")
+}, {
+"duration": 0.4,
+"texture": SubResource("AtlasTexture_ni2wg")
+}, {
+"duration": 0.4,
+"texture": SubResource("AtlasTexture_ijsqf")
+}, {
+"duration": 0.4,
+"texture": SubResource("AtlasTexture_c4gor")
+}],
+"loop": false,
+"name": &"attackair",
+"speed": 5.0
+}, {
+"frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_00m6n")
 }, {
@@ -93,13 +161,13 @@ animations = [{
 "speed": 5.0
 }, {
 "frames": [{
-"duration": 0.5,
+"duration": 0.3,
 "texture": SubResource("AtlasTexture_ankml")
 }, {
-"duration": 0.5,
+"duration": 0.4,
 "texture": SubResource("AtlasTexture_j2h5k")
 }, {
-"duration": 0.5,
+"duration": 0.4,
 "texture": SubResource("AtlasTexture_gc30u")
 }, {
 "duration": 0.5,
@@ -110,7 +178,7 @@ animations = [{
 "speed": 5.0
 }, {
 "frames": [{
-"duration": 1.0,
+"duration": 0.3,
 "texture": SubResource("AtlasTexture_bf354")
 }, {
 "duration": 1.0,
@@ -130,19 +198,18 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0dhxt"]
 size = Vector2(17, 23)
 
-[node name="Personaje1" type="CharacterBody2D"]
+[node name="Personaje1" type="CharacterBody2D" unique_id=72214302]
 scale = Vector2(4, 4)
 script = ExtResource("1_aclfa")
 
-[node name="Animaciones" type="AnimatedSprite2D" parent="."]
+[node name="Animaciones" type="AnimatedSprite2D" parent="." unique_id=633562649]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_kjqji")
-animation = &"jump_up"
-frame_progress = 0.5721233
+animation = &"attackair"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1028914906]
 shape = SubResource("RectangleShape2D_0dhxt")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=111697442]
 editor_draw_limits = true
 editor_draw_drag_margin = true
