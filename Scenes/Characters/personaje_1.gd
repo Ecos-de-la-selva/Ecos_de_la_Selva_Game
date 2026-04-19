@@ -3,22 +3,31 @@ extends CharacterBody2D
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
-# VARIABLE NUEVA: Para controlar si estamos atacando
+# --- VARIABLES DE SALUD ---
+var salud_max = 100
+var salud_actual = 100
+# Esta línea busca la barra de vida en la escena Screen que instanciaste
+@onready var barra_vida = get_tree().root.find_child("VidaBarra", true, false)
+
+# VARIABLE PARA EL ATAQUE
 var is_attacking = false
 
+func _ready():
+	# Al empezar, aseguramos que la barra esté llena
+	if barra_vida:
+		barra_vida.max_value = salud_max
+		barra_vida.value = salud_actual
+
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
+	# Gravedad
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-	# DETECTAR CLICK IZQUIERDO (Ataque)
-	# Nota: Asegúrate que "click_izquierdo" esté en Project Settings -> Input Map
-	# O puedes usar Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
+	# ATAQUE (Click Izquierdo)
 	if Input.is_action_just_pressed("click_izquierdo") and not is_attacking:
 		attack()
 
-	# Solo permitimos saltar y movernos si NO estamos atacando 
-	# (Opcional: quita el "and not is_attacking" si quieres que ataque mientras corre)
+	# Movimiento y Salto
 	if not is_attacking:
 		if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 			velocity.y = JUMP_VELOCITY
@@ -28,10 +37,11 @@ func _physics_process(delta: float) -> void:
 			velocity.x = direction * SPEED
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
-	else:
-		# Si quieres que se detenga al atacar, descomenta la siguiente línea:
-		# velocity.x = 0 
-		pass
+	
+	# --- PRUEBA DE DAÑO TEMPORAL ---
+	# Presiona la tecla "Abajo" para probar si la barra baja
+	if Input.is_action_just_pressed("ui_down"):
+		recibir_danio(10)
 
 	move_and_slide()
 	decide_animation()
@@ -39,37 +49,45 @@ func _physics_process(delta: float) -> void:
 func attack():
 	is_attacking = true
 	
-	# REVISAMOS SI ESTÁ EN EL AIRE O EN EL SUELO
 	if is_on_floor():
 		$Animaciones.play("attack")
 	else:
 		$Animaciones.play("attackair")
 	
-	# Esperamos a que la animación que elegimos termine
 	await $Animaciones.animation_finished 
-	
 	is_attacking = false
 
+# --- FUNCIONES DE SALUD ---
+func recibir_danio(cantidad):
+	salud_actual -= cantidad
+	salud_actual = clamp(salud_actual, 0, salud_max) # No bajar de 0
+	
+	if barra_vida:
+		barra_vida.value = salud_actual
+	
+	if salud_actual <= 0:
+		morir()
+
+func morir():
+	print("El indígena ha muerto")
+	# Reinicia la escena actual para reaparecer
+	get_tree().reload_current_scene()
+
 func decide_animation():
-	# Si estamos atacando, NO dejes que las otras animaciones interrumpan
 	if is_attacking:
 		return
 
-	# 1. PRIORIDAD: ¿Está en el aire?
 	if not is_on_floor():
 		if velocity.y < 0:
 			$Animaciones.play("jump_up")
 		else:
 			$Animaciones.play("jump_down")
-	
-	# 2. Si NO está en el aire (está en el suelo)
 	else:
 		if velocity.x == 0:
 			$Animaciones.play("Idle")
 		else:
 			$Animaciones.play("walk")
 	
-	# 3. DIRECCIÓN (Flip)
 	if velocity.x < 0:
 		$Animaciones.flip_h = true
 	elif velocity.x > 0:
