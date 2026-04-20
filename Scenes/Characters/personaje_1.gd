@@ -2,75 +2,103 @@ extends CharacterBody2D
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
+const ATTACK_DAMAGE = 1
+const ATTACK_PUSH_FORCE = 150.0
+const HitStopUtils = preload("res://Scripts/hit_stop.gd")
 
-# VARIABLE NUEVA: Para controlar si estamos atacando
 var is_attacking = false
+var _already_hit_in_current_attack: Array[Node2D] = []
+
+@onready var animaciones: AnimatedSprite2D = $Animaciones
+@onready var attack_area: Area2D = $AttackArea
 
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-	# DETECTAR CLICK IZQUIERDO (Ataque)
-	# Nota: Asegúrate que "click_izquierdo" esté en Project Settings -> Input Map
-	# O puedes usar Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
-	if Input.is_action_just_pressed("click_izquierdo") and not is_attacking:
+	if _is_attack_pressed() and not is_attacking:
 		attack()
 
-	# Solo permitimos saltar y movernos si NO estamos atacando 
-	# (Opcional: quita el "and not is_attacking" si quieres que ataque mientras corre)
 	if not is_attacking:
-		if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+		if _is_jump_pressed() and is_on_floor():
 			velocity.y = JUMP_VELOCITY
 
-		var direction := Input.get_axis("ui_left", "ui_right")
+		var direction := _get_move_axis()
 		if direction:
 			velocity.x = direction * SPEED
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
-	else:
-		# Si quieres que se detenga al atacar, descomenta la siguiente línea:
-		# velocity.x = 0 
-		pass
 
 	move_and_slide()
 	decide_animation()
 
 func attack():
 	is_attacking = true
-	
-	# REVISAMOS SI ESTÁ EN EL AIRE O EN EL SUELO
+	_already_hit_in_current_attack.clear()
+
 	if is_on_floor():
-		$Animaciones.play("attack")
+		animaciones.play("attack")
 	else:
-		$Animaciones.play("attackair")
-	
-	# Esperamos a que la animación que elegimos termine
-	await $Animaciones.animation_finished 
-	
+		animaciones.play("attackair")
+
+	await get_tree().create_timer(0.07).timeout
+	_perform_attack_hit()
+
+	await animaciones.animation_finished
 	is_attacking = false
 
 func decide_animation():
-	# Si estamos atacando, NO dejes que las otras animaciones interrumpan
 	if is_attacking:
 		return
 
-	# 1. PRIORIDAD: ¿Está en el aire?
 	if not is_on_floor():
 		if velocity.y < 0:
-			$Animaciones.play("jump_up")
+			animaciones.play("jump_up")
 		else:
-			$Animaciones.play("jump_down")
-	
-	# 2. Si NO está en el aire (está en el suelo)
+			animaciones.play("jump_down")
 	else:
 		if velocity.x == 0:
-			$Animaciones.play("Idle")
+			animaciones.play("Idle")
 		else:
-			$Animaciones.play("walk")
-	
-	# 3. DIRECCIÓN (Flip)
+			animaciones.play("walk")
+
 	if velocity.x < 0:
-		$Animaciones.flip_h = true
+		animaciones.flip_h = true
 	elif velocity.x > 0:
-		$Animaciones.flip_h = false
+		animaciones.flip_h = false
+
+	attack_area.position.x = -absf(attack_area.position.x) if animaciones.flip_h else absf(attack_area.position.x)
+
+func _perform_attack_hit() -> void:
+	for body in attack_area.get_overlapping_bodies():
+		if body == null or not body.has_method("take_damage"):
+			continue
+		if body in _already_hit_in_current_attack:
+			continue
+
+		_already_hit_in_current_attack.append(body)
+
+		var direction := 1.0
+		if animaciones.flip_h:
+			direction = -1.0
+
+		body.take_damage(ATTACK_DAMAGE, direction, ATTACK_PUSH_FORCE)
+		HitStopUtils.freeze(get_tree(), 0.05, 0.0)
+
+func bounce(force: float = 260.0) -> void:
+	velocity.y = -force
+
+func _get_move_axis() -> float:
+	var axis := Input.get_axis("ui_left", "ui_right")
+	if axis != 0.0:
+		return axis
+
+	var left_pressed := Input.is_physical_key_pressed(KEY_A) or Input.is_physical_key_pressed(KEY_LEFT)
+	var right_pressed := Input.is_physical_key_pressed(KEY_D) or Input.is_physical_key_pressed(KEY_RIGHT)
+	return float(int(right_pressed) - int(left_pressed))
+
+func _is_jump_pressed() -> bool:
+	return Input.is_action_just_pressed("ui_accept") or Input.is_physical_key_pressed(KEY_SPACE) or Input.is_physical_key_pressed(KEY_W) or Input.is_physical_key_pressed(KEY_UP)
+
+func _is_attack_pressed() -> bool:
+	return Input.is_action_just_pressed("click_izquierdo")
