@@ -1,0 +1,145 @@
+[gd_scene format=3 uid="uid://ccw2vmvseufhb"]
+
+[ext_resource type="Script" uid="uid://dw2vqjhlunfij" path="res://Scenes/Levels/nivel1_controller.gd" id="1_lvl1"]
+[ext_resource type="PackedScene" uid="uid://b62g15bbgmn33" path="res://Scenes/Characters/Personaje-1.tscn" id="2_lvl1"]
+[ext_resource type="PackedScene" uid="uid://bhftnb32q2jv4" path="res://Scenes/Escenarios/escenario1.tscn" id="3_lvl1"]
+[ext_resource type="PackedScene" path="res://Scenes/Enemies/LarvaDePiedra.tscn" id="4_lvl1"]
+[ext_resource type="PackedScene" path="res://Scenes/Enemies/AvispaAcechadora.tscn" id="5_lvl1"]
+[ext_resource type="PackedScene" path="res://Scenes/Enemies/GuardianCaido.tscn" id="6_lvl1"]
+[ext_resource type="Texture2D" uid="uid://v2kwvjruyely" path="res://Assets/Backgrounds/Background_Selva/Fondo.png" id="7_lvl1"]
+[ext_resource type="Texture2D" uid="uid://djgjsi7lmukfi" path="res://Assets/Backgrounds/Background_Selva/03.png" id="8_lvl1"]
+[ext_resource type="Texture2D" uid="uid://dljmfske26cgd" path="res://Assets/Backgrounds/Background_Selva/02.png" id="9_lvl1"]
+[ext_resource type="Texture2D" uid="uid://bvrf5dhmadx0c" path="res://Assets/Backgrounds/Background_Selva/01.png" id="10_lvl1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_area"]
+size = Vector2(36, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_barrier"]
+size = Vector2(24, 75)
+
+[node name="Nivel1_UmbralDelMusgo" type="Node2D" unique_id=2001527747]
+script = ExtResource("1_lvl1")
+
+[node name="BG_Fondo" type="Sprite2D" parent="." unique_id=358372839]
+scale = Vector2(4, 4)
+texture = ExtResource("7_lvl1")
+centered = false
+
+[node name="BG_Fondo_2" type="Sprite2D" parent="." unique_id=820523928]
+position = Vector2(1024, 0)
+scale = Vector2(4, 4)
+texture = ExtResource("7_lvl1")
+centered = false
+
+[node name="BG_3" type="Sprite2D" parent="." unique_id=1331063367]
+scale = Vector2(4, 4)
+texture = ExtResource("8_lvl1")
+centered = false
+
+[node name="BG_3_2" type="Sprite2D" parent="." unique_id=527029110]
+position = Vector2(1024, 0)
+scale = Vector2(4, 4)
+texture = ExtResource("8_lvl1")
+centered = false
+
+[node name="BG_2" type="Sprite2D" parent="." unique_id=2079980218]
+scale = Vector2(4, 4)
+texture = ExtResource("9_lvl1")
+centered = false
+
+[node name="BG_2_2" type="Sprite2D" parent="." unique_id=944800308]
+position = Vector2(1024, 0)
+scale = Vector2(4, 4)
+texture = ExtResource("9_lvl1")
+centered = false
+
+[node name="BG_1" type="Sprite2D" parent="." unique_id=952093787]
+scale = Vector2(4, 4)
+texture = ExtResource("10_lvl1")
+centered = false
+
+[node name="BG_1_2" type="Sprite2D" parent="." unique_id=397039887]
+position = Vector2(1024, 0)
+scale = Vector2(4, 4)
+texture = ExtResource("10_lvl1")
+centered = false
+
+[node name="Escenario" parent="." unique_id=226117238 instance=ExtResource("3_lvl1")]
+
+[node name="Escenario_2" parent="." unique_id=332713395 instance=ExtResource("3_lvl1")]
+position = Vector2(768, 0)
+
+[node name="Personaje1" parent="." unique_id=1784114385 instance=ExtResource("2_lvl1")]
+position = Vector2(80, 145)
+
+[node name="LarvaA" parent="." unique_id=1463307032 instance=ExtResource("4_lvl1")]
+position = Vector2(250, 142)
+
+[node name="LarvaB" parent="." unique_id=1383858014 instance=ExtResource("4_lvl1")]
+position = Vector2(390, 142)
+
+[node name="AvispaA" parent="." unique_id=979194995 instance=ExtResource("5_lvl1")]
+position = Vector2(470, 150)
+dive_speed = 340.0
+dive_cooldown = 1.0
+
+[node name="GuardianCaido" parent="." unique_id=2099057928 instance=ExtResource("6_lvl1")]
+position = Vector2(1213, 196)
+
+[node name="Altar" type="Area2D" parent="." unique_id=1732750120]
+position = Vector2(165, 133)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Altar" unique_id=1518931634]
+shape = SubResource("RectangleShape2D_area")
+
+[node name="AltarVisual" type="Polygon2D" parent="Altar" unique_id=437575724]
+position = Vector2(0, 10)
+color = Color(0.55, 0.65, 0.55, 1)
+polygon = PackedVector2Array(-10, -16, 10, -16, 14, 16, -14, 16)
+
+[node name="BarreraRaices" type="StaticBody2D" parent="." unique_id=622807492]
+position = Vector2(1180, 114)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BarreraRaices" unique_id=1628375935]
+position = Vector2(-275, 266.5)
+shape = SubResource("RectangleShape2D_barrier")
+
+[node name="Visual" type="Polygon2D" parent="BarreraRaices" unique_id=178888880]
+position = Vector2(-277, 265.5)
+scale = Vector2(1, 0.6454545)
+color = Color(0.24, 0.17, 0.07, 1)
+polygon = PackedVector2Array(-11, -55, 11, -55, 11, 55, -11, 55, -10.399994, 11.599998)
+
+[node name="Salida" type="Area2D" parent="." unique_id=1171587674]
+position = Vector2(1240, 140)
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Salida" unique_id=918394957]
+shape = SubResource("RectangleShape2D_area")
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1794653369]
+
+[node name="AltarText" type="Label" parent="UI" unique_id=274868103]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 385.0
+offset_bottom = 38.0
+text = "Altar antiguo: la Lanza Sagrada despierta tu ataque."
+
+[node name="BossText" type="Label" parent="UI" unique_id=1490853071]
+offset_left = 16.0
+offset_top = 40.0
+offset_right = 365.0
+offset_bottom = 62.0
+text = "Derrota al Guardian Caido para abrir la barrera."
+
+[node name="NextLevelText" type="Label" parent="UI" unique_id=1569877537]
+offset_left = 16.0
+offset_top = 64.0
+offset_right = 400.0
+offset_bottom = 86.0
+text = "Paso abierto. Avanza a la salida del nivel."
+
+[connection signal="body_entered" from="Altar" to="." method="_on_altar_body_entered"]
+[connection signal="body_exited" from="Altar" to="." method="_on_altar_body_exited"]
+[connection signal="body_entered" from="Salida" to="." method="_on_salida_body_entered"]
