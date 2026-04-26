@@ -9,6 +9,9 @@ const HitStopUtils = preload("res://Scripts/hit_stop.gd")
 # --- VARIABLES DE SALUD ---
 var salud_max = 100
 var salud_actual = 100
+var invulnerable_al_danio = false
+var tiempo_invulnerable = 0.7
+var radio_contacto_enemigo = 26.0
 # Esta línea busca la barra de vida en la escena Screen que instanciaste
 @onready var barra_vida = get_tree().root.find_child("VidaBarra", true, false)
 
@@ -45,11 +48,8 @@ func _physics_process(delta: float) -> void:
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
 	
-	# --- PRUEBA DE DAÑO TEMPORAL ---
-	if Input.is_action_just_pressed("ui_down"):
-		recibir_danio(10)
-
 	move_and_slide()
+	_check_enemy_contact_damage()
 	decide_animation()
 
 func attack():
@@ -69,15 +69,29 @@ func attack():
 	is_attacking = false
 
 # --- FUNCIONES DE SALUD ---
-func recibir_danio(cantidad):
+func recibir_danio(cantidad: int, source_position: Vector2 = global_position):
+	if invulnerable_al_danio:
+		return
+
+	invulnerable_al_danio = true
 	salud_actual -= cantidad
 	salud_actual = clamp(salud_actual, 0, salud_max) # No bajar de 0
 	
 	if barra_vida:
 		barra_vida.value = salud_actual
+
+	var knock_direction := signf(global_position.x - source_position.x)
+	if knock_direction == 0.0:
+		knock_direction = -1.0 if animaciones.flip_h else 1.0
+	velocity.x = knock_direction * 170.0
+	velocity.y = -170.0
 	
 	if salud_actual <= 0:
 		morir()
+		return
+
+	await get_tree().create_timer(tiempo_invulnerable).timeout
+	invulnerable_al_danio = false
 
 func morir():
 	print("El indígena ha muerto")
@@ -137,3 +151,21 @@ func _is_jump_pressed() -> bool:
 
 func _is_attack_pressed() -> bool:
 	return Input.is_action_just_pressed("click_izquierdo")
+
+func _check_enemy_contact_damage() -> void:
+	if invulnerable_al_danio:
+		return
+
+	for enemy in get_tree().get_nodes_in_group("enemies"):
+		var enemy_node := enemy as Node2D
+		if enemy_node == null:
+			continue
+		if global_position.distance_to(enemy_node.global_position) > radio_contacto_enemigo:
+			continue
+
+		var enemy_base := enemy as EnemyBase
+		var danio := 10
+		if enemy_base != null:
+			danio = max(enemy_base.contact_damage * 8, 8)
+		recibir_danio(danio, enemy_node.global_position)
+		return
