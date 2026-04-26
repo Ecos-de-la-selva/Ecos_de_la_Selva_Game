@@ -10,6 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://djgjsi7lmukfi" path="res://Assets/Backgrounds/Background_Selva/03.png" id="8_lvl1"]
 [ext_resource type="Texture2D" uid="uid://dljmfske26cgd" path="res://Assets/Backgrounds/Background_Selva/02.png" id="9_lvl1"]
 [ext_resource type="Texture2D" uid="uid://bvrf5dhmadx0c" path="res://Assets/Backgrounds/Background_Selva/01.png" id="10_lvl1"]
+[ext_resource type="Texture2D" uid="uid://wrygcw7tl0fi" path="res://Assets/UI/BarraFondoVacia.png" id="11_lvl1"]
+[ext_resource type="Texture2D" uid="uid://dotcmvdb0oyk8" path="res://Assets/UI/Cabeza.png" id="12_lvl1"]
+[ext_resource type="Texture2D" uid="uid://dckf1x4c1lkhj" path="res://Assets/UI/BarraRoja.png" id="13_lvl1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_area"]
 size = Vector2(36, 30)
@@ -119,25 +122,33 @@ shape = SubResource("RectangleShape2D_area")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1794653369]
 
+[node name="VidaBarra" type="TextureProgressBar" parent="UI" unique_id=991114200]
+offset_right = 80.0
+offset_bottom = 40.0
+scale = Vector2(3, 3)
+texture_under = ExtResource("11_lvl1")
+texture_over = ExtResource("12_lvl1")
+texture_progress = ExtResource("13_lvl1")
+
 [node name="AltarText" type="Label" parent="UI" unique_id=274868103]
 offset_left = 16.0
-offset_top = 16.0
+offset_top = 130.0
 offset_right = 385.0
-offset_bottom = 38.0
+offset_bottom = 152.0
 text = "Altar antiguo: la Lanza Sagrada despierta tu ataque."
 
 [node name="BossText" type="Label" parent="UI" unique_id=1490853071]
 offset_left = 16.0
-offset_top = 40.0
+offset_top = 154.0
 offset_right = 365.0
-offset_bottom = 62.0
+offset_bottom = 176.0
 text = "Derrota al Guardian Caido para abrir la barrera."
 
 [node name="NextLevelText" type="Label" parent="UI" unique_id=1569877537]
 offset_left = 16.0
-offset_top = 64.0
+offset_top = 178.0
 offset_right = 400.0
-offset_bottom = 86.0
+offset_bottom = 200.0
 text = "Paso abierto. Avanza a la salida del nivel."
 
 [connection signal="body_entered" from="Altar" to="." method="_on_altar_body_entered"]
