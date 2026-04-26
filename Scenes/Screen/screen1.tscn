@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://cq67fmiphoogw"]
+
+[ext_resource type="PackedScene" uid="uid://b62g15bbgmn33" path="res://Scenes/Characters/Personaje-1.tscn" id="1_rox7j"]
+[ext_resource type="PackedScene" uid="uid://bhftnb32q2jv4" path="res://Scenes/Escenarios/escenario1.tscn" id="2_ay1ry"]
+[ext_resource type="Texture2D" uid="uid://wrygcw7tl0fi" path="res://Assets/UI/BarraFondoVacia.png" id="3_iuojh"]
+[ext_resource type="Texture2D" uid="uid://dotcmvdb0oyk8" path="res://Assets/UI/Cabeza.png" id="4_tswog"]
+[ext_resource type="Texture2D" uid="uid://dckf1x4c1lkhj" path="res://Assets/UI/BarraRoja.png" id="5_3hskk"]
+
+[node name="Node2D" type="Node2D" unique_id=1743488872]
+
+[node name="Personaje1" parent="." unique_id=800605113 instance=ExtResource("1_rox7j")]
+position = Vector2(212, 145)
+
+[node name="TileMapLayer" parent="." unique_id=1248919767 instance=ExtResource("2_ay1ry")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1804543966]
+
+[node name="VidaBarra" type="TextureProgressBar" parent="CanvasLayer" unique_id=1666136098]
+offset_right = 80.0
+offset_bottom = 40.0
+scale = Vector2(3, 3)
+size_flags_horizontal = 0
+texture_under = ExtResource("3_iuojh")
+texture_over = ExtResource("4_tswog")
+texture_progress = ExtResource("5_3hskk")
