@@ -20,6 +20,12 @@ size = Vector2(36, 30)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_barrier"]
 size = Vector2(24, 75)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_spikes"]
+size = Vector2(46, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mid_barrier"]
+size = Vector2(20, 74)
+
 [node name="Nivel1_UmbralDelMusgo" type="Node2D" unique_id=2001527747]
 script = ExtResource("1_lvl1")
 
@@ -100,6 +106,46 @@ position = Vector2(0, 10)
 color = Color(0.55, 0.65, 0.55, 1)
 polygon = PackedVector2Array(-10, -16, 10, -16, 14, 16, -14, 16)
 
+[node name="PinchosA" type="Area2D" parent="." unique_id=195763301]
+position = Vector2(314, 178)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PinchosA" unique_id=182031331]
+shape = SubResource("RectangleShape2D_spikes")
+
+[node name="Visual" type="Polygon2D" parent="PinchosA" unique_id=11072192]
+color = Color(0.35, 0.35, 0.35, 1)
+polygon = PackedVector2Array(-22, 5, -17, -5, -12, 5, -7, -5, -2, 5, 3, -5, 8, 5, 13, -5, 18, 5, 23, -5, 23, 5, -22, 5)
+
+[node name="PinchosB" type="Area2D" parent="." unique_id=1909909924]
+position = Vector2(512, 178)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PinchosB" unique_id=212038877]
+shape = SubResource("RectangleShape2D_spikes")
+
+[node name="Visual" type="Polygon2D" parent="PinchosB" unique_id=87321231]
+color = Color(0.35, 0.35, 0.35, 1)
+polygon = PackedVector2Array(-22, 5, -17, -5, -12, 5, -7, -5, -2, 5, 3, -5, 8, 5, 13, -5, 18, 5, 23, -5, 23, 5, -22, 5)
+
+[node name="PinchosC" type="Area2D" parent="." unique_id=78733126]
+position = Vector2(840, 178)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PinchosC" unique_id=905112122]
+shape = SubResource("RectangleShape2D_spikes")
+
+[node name="Visual" type="Polygon2D" parent="PinchosC" unique_id=963732321]
+color = Color(0.35, 0.35, 0.35, 1)
+polygon = PackedVector2Array(-22, 5, -17, -5, -12, 5, -7, -5, -2, 5, 3, -5, 8, 5, 13, -5, 18, 5, 23, -5, 23, 5, -22, 5)
+
+[node name="BarreraIntermedia" type="StaticBody2D" parent="." unique_id=11907239]
+position = Vector2(735, 141)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BarreraIntermedia" unique_id=4428811]
+shape = SubResource("RectangleShape2D_mid_barrier")
+
+[node name="Visual" type="Polygon2D" parent="BarreraIntermedia" unique_id=328811]
+color = Color(0.25, 0.35, 0.25, 1)
+polygon = PackedVector2Array(-10, -37, 10, -37, 10, 37, -10, 37)
+
 [node name="BarreraRaices" type="StaticBody2D" parent="." unique_id=622807492]
 position = Vector2(1180, 114)
 
@@ -153,4 +199,7 @@ text = "Paso abierto. Avanza a la salida del nivel."
 
 [connection signal="body_entered" from="Altar" to="." method="_on_altar_body_entered"]
 [connection signal="body_exited" from="Altar" to="." method="_on_altar_body_exited"]
+[connection signal="body_entered" from="PinchosA" to="." method="_on_pinchos_body_entered"]
+[connection signal="body_entered" from="PinchosB" to="." method="_on_pinchos_body_entered"]
+[connection signal="body_entered" from="PinchosC" to="." method="_on_pinchos_body_entered"]
 [connection signal="body_entered" from="Salida" to="." method="_on_salida_body_entered"]
