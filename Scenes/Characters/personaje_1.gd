@@ -11,6 +11,7 @@ var salud_max = 100
 var salud_actual = 100
 var invulnerable_al_danio = false
 var tiempo_invulnerable = 0.7
+var tiempo_invulnerable_pinchos = 0.35
 var radio_contacto_enemigo = 56.0
 var _damage_flash_active = false
 # Esta línea busca la barra de vida en la escena Screen que instanciaste
@@ -76,6 +77,15 @@ func recibir_danio(cantidad: int, source_position: Vector2 = global_position):
 	if invulnerable_al_danio:
 		return
 
+	_apply_damage(cantidad, source_position, tiempo_invulnerable)
+
+func recibir_danio_pinchos(cantidad: int, source_position: Vector2 = global_position):
+	if invulnerable_al_danio:
+		return
+
+	_apply_damage(cantidad, source_position, tiempo_invulnerable_pinchos)
+
+func _apply_damage(cantidad: int, source_position: Vector2, invuln_time: float) -> void:
 	invulnerable_al_danio = true
 	_start_damage_flash()
 	salud_actual -= cantidad
@@ -96,7 +106,7 @@ func recibir_danio(cantidad: int, source_position: Vector2 = global_position):
 		morir()
 		return
 
-	await get_tree().create_timer(tiempo_invulnerable).timeout
+	await get_tree().create_timer(invuln_time).timeout
 	invulnerable_al_danio = false
 	_stop_damage_flash()
 

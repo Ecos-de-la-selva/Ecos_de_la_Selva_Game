@@ -88,12 +88,12 @@ position = Vector2(250, 142)
 position = Vector2(390, 142)
 
 [node name="AvispaA" parent="." unique_id=979194995 instance=ExtResource("5_lvl1")]
-position = Vector2(470, 150)
+position = Vector2(670, 150)
 dive_speed = 340.0
 dive_cooldown = 1.0
 
 [node name="GuardianCaido" parent="." unique_id=2099057928 instance=ExtResource("6_lvl1")]
-position = Vector2(1213, 196)
+position = Vector2(1160, 142)
 
 [node name="Altar" type="Area2D" parent="." unique_id=1732750120]
 position = Vector2(165, 133)
@@ -107,7 +107,7 @@ color = Color(0.55, 0.65, 0.55, 1)
 polygon = PackedVector2Array(-10, -16, 10, -16, 14, 16, -14, 16)
 
 [node name="PinchosA" type="Area2D" parent="." unique_id=195763301]
-position = Vector2(314, 178)
+position = Vector2(420, 154)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PinchosA" unique_id=182031331]
 shape = SubResource("RectangleShape2D_spikes")
@@ -117,7 +117,7 @@ color = Color(0.35, 0.35, 0.35, 1)
 polygon = PackedVector2Array(-22, 5, -17, -5, -12, 5, -7, -5, -2, 5, 3, -5, 8, 5, 13, -5, 18, 5, 23, -5, 23, 5, -22, 5)
 
 [node name="PinchosB" type="Area2D" parent="." unique_id=1909909924]
-position = Vector2(512, 178)
+position = Vector2(780, 154)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PinchosB" unique_id=212038877]
 shape = SubResource("RectangleShape2D_spikes")
@@ -127,7 +127,7 @@ color = Color(0.35, 0.35, 0.35, 1)
 polygon = PackedVector2Array(-22, 5, -17, -5, -12, 5, -7, -5, -2, 5, 3, -5, 8, 5, 13, -5, 18, 5, 23, -5, 23, 5, -22, 5)
 
 [node name="PinchosC" type="Area2D" parent="." unique_id=78733126]
-position = Vector2(840, 178)
+position = Vector2(1080, 154)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PinchosC" unique_id=905112122]
 shape = SubResource("RectangleShape2D_spikes")
@@ -137,7 +137,7 @@ color = Color(0.35, 0.35, 0.35, 1)
 polygon = PackedVector2Array(-22, 5, -17, -5, -12, 5, -7, -5, -2, 5, 3, -5, 8, 5, 13, -5, 18, 5, 23, -5, 23, 5, -22, 5)
 
 [node name="BarreraIntermedia" type="StaticBody2D" parent="." unique_id=11907239]
-position = Vector2(735, 141)
+position = Vector2(760, 150)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BarreraIntermedia" unique_id=4428811]
 shape = SubResource("RectangleShape2D_mid_barrier")
@@ -150,14 +150,11 @@ polygon = PackedVector2Array(-10, -37, 10, -37, 10, 37, -10, 37)
 position = Vector2(1180, 114)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BarreraRaices" unique_id=1628375935]
-position = Vector2(-275, 266.5)
 shape = SubResource("RectangleShape2D_barrier")
 
 [node name="Visual" type="Polygon2D" parent="BarreraRaices" unique_id=178888880]
-position = Vector2(-277, 265.5)
-scale = Vector2(1, 0.6454545)
 color = Color(0.24, 0.17, 0.07, 1)
-polygon = PackedVector2Array(-11, -55, 11, -55, 11, 55, -11, 55, -10.399994, 11.599998)
+polygon = PackedVector2Array(-11, -55, 11, -55, 11, 55, -11, 55)
 
 [node name="Salida" type="Area2D" parent="." unique_id=1171587674]
 position = Vector2(1240, 140)
