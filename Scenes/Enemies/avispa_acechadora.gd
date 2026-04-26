@@ -46,6 +46,8 @@ func _physics_process(delta: float) -> void:
 		WaspState.RETURN:
 			_return_to_origin(delta)
 
+	try_deal_contact_damage()
+
 func _hover(delta: float, player: Node2D) -> void:
 	var target_position := Vector2(_origin_position.x, _origin_position.y + sin(_time * hover_speed) * hover_amplitude)
 	global_position = global_position.move_toward(target_position, return_speed * delta)

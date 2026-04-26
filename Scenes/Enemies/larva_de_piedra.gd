@@ -31,6 +31,7 @@ func _physics_process(delta: float) -> void:
 	visual.flip_h = move_direction > 0.0
 	_handle_wall_turn()
 	_check_player_stomp()
+	try_deal_contact_damage()
 
 func _handle_wall_turn() -> void:
 	if in_shell:

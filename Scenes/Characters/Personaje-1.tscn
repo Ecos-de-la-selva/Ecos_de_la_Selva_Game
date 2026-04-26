@@ -201,9 +201,13 @@ size = Vector2(17, 23)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t3fx2"]
 size = Vector2(12, 14)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hurtbox"]
+size = Vector2(18, 24)
+
 [node name="Personaje1" type="CharacterBody2D" unique_id=72214302]
 scale = Vector2(4, 4)
 groups = ["player"]
+collision_mask = 5
 script = ExtResource("1_aclfa")
 
 [node name="Animaciones" type="AnimatedSprite2D" parent="." unique_id=633562649]
@@ -223,6 +227,15 @@ monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
 shape = SubResource("RectangleShape2D_t3fx2")
+
+[node name="HurtBox" type="Area2D" parent="."]
+position = Vector2(0, 3)
+collision_mask = 4
+monitoring = true
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("RectangleShape2D_hurtbox")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=111697442]
 editor_draw_limits = true

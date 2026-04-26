@@ -48,6 +48,7 @@ func _physics_process(delta: float) -> void:
 		_patrol()
 
 	move_and_slide()
+	try_deal_contact_damage()
 
 func _patrol() -> void:
 	if global_position.x < _spawn_x - patrol_range:

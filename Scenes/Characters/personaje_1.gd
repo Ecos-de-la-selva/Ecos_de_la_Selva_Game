@@ -11,9 +11,10 @@ var salud_max = 100
 var salud_actual = 100
 var invulnerable_al_danio = false
 var tiempo_invulnerable = 0.7
-var radio_contacto_enemigo = 26.0
+var radio_contacto_enemigo = 56.0
+var _damage_flash_active = false
 # Esta línea busca la barra de vida en la escena Screen que instanciaste
-@onready var barra_vida = get_tree().root.find_child("VidaBarra", true, false)
+@onready var barra_vida: TextureProgressBar = null
 
 # VARIABLE PARA EL ATAQUE
 var is_attacking = false
@@ -21,8 +22,10 @@ var _already_hit_in_current_attack: Array[Node2D] = []
 
 @onready var animaciones: AnimatedSprite2D = $Animaciones
 @onready var attack_area: Area2D = $AttackArea
+@onready var hurt_box: Area2D = $HurtBox
 
 func _ready():
+	_ensure_barra_vida()
 	# Al empezar, aseguramos que la barra esté llena
 	if barra_vida:
 		barra_vida.max_value = salud_max
@@ -49,7 +52,7 @@ func _physics_process(delta: float) -> void:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
 	
 	move_and_slide()
-	_check_enemy_contact_damage()
+	_check_hurt_box_damage()
 	decide_animation()
 
 func attack():
@@ -74,9 +77,11 @@ func recibir_danio(cantidad: int, source_position: Vector2 = global_position):
 		return
 
 	invulnerable_al_danio = true
+	_start_damage_flash()
 	salud_actual -= cantidad
 	salud_actual = clamp(salud_actual, 0, salud_max) # No bajar de 0
 	
+	_ensure_barra_vida()
 	if barra_vida:
 		barra_vida.value = salud_actual
 
@@ -87,11 +92,13 @@ func recibir_danio(cantidad: int, source_position: Vector2 = global_position):
 	velocity.y = -170.0
 	
 	if salud_actual <= 0:
+		_stop_damage_flash()
 		morir()
 		return
 
 	await get_tree().create_timer(tiempo_invulnerable).timeout
 	invulnerable_al_danio = false
+	_stop_damage_flash()
 
 func morir():
 	print("El indígena ha muerto")
@@ -152,20 +159,46 @@ func _is_jump_pressed() -> bool:
 func _is_attack_pressed() -> bool:
 	return Input.is_action_just_pressed("click_izquierdo")
 
-func _check_enemy_contact_damage() -> void:
+func _check_hurt_box_damage() -> void:
 	if invulnerable_al_danio:
 		return
 
-	for enemy in get_tree().get_nodes_in_group("enemies"):
+	for enemy in hurt_box.get_overlapping_bodies():
 		var enemy_node := enemy as Node2D
 		if enemy_node == null:
 			continue
-		if global_position.distance_to(enemy_node.global_position) > radio_contacto_enemigo:
+		if not enemy_node.is_in_group("enemies"):
 			continue
 
 		var enemy_base := enemy as EnemyBase
-		var danio := 10
+		var danio := 20
 		if enemy_base != null:
-			danio = max(enemy_base.contact_damage * 8, 8)
+			danio = max(enemy_base.contact_damage * 12, 20)
 		recibir_danio(danio, enemy_node.global_position)
 		return
+
+func _start_damage_flash() -> void:
+	if _damage_flash_active:
+		return
+	_damage_flash_active = true
+	_damage_flash_loop()
+
+func _stop_damage_flash() -> void:
+	_damage_flash_active = false
+	animaciones.modulate = Color(1, 1, 1, 1)
+
+func _damage_flash_loop() -> void:
+	while _damage_flash_active and invulnerable_al_danio:
+		animaciones.modulate = Color(1, 0.45, 0.45, 1)
+		await get_tree().create_timer(0.08).timeout
+		if not _damage_flash_active or not invulnerable_al_danio:
+			break
+		animaciones.modulate = Color(1, 1, 1, 1)
+		await get_tree().create_timer(0.08).timeout
+
+	animaciones.modulate = Color(1, 1, 1, 1)
+
+func _ensure_barra_vida() -> void:
+	if barra_vida != null:
+		return
+	barra_vida = get_tree().root.find_child("VidaBarra", true, false) as TextureProgressBar
