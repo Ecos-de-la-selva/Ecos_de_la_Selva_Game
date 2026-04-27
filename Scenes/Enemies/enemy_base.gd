@@ -188,7 +188,7 @@ func _has_line_of_sight_to_player(player: Node2D) -> bool:
 	if hit.is_empty():
 		return true
 
-	var collider := hit.get("collider")
+	var collider: Object = hit.get("collider")
 	return collider == player
 
 func _start_contact_damage_cooldown() -> void:
