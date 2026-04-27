@@ -113,10 +113,13 @@ func _snap_node_bottom_to_ground(node: Node2D, space_state: PhysicsDirectSpaceSt
 
 func _shape_bottom_offset(shape_node: CollisionShape2D) -> float:
 	var shape := shape_node.shape
-	var half_height := _shape_half_height(shape)
+	var scale_y := absf(shape_node.global_scale.y)
+	if scale_y <= 0.0:
+		scale_y = 1.0
+	var half_height := _shape_half_height(shape) * scale_y
 	if half_height <= 0.0:
 		return 0.0
-	return shape_node.position.y + half_height
+	return shape_node.position.y * scale_y + half_height
 
 func _shape_half_height(shape: Shape2D) -> float:
 	if shape is RectangleShape2D:

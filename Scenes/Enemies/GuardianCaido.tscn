@@ -79,7 +79,7 @@ max_health = 14
 walk_speed = 95.0
 
 [node name="Visual" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -4)
+position = Vector2(0, -1)
 sprite_frames = SubResource("SpriteFrames_guard")
 animation = &"idle"
 

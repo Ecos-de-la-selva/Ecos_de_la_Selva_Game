@@ -40,7 +40,19 @@ scale = Vector2(4, 4)
 texture = ExtResource("7_lvl1")
 centered = false
 
+[node name="BG_Fondo_3" type="Sprite2D" parent="." unique_id=891434610]
+position = Vector2(1503, 0)
+scale = Vector2(4, 4)
+texture = ExtResource("7_lvl1")
+centered = false
+
 [node name="BG_3" type="Sprite2D" parent="." unique_id=1331063367]
+scale = Vector2(4, 4)
+texture = ExtResource("8_lvl1")
+centered = false
+
+[node name="BG_4" type="Sprite2D" parent="." unique_id=1315478839]
+position = Vector2(1500, 0)
 scale = Vector2(4, 4)
 texture = ExtResource("8_lvl1")
 centered = false
@@ -74,10 +86,19 @@ scale = Vector2(4, 4)
 texture = ExtResource("10_lvl1")
 centered = false
 
+[node name="BG_1_3" type="Sprite2D" parent="." unique_id=670620077]
+position = Vector2(1500, 0)
+scale = Vector2(4, 4)
+texture = ExtResource("10_lvl1")
+centered = false
+
 [node name="Escenario" parent="." unique_id=226117238 instance=ExtResource("3_lvl1")]
 
 [node name="Escenario_2" parent="." unique_id=332713395 instance=ExtResource("3_lvl1")]
 position = Vector2(768, 0)
+
+[node name="Escenario_3" parent="." unique_id=1430350210 instance=ExtResource("3_lvl1")]
+position = Vector2(1568, 0)
 
 [node name="Personaje1" parent="." unique_id=1784114385 instance=ExtResource("2_lvl1")]
 position = Vector2(80, 145)
