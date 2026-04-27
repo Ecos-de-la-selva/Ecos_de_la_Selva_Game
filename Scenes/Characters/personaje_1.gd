@@ -13,9 +13,13 @@ var invulnerable_al_danio = false
 var tiempo_invulnerable = 0.7
 var tiempo_invulnerable_pinchos = 0.35
 var radio_contacto_enemigo = 56.0
+var danio_pinchos = 15
+var radio_pinchos_x = 64.0
+var rango_pinchos_y = 64.0
 var _damage_flash_active = false
 # Esta línea busca la barra de vida en la escena Screen que instanciaste
 @onready var barra_vida: TextureProgressBar = null
+@onready var body_shape: CollisionShape2D = $CollisionShape2D
 
 # VARIABLE PARA EL ATAQUE
 var is_attacking = false
@@ -53,7 +57,9 @@ func _physics_process(delta: float) -> void:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
 	
 	move_and_slide()
+	_check_spike_collision_damage()
 	_check_hurt_box_damage()
+	_check_spike_damage()
 	decide_animation()
 
 func attack():
@@ -186,6 +192,79 @@ func _check_hurt_box_damage() -> void:
 			danio = max(enemy_base.contact_damage * 12, 20)
 		recibir_danio(danio, enemy_node.global_position)
 		return
+
+func _check_spike_damage() -> void:
+	if invulnerable_al_danio:
+		return
+
+	var tree := get_tree()
+	if tree == null:
+		return
+
+	var spikes := tree.get_nodes_in_group("spikes")
+	if spikes.is_empty() and get_parent() != null:
+		# Fallback explícito por nombre para Nivel1.
+		for node_name in ["PinchosA", "PinchosB", "PinchosC"]:
+			var fallback_spike := get_parent().get_node_or_null(node_name)
+			if fallback_spike != null:
+				spikes.append(fallback_spike)
+	if spikes.is_empty():
+		return
+
+	var feet := _get_player_feet_position()
+	for spike_node in spikes:
+		var spike := spike_node as Node2D
+		if spike == null:
+			continue
+
+		var dx := absf(global_position.x - spike.global_position.x)
+		var dy := absf(global_position.y - spike.global_position.y)
+		if dx <= radio_pinchos_x and dy <= rango_pinchos_y:
+			recibir_danio_pinchos(danio_pinchos, spike.global_position)
+			return
+
+		if _is_point_inside_spike_collider(feet, spike):
+			recibir_danio_pinchos(danio_pinchos, spike.global_position)
+			return
+
+func _check_spike_collision_damage() -> void:
+	if invulnerable_al_danio:
+		return
+
+	var collisions := get_slide_collision_count()
+	if collisions <= 0:
+		return
+
+	for i in range(collisions):
+		var col := get_slide_collision(i)
+		if col == null:
+			continue
+		var collider := col.get_collider() as Node
+		if collider == null:
+			continue
+		if collider.is_in_group("spikes"):
+			var source := collider as Node2D
+			recibir_danio_pinchos(danio_pinchos, source.global_position if source != null else global_position)
+			return
+
+func _get_player_feet_position() -> Vector2:
+	var half_height := 0.0
+	if body_shape != null and body_shape.shape is RectangleShape2D:
+		var rect := body_shape.shape as RectangleShape2D
+		half_height = rect.size.y * 0.5 * body_shape.global_scale.y
+	return Vector2(global_position.x, global_position.y + half_height)
+
+func _is_point_inside_spike_collider(point: Vector2, spike: Node2D) -> bool:
+	var shape_node := spike.get_node_or_null("CollisionShape2D") as CollisionShape2D
+	if shape_node == null or not (shape_node.shape is RectangleShape2D):
+		return false
+	var rect_shape := shape_node.shape as RectangleShape2D
+	var world_size := Vector2(
+		rect_shape.size.x * shape_node.global_scale.x,
+		rect_shape.size.y * shape_node.global_scale.y
+	)
+	var rect := Rect2(shape_node.global_position - world_size * 0.5, world_size)
+	return rect.has_point(point)
 
 func _start_damage_flash() -> void:
 	if _damage_flash_active:

@@ -9,11 +9,12 @@ extends Node2D
 @onready var next_level_text: Label = $UI/NextLevelText
 @onready var mid_barrier_collision: CollisionShape2D = $BarreraIntermedia/CollisionShape2D
 @onready var mid_barrier_visual: Polygon2D = $BarreraIntermedia/Visual
-@onready var spikes: Array[Area2D] = [$PinchosA, $PinchosB, $PinchosC]
+@onready var spikes: Array[Node2D] = [$PinchosA, $PinchosB, $PinchosC]
 @onready var ground_bodies: Array[Node2D] = [$LarvaA, $LarvaB, $GuardianCaido]
 
 var _mid_barrier_opened: bool = false
 var _spikes_active: bool = true
+@export var spikes_cycle_enabled: bool = false
 
 func _ready() -> void:
 	altar_text.visible = false
@@ -22,7 +23,10 @@ func _ready() -> void:
 	exit_area.monitoring = false
 	$GuardianCaido.defeated.connect(_on_guardian_defeated)
 	_start_level_alignment()
-	_start_spike_cycle()
+	if spikes_cycle_enabled:
+		_start_spike_cycle()
+	else:
+		_set_spikes_state(true)
 
 func _process(_delta: float) -> void:
 	if _mid_barrier_opened:
@@ -53,16 +57,6 @@ func _on_salida_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		get_tree().change_scene_to_file("res://Scenes/Screen/escreen1.tscn")
 
-func _on_pinchos_body_entered(body: Node2D) -> void:
-	if not _spikes_active:
-		return
-	if not body.is_in_group("player"):
-		return
-	if body.has_method("recibir_danio_pinchos"):
-		body.recibir_danio_pinchos(15, Vector2.ZERO)
-	elif body.has_method("recibir_danio"):
-		body.recibir_danio(15, Vector2.ZERO)
-
 func _start_spike_cycle() -> void:
 	while is_inside_tree():
 		_set_spikes_state(true)
@@ -73,8 +67,7 @@ func _start_spike_cycle() -> void:
 func _set_spikes_state(active: bool) -> void:
 	_spikes_active = active
 	for spike in spikes:
-		spike.monitoring = active
-		var visual := spike.get_node("Visual") as Polygon2D
+		var visual := spike.get_node_or_null("Visual") as Polygon2D
 		if visual != null:
 			visual.color = Color(0.35, 0.35, 0.35, 1.0) if active else Color(0.18, 0.18, 0.18, 0.85)
 			visual.scale.y = 1.0 if active else 0.55

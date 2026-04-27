@@ -17,14 +17,14 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_area"]
 size = Vector2(36, 30)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_barrier"]
-size = Vector2(24, 75)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_spikes"]
 size = Vector2(46, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mid_barrier"]
 size = Vector2(20, 74)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_barrier"]
+size = Vector2(24, 75)
 
 [node name="Nivel1_UmbralDelMusgo" type="Node2D" unique_id=2001527747]
 script = ExtResource("1_lvl1")
@@ -63,6 +63,7 @@ texture = ExtResource("9_lvl1")
 centered = false
 
 [node name="BG_1" type="Sprite2D" parent="." unique_id=952093787]
+position = Vector2(-1, 0)
 scale = Vector2(4, 4)
 texture = ExtResource("10_lvl1")
 centered = false
@@ -106,7 +107,7 @@ position = Vector2(0, 10)
 color = Color(0.55, 0.65, 0.55, 1)
 polygon = PackedVector2Array(-10, -16, 10, -16, 14, 16, -14, 16)
 
-[node name="PinchosA" type="Area2D" parent="." unique_id=195763301]
+[node name="PinchosA" type="StaticBody2D" parent="." unique_id=195763301]
 position = Vector2(420, 154)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PinchosA" unique_id=182031331]
@@ -116,7 +117,7 @@ shape = SubResource("RectangleShape2D_spikes")
 color = Color(0.35, 0.35, 0.35, 1)
 polygon = PackedVector2Array(-22, 5, -17, -5, -12, 5, -7, -5, -2, 5, 3, -5, 8, 5, 13, -5, 18, 5, 23, -5, 23, 5, -22, 5)
 
-[node name="PinchosB" type="Area2D" parent="." unique_id=1909909924]
+[node name="PinchosB" type="StaticBody2D" parent="." unique_id=1909909924]
 position = Vector2(780, 154)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PinchosB" unique_id=212038877]
@@ -126,7 +127,7 @@ shape = SubResource("RectangleShape2D_spikes")
 color = Color(0.35, 0.35, 0.35, 1)
 polygon = PackedVector2Array(-22, 5, -17, -5, -12, 5, -7, -5, -2, 5, 3, -5, 8, 5, 13, -5, 18, 5, 23, -5, 23, 5, -22, 5)
 
-[node name="PinchosC" type="Area2D" parent="." unique_id=78733126]
+[node name="PinchosC" type="StaticBody2D" parent="." unique_id=78733126]
 position = Vector2(1080, 154)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PinchosC" unique_id=905112122]
@@ -196,7 +197,4 @@ text = "Paso abierto. Avanza a la salida del nivel."
 
 [connection signal="body_entered" from="Altar" to="." method="_on_altar_body_entered"]
 [connection signal="body_exited" from="Altar" to="." method="_on_altar_body_exited"]
-[connection signal="body_entered" from="PinchosA" to="." method="_on_pinchos_body_entered"]
-[connection signal="body_entered" from="PinchosB" to="." method="_on_pinchos_body_entered"]
-[connection signal="body_entered" from="PinchosC" to="." method="_on_pinchos_body_entered"]
 [connection signal="body_entered" from="Salida" to="." method="_on_salida_body_entered"]

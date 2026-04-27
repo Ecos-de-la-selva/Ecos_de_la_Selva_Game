@@ -31,7 +31,16 @@ func take_damage(amount: int = 1, hit_direction: float = 0.0, push_force: float 
 	_start_damage_cooldown()
 
 func _start_damage_cooldown() -> void:
-	await get_tree().create_timer(damage_invulnerability_time).timeout
+	if not is_inside_tree():
+		_can_receive_damage = true
+		return
+	var tree := get_tree()
+	if tree == null:
+		_can_receive_damage = true
+		return
+	await tree.create_timer(damage_invulnerability_time).timeout
+	if not is_instance_valid(self):
+		return
 	_can_receive_damage = true
 
 func try_deal_contact_damage() -> void:
@@ -52,19 +61,27 @@ func try_deal_contact_damage() -> void:
 	_start_contact_damage_cooldown()
 
 func _start_contact_damage_cooldown() -> void:
+	if not is_inside_tree():
+		_can_deal_contact_damage = true
+		return
 	var tree := get_tree()
 	if tree == null:
 		_can_deal_contact_damage = true
 		return
 	await tree.create_timer(contact_damage_interval).timeout
+	if not is_instance_valid(self):
+		return
 	_can_deal_contact_damage = true
 
 func _get_player_target() -> Node2D:
-	var by_group := get_tree().get_first_node_in_group("player") as Node2D
+	var tree := get_tree()
+	if tree == null:
+		return null
+	var by_group := tree.get_first_node_in_group("player") as Node2D
 	if by_group != null:
 		return by_group
 
-	var current_scene := get_tree().current_scene
+	var current_scene := tree.current_scene
 	if current_scene != null and current_scene.has_node("Personaje1"):
 		return current_scene.get_node("Personaje1") as Node2D
 
