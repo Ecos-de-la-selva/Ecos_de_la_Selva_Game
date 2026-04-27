@@ -11,6 +11,8 @@ extends Node2D
 @onready var mid_barrier_visual: Polygon2D = $BarreraIntermedia/Visual
 @onready var spikes: Array[Node2D] = [$PinchosA, $PinchosB, $PinchosC]
 @onready var ground_bodies: Array[Node2D] = [$LarvaA, $LarvaB, $GuardianCaido]
+@onready var larva_a: Node2D = get_node_or_null("LarvaA")
+@onready var larva_b: Node2D = get_node_or_null("LarvaB")
 
 var _mid_barrier_opened: bool = false
 var _spikes_active: bool = true
@@ -32,7 +34,7 @@ func _process(_delta: float) -> void:
 	if _mid_barrier_opened:
 		return
 
-	if not is_instance_valid($LarvaA) and not is_instance_valid($LarvaB):
+	if not is_instance_valid(larva_a) and not is_instance_valid(larva_b):
 		_mid_barrier_opened = true
 		mid_barrier_collision.disabled = true
 		mid_barrier_visual.visible = false
