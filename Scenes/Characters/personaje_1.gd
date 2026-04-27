@@ -17,9 +17,12 @@ var danio_pinchos = 15
 var radio_pinchos_x = 64.0
 var rango_pinchos_y = 64.0
 var _damage_flash_active = false
+var _camera_shake_active = false
+var _base_camera_offset := Vector2.ZERO
 # Esta línea busca la barra de vida en la escena Screen que instanciaste
 @onready var barra_vida: TextureProgressBar = null
 @onready var body_shape: CollisionShape2D = $CollisionShape2D
+@onready var camera: Camera2D = $Camera2D
 
 # VARIABLE PARA EL ATAQUE
 var is_attacking = false
@@ -35,6 +38,8 @@ func _ready():
 	if barra_vida:
 		barra_vida.max_value = salud_max
 		barra_vida.value = salud_actual
+	if camera != null:
+		_base_camera_offset = camera.offset
 
 func _physics_process(delta: float) -> void:
 	# Gravedad
@@ -143,6 +148,7 @@ func decide_animation():
 	attack_area.position.x = -absf(attack_area.position.x) if animaciones.flip_h else absf(attack_area.position.x)
 
 func _perform_attack_hit() -> void:
+	var connected_hit := false
 	for body in attack_area.get_overlapping_bodies():
 		if body == null or not body.has_method("take_damage"):
 			continue
@@ -157,6 +163,34 @@ func _perform_attack_hit() -> void:
 
 		body.take_damage(ATTACK_DAMAGE, direction, ATTACK_PUSH_FORCE)
 		HitStopUtils.freeze(get_tree(), 0.05, 0.0)
+		connected_hit = true
+
+	if connected_hit:
+		_start_camera_hit_shake(ATTACK_DAMAGE > 1)
+
+func _start_camera_hit_shake(is_heavy: bool) -> void:
+	if camera == null or _camera_shake_active:
+		return
+	_camera_shake_active = true
+	var tree := get_tree()
+	if tree == null:
+		_camera_shake_active = false
+		return
+
+	var duration := 0.12 if is_heavy else 0.08
+	var strength := 3.2 if is_heavy else 2.0
+	var elapsed := 0.0
+	while elapsed < duration and is_instance_valid(camera):
+		camera.offset = _base_camera_offset + Vector2(
+			randf_range(-strength, strength),
+			randf_range(-strength, strength)
+		)
+		await tree.process_frame
+		elapsed += get_process_delta_time()
+
+	if is_instance_valid(camera):
+		camera.offset = _base_camera_offset
+	_camera_shake_active = false
 
 func bounce(force: float = 260.0) -> void:
 	velocity.y = -force
