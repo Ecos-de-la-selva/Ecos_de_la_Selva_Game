@@ -161,6 +161,8 @@ func try_deal_contact_damage() -> void:
 		return
 	if global_position.distance_to(player.global_position) > contact_damage_radius:
 		return
+	if not _has_line_of_sight_to_player(player):
+		return
 	if not player.has_method("recibir_danio"):
 		return
 
@@ -168,6 +170,26 @@ func try_deal_contact_damage() -> void:
 	player.recibir_danio(damage_amount, global_position)
 	_can_deal_contact_damage = false
 	_start_contact_damage_cooldown()
+
+func _has_line_of_sight_to_player(player: Node2D) -> bool:
+	var tree := get_tree()
+	if tree == null:
+		return false
+	var world := get_world_2d()
+	if world == null:
+		return false
+
+	var space_state := world.direct_space_state
+	var query := PhysicsRayQueryParameters2D.create(global_position, player.global_position)
+	query.collide_with_areas = false
+	query.collide_with_bodies = true
+	query.exclude = [get_rid()]
+	var hit := space_state.intersect_ray(query)
+	if hit.is_empty():
+		return true
+
+	var collider := hit.get("collider")
+	return collider == player
 
 func _start_contact_damage_cooldown() -> void:
 	if not is_inside_tree():

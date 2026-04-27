@@ -90,6 +90,10 @@ func _align_level_objects_to_ground() -> void:
 		_snap_node_bottom_to_ground(spike, space_state)
 	for body in ground_bodies:
 		_snap_node_bottom_to_ground(body, space_state)
+	for node_name in ["BarreraIntermedia", "BarreraRaices", "PlataformaCaidaA", "PlataformaCaidaB", "PlataformaCaidaC"]:
+		var node := get_node_or_null(node_name) as Node2D
+		if node != null:
+			_snap_node_bottom_to_ground(node, space_state)
 
 func _snap_node_bottom_to_ground(node: Node2D, space_state: PhysicsDirectSpaceState2D) -> void:
 	var shape_node := node.get_node_or_null("CollisionShape2D") as CollisionShape2D
