@@ -99,7 +99,7 @@ centered = false
 position = Vector2(768, 0)
 
 [node name="Escenario_3" parent="." unique_id=1430350210 instance=ExtResource("3_lvl1")]
-position = Vector2(1568, 0)
+position = Vector2(1768, 0)
 
 [node name="Personaje1" parent="." unique_id=1784114385 instance=ExtResource("2_lvl1")]
 position = Vector2(80, 145)
@@ -159,59 +159,56 @@ shape = SubResource("RectangleShape2D_spikes")
 color = Color(0.35, 0.35, 0.35, 1)
 polygon = PackedVector2Array(-22, 5, -17, -5, -12, 5, -7, -5, -2, 5, 3, -5, 8, 5, 13, -5, 18, 5, 23, -5, 23, 5, -22, 5)
 
-[node name="PlataformaCaidaA" parent="." instance=ExtResource("14_lvl1")]
+[node name="PlataformaCaidaA" parent="." unique_id=258469632 instance=ExtResource("14_lvl1")]
 position = Vector2(540, 132)
 fall_delay = 0.42
 respawn_enabled = false
 spike_targets = Array[NodePath]([NodePath("../PinchosCaidaA")])
 
-[node name="PlataformaCaidaB" parent="." instance=ExtResource("14_lvl1")]
+[node name="PlataformaCaidaB" parent="." unique_id=717857991 instance=ExtResource("14_lvl1")]
 position = Vector2(890, 132)
 fall_delay = 0.5
 respawn_enabled = false
 spike_targets = Array[NodePath]([NodePath("../PinchosCaidaB")])
 
-[node name="PlataformaCaidaC" parent="." instance=ExtResource("14_lvl1")]
+[node name="PlataformaCaidaC" parent="." unique_id=1345166063 instance=ExtResource("14_lvl1")]
 position = Vector2(1025, 132)
 fall_delay = 0.36
 respawn_enabled = false
 spike_targets = Array[NodePath]([NodePath("../PinchosCaidaC")])
 
-[node name="PinchosCaidaA" type="StaticBody2D" parent="."]
+[node name="PinchosCaidaA" type="StaticBody2D" parent="." unique_id=596903717]
 position = Vector2(540, 154)
-groups = ["spikes"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PinchosCaidaA"]
-disabled = true
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PinchosCaidaA" unique_id=989734404]
 shape = SubResource("RectangleShape2D_spikes")
+disabled = true
 
-[node name="Visual" type="Polygon2D" parent="PinchosCaidaA"]
+[node name="Visual" type="Polygon2D" parent="PinchosCaidaA" unique_id=928756406]
 visible = false
 color = Color(0.75, 0.25, 0.25, 1)
 polygon = PackedVector2Array(-22, 5, -17, -5, -12, 5, -7, -5, -2, 5, 3, -5, 8, 5, 13, -5, 18, 5, 23, -5, 23, 5, -22, 5)
 
-[node name="PinchosCaidaB" type="StaticBody2D" parent="."]
+[node name="PinchosCaidaB" type="StaticBody2D" parent="." unique_id=482359221]
 position = Vector2(890, 154)
-groups = ["spikes"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PinchosCaidaB"]
-disabled = true
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PinchosCaidaB" unique_id=1592043093]
 shape = SubResource("RectangleShape2D_spikes")
+disabled = true
 
-[node name="Visual" type="Polygon2D" parent="PinchosCaidaB"]
+[node name="Visual" type="Polygon2D" parent="PinchosCaidaB" unique_id=1900534848]
 visible = false
 color = Color(0.75, 0.25, 0.25, 1)
 polygon = PackedVector2Array(-22, 5, -17, -5, -12, 5, -7, -5, -2, 5, 3, -5, 8, 5, 13, -5, 18, 5, 23, -5, 23, 5, -22, 5)
 
-[node name="PinchosCaidaC" type="StaticBody2D" parent="."]
+[node name="PinchosCaidaC" type="StaticBody2D" parent="." unique_id=1799374697]
 position = Vector2(1025, 154)
-groups = ["spikes"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PinchosCaidaC"]
-disabled = true
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PinchosCaidaC" unique_id=1015371763]
 shape = SubResource("RectangleShape2D_spikes")
+disabled = true
 
-[node name="Visual" type="Polygon2D" parent="PinchosCaidaC"]
+[node name="Visual" type="Polygon2D" parent="PinchosCaidaC" unique_id=1292458648]
 visible = false
 color = Color(0.75, 0.25, 0.25, 1)
 polygon = PackedVector2Array(-22, 5, -17, -5, -12, 5, -7, -5, -2, 5, 3, -5, 8, 5, 13, -5, 18, 5, 23, -5, 23, 5, -22, 5)
@@ -233,6 +230,7 @@ position = Vector2(1180, 114)
 shape = SubResource("RectangleShape2D_barrier")
 
 [node name="Visual" type="Polygon2D" parent="BarreraRaices" unique_id=178888880]
+position = Vector2(1, -2)
 color = Color(0.24, 0.17, 0.07, 1)
 polygon = PackedVector2Array(-11, -55, 11, -55, 11, 55, -11, 55)
 
