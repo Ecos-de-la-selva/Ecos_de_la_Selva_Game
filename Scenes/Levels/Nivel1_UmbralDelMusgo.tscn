@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://wrygcw7tl0fi" path="res://Assets/UI/BarraFondoVacia.png" id="11_lvl1"]
 [ext_resource type="Texture2D" uid="uid://dotcmvdb0oyk8" path="res://Assets/UI/Cabeza.png" id="12_lvl1"]
 [ext_resource type="Texture2D" uid="uid://dckf1x4c1lkhj" path="res://Assets/UI/BarraRoja.png" id="13_lvl1"]
+[ext_resource type="PackedScene" path="res://Scenes/Obstacles/FallingPlatform.tscn" id="14_lvl1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_area"]
 size = Vector2(36, 30)
@@ -156,6 +157,63 @@ shape = SubResource("RectangleShape2D_spikes")
 
 [node name="Visual" type="Polygon2D" parent="PinchosC" unique_id=963732321]
 color = Color(0.35, 0.35, 0.35, 1)
+polygon = PackedVector2Array(-22, 5, -17, -5, -12, 5, -7, -5, -2, 5, 3, -5, 8, 5, 13, -5, 18, 5, 23, -5, 23, 5, -22, 5)
+
+[node name="PlataformaCaidaA" parent="." instance=ExtResource("14_lvl1")]
+position = Vector2(540, 132)
+fall_delay = 0.42
+respawn_enabled = false
+spike_targets = Array[NodePath]([NodePath("../PinchosCaidaA")])
+
+[node name="PlataformaCaidaB" parent="." instance=ExtResource("14_lvl1")]
+position = Vector2(890, 132)
+fall_delay = 0.5
+respawn_enabled = false
+spike_targets = Array[NodePath]([NodePath("../PinchosCaidaB")])
+
+[node name="PlataformaCaidaC" parent="." instance=ExtResource("14_lvl1")]
+position = Vector2(1025, 132)
+fall_delay = 0.36
+respawn_enabled = false
+spike_targets = Array[NodePath]([NodePath("../PinchosCaidaC")])
+
+[node name="PinchosCaidaA" type="StaticBody2D" parent="."]
+position = Vector2(540, 154)
+groups = ["spikes"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PinchosCaidaA"]
+disabled = true
+shape = SubResource("RectangleShape2D_spikes")
+
+[node name="Visual" type="Polygon2D" parent="PinchosCaidaA"]
+visible = false
+color = Color(0.75, 0.25, 0.25, 1)
+polygon = PackedVector2Array(-22, 5, -17, -5, -12, 5, -7, -5, -2, 5, 3, -5, 8, 5, 13, -5, 18, 5, 23, -5, 23, 5, -22, 5)
+
+[node name="PinchosCaidaB" type="StaticBody2D" parent="."]
+position = Vector2(890, 154)
+groups = ["spikes"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PinchosCaidaB"]
+disabled = true
+shape = SubResource("RectangleShape2D_spikes")
+
+[node name="Visual" type="Polygon2D" parent="PinchosCaidaB"]
+visible = false
+color = Color(0.75, 0.25, 0.25, 1)
+polygon = PackedVector2Array(-22, 5, -17, -5, -12, 5, -7, -5, -2, 5, 3, -5, 8, 5, 13, -5, 18, 5, 23, -5, 23, 5, -22, 5)
+
+[node name="PinchosCaidaC" type="StaticBody2D" parent="."]
+position = Vector2(1025, 154)
+groups = ["spikes"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PinchosCaidaC"]
+disabled = true
+shape = SubResource("RectangleShape2D_spikes")
+
+[node name="Visual" type="Polygon2D" parent="PinchosCaidaC"]
+visible = false
+color = Color(0.75, 0.25, 0.25, 1)
 polygon = PackedVector2Array(-22, 5, -17, -5, -12, 5, -7, -5, -2, 5, 3, -5, 8, 5, 13, -5, 18, 5, 23, -5, 23, 5, -22, 5)
 
 [node name="BarreraIntermedia" type="StaticBody2D" parent="." unique_id=11907239]
