@@ -14,19 +14,27 @@ func _ready():
 	# Si el botón se mueve con el personaje, asegúrate de que 
 	# su escala inicial sea 1
 	scale = Vector2(1, 1)
-
 func _on_pressed():
-	# Desactivamos para evitar errores
+	# 1. Referencias a los sonidos
+	var musica = get_tree().current_scene.get_node("AudioStreamPlayer")
+	var sonido_crack = $SonidoRuptura # El nodo que acabamos de crear
+	
 	disabled = true
 	
-	# Efecto de escala (Juice)
+	# 2. Desvanecer música de fondo
+	var tween_audio = create_tween()
+	tween_audio.tween_property(musica, "volume_db", -80, 1.2)
+	
+	# 3. Efecto visual de escala
 	var tween = create_tween()
-	tween.tween_property(self, "scale", Vector2(1.2, 1.2), 0.1).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tween.tween_property(self, "scale", Vector2(1.2, 1.2), 0.1)
 	tween.tween_property(self, "scale", Vector2(1.0, 1.0), 0.05)
 	await tween.finished
 	
-	# AHORA SÍ: Ruptura
+	# 4. ¡AQUÍ suena la ruptura!
+	sonido_crack.play()
 	anim.play("ruptura")
 	
+	# 5. Esperamos a que termine la animación para irnos
 	await anim.animation_finished
-	get_tree().change_scene_to_file("res://scenes/Mundo.tscn")
+	get_tree().change_scene_to_file("res://scenes/SeleccionPersonaje.tscn")

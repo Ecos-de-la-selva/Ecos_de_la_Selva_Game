@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dl6c1f5e8ggnl"
+path="res://.godot/imported/Journey To Ascend.mp3-0b90ba2b2ce4f9f552f74ab7e6a7e59a.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sounds/SonidoMenuPrincipal/Journey To Ascend.mp3"
+dest_files=["res://.godot/imported/Journey To Ascend.mp3-0b90ba2b2ce4f9f552f74ab7e6a7e59a.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

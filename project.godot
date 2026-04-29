@@ -21,14 +21,15 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Global="uid://c5f26nbfcg8gx"
+Global="*uid://c5f26nbfcg8gx"
 
 [display]
 
-window/size/viewport_width=640
-window/size/viewport_height=360
+window/size/viewport_width=1280
+window/size/viewport_height=720
 window/size/mode=3
 window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 window/stretch/scale_mode="integer"
 
 [input]
