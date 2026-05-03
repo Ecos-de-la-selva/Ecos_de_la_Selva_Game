@@ -1,5 +1,10 @@
 extends Node2D
 
+const CAMERA_LIMIT_LEFT := -440
+const CAMERA_LIMIT_RIGHT := 2624
+const CAMERA_LIMIT_TOP := -620
+const CAMERA_LIMIT_BOTTOM := 620
+
 @onready var objective_text: Label = $UI/ObjectiveText
 @onready var boss_text: Label = $UI/BossText
 @onready var exit_text: Label = $UI/ExitText
@@ -14,8 +19,25 @@ func _ready() -> void:
 	boss_text.visible = true
 	exit_text.visible = false
 	exit_area.monitoring = false
+	_setup_level_camera_limits()
 	if mini_boss.has_signal("defeated"):
 		mini_boss.defeated.connect(_on_miniboss_defeated)
+
+
+func _setup_level_camera_limits() -> void:
+	var player := $"Personaje1" as Node2D
+	if player == null:
+		player = find_child("Personaje1", true, false) as Node2D
+	if player == null:
+		return
+	var cam := player.get_node_or_null("Camera2D") as Camera2D
+	if cam == null:
+		return
+	cam.limit_enabled = true
+	cam.limit_left = CAMERA_LIMIT_LEFT
+	cam.limit_top = CAMERA_LIMIT_TOP
+	cam.limit_right = CAMERA_LIMIT_RIGHT
+	cam.limit_bottom = CAMERA_LIMIT_BOTTOM
 
 func _on_miniboss_defeated() -> void:
 	boss_gate_shape.disabled = true
