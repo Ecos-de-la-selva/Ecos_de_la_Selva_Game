@@ -1,0 +1,141 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scenes/Levels/nivel2_controller.gd" id="1_n2"]
+[ext_resource type="PackedScene" path="res://Scenes/Characters/Personaje-1.tscn" id="2_n2"]
+[ext_resource type="PackedScene" path="res://Scenes/Escenarios/escenario_cueva.tscn" id="3_n2"]
+[ext_resource type="PackedScene" path="res://Scenes/Enemies/TrepaPared.tscn" id="4_n2"]
+[ext_resource type="PackedScene" path="res://Scenes/Enemies/HongoExplosivo.tscn" id="5_n2"]
+[ext_resource type="PackedScene" path="res://Scenes/Enemies/GuardianCaido.tscn" id="6_n2"]
+[ext_resource type="Texture2D" path="res://Assets/UI/BarraFondoVacia.png" id="7_n2"]
+[ext_resource type="Texture2D" path="res://Assets/UI/Cabeza.png" id="8_n2"]
+[ext_resource type="Texture2D" path="res://Assets/UI/BarraRoja.png" id="9_n2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gate"]
+size = Vector2(24, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
+size = Vector2(48, 42)
+
+[sub_resource type="Gradient" id="Gradient_light_falloff"]
+offsets = PackedFloat32Array(0, 1)
+colors = PackedColorArray(1, 1, 1, 0.75, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_light_falloff"]
+gradient = SubResource("Gradient_light_falloff")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[node name="Nivel2_LasVenasDeLaTierra" type="Node2D"]
+script = ExtResource("1_n2")
+
+[node name="CuevasCapaOscura" type="Polygon2D" parent="."]
+z_index = -5
+color = Color(0.06, 0.08, 0.14, 0.78)
+polygon = PackedVector2Array(-200, -420, 2500, -420, 2500, 360, -200, 360)
+
+[node name="Escenario" parent="." instance=ExtResource("3_n2")]
+
+[node name="Escenario_2" parent="." instance=ExtResource("3_n2")]
+position = Vector2(768, 0)
+
+[node name="Escenario_3" parent="." instance=ExtResource("3_n2")]
+position = Vector2(1568, 0)
+
+[node name="Darkness" type="CanvasModulate" parent="."]
+color = Color(0.28, 0.34, 0.44, 1)
+
+[node name="FluorA" type="PointLight2D" parent="."]
+position = Vector2(520, 130)
+color = Color(0.45, 0.95, 1, 1)
+texture = SubResource("GradientTexture2D_light_falloff")
+energy = 0.95
+texture_scale = 2.35
+
+[node name="FluorB" type="PointLight2D" parent="."]
+position = Vector2(980, 122)
+color = Color(0.45, 0.95, 1, 1)
+texture = SubResource("GradientTexture2D_light_falloff")
+energy = 0.95
+texture_scale = 2.35
+
+[node name="FluorC" type="PointLight2D" parent="."]
+position = Vector2(1460, 122)
+color = Color(0.45, 0.95, 1, 1)
+texture = SubResource("GradientTexture2D_light_falloff")
+energy = 0.95
+texture_scale = 2.35
+
+[node name="Personaje1" parent="." instance=ExtResource("2_n2")]
+position = Vector2(90, 145)
+
+[node name="TrepaParedA" parent="." instance=ExtResource("4_n2")]
+position = Vector2(560, 118)
+
+[node name="TrepaParedB" parent="." instance=ExtResource("4_n2")]
+position = Vector2(1180, 126)
+move_range = 110.0
+
+[node name="HongoExplosivoA" parent="." instance=ExtResource("5_n2")]
+position = Vector2(760, 152)
+
+[node name="HongoExplosivoB" parent="." instance=ExtResource("5_n2")]
+position = Vector2(1340, 152)
+trigger_radius = 100.0
+
+[node name="GuardianCaidoN2" parent="." instance=ExtResource("6_n2")]
+position = Vector2(1740, 142)
+max_health = 18
+walk_speed = 105.0
+
+[node name="BarreraBoss" type="StaticBody2D" parent="."]
+position = Vector2(1600, 116)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BarreraBoss"]
+shape = SubResource("RectangleShape2D_gate")
+
+[node name="Visual" type="Polygon2D" parent="BarreraBoss"]
+color = Color(0.18, 0.22, 0.28, 1)
+polygon = PackedVector2Array(-12, -40, 12, -40, 12, 40, -12, 40)
+
+[node name="SalidaNivel3" type="Area2D" parent="."]
+position = Vector2(1860, 142)
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SalidaNivel3"]
+shape = SubResource("RectangleShape2D_exit")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="VidaBarra" type="TextureProgressBar" parent="UI"]
+offset_right = 80.0
+offset_bottom = 40.0
+scale = Vector2(3, 3)
+texture_under = ExtResource("7_n2")
+texture_over = ExtResource("8_n2")
+texture_progress = ExtResource("9_n2")
+
+[node name="ObjectiveText" type="Label" parent="UI"]
+offset_left = 16.0
+offset_top = 128.0
+offset_right = 460.0
+offset_bottom = 150.0
+text = "Nivel 2: atraviesa las cuevas y evita peligros del techo."
+
+[node name="BossText" type="Label" parent="UI"]
+offset_left = 16.0
+offset_top = 152.0
+offset_right = 470.0
+offset_bottom = 174.0
+text = "Derrota al guardian de la grieta para abrir el paso."
+
+[node name="ExitText" type="Label" parent="UI"]
+offset_left = 16.0
+offset_top = 176.0
+offset_right = 470.0
+offset_bottom = 198.0
+text = "La grieta se abre. Desciende hacia la Herida de Acero."
+
+[connection signal="body_entered" from="SalidaNivel3" to="." method="_on_salida_nivel3_body_entered"]
