@@ -40,9 +40,11 @@ polygon = PackedVector2Array(-200, -420, 2500, -420, 2500, 360, -200, 360)
 
 [node name="Escenario_2" parent="." instance=ExtResource("3_n2")]
 position = Vector2(768, 0)
+chunk_decor = 1
 
 [node name="Escenario_3" parent="." instance=ExtResource("3_n2")]
 position = Vector2(1568, 0)
+chunk_decor = 2
 
 [node name="Darkness" type="CanvasModulate" parent="."]
 color = Color(0.28, 0.34, 0.44, 1)

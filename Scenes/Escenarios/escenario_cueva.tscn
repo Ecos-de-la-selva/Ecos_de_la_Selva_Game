@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=4]
+[gd_scene load_steps=9 format=4]
 
 [ext_resource type="Texture2D" uid="uid://7xmh6xlq1k8" path="res://Assets/environment/tiles/jungle/tile_jungle_ground_brown.png" id="1_j5gtd"]
 [ext_resource type="Texture2D" uid="uid://cxgkc6yk7nv5k" path="res://Assets/environment/tiles/jungle/tile_jungle_ground_grey.png" id="2_sqjdh"]
 [ext_resource type="Texture2D" uid="uid://cj2pk1qt2hbaa" path="res://Assets/environment/tiles/temple/tile_temple.png" id="3_temple"]
+[ext_resource type="Script" path="res://Scenes/Escenarios/escenario_cueva.gd" id="4_cue_scr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rhthp"]
 texture = ExtResource("1_j5gtd")
@@ -223,6 +224,7 @@ physics_layer_0/collision_layer = 0
 sources/0 = SubResource("TileSetAtlasSource_temple_vis")
 
 [node name="EscenarioCueva" type="Node2D"]
+script = ExtResource("4_cue_scr")
 
 [node name="CollisionOculta" type="TileMapLayer" parent="."]
 self_modulate = Color(1, 1, 1, 0)
