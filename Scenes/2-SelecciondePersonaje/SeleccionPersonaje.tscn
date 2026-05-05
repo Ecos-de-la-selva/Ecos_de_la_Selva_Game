@@ -1,13 +1,17 @@
 [gd_scene format=3 uid="uid://b444dvawcqtwd"]
 
 [ext_resource type="Script" uid="uid://ctw8phmwk4wlr" path="res://Scripts/2-SelecciondePersonajes/seleccion_personaje.gd" id="1_h57mr"]
-[ext_resource type="Texture2D" uid="uid://c0mt6a3yg1rks" path="res://Assets/Backgrounds/Background_Selva/jungle-background-my-third-pixel-art-piece-ive-been-working-v0-3fazpri7n5t51.webp" id="2_d0nn3"]
+[ext_resource type="Texture2D" uid="uid://235vecpqp10o" path="res://Assets/Backgrounds/Background_Selva/Fondo2.png" id="2_2g6od"]
 [ext_resource type="Texture2D" uid="uid://bfdcakg0ynhrc" path="res://Assets/Characters/Personaje 1/Idle.png" id="2_w1aje"]
 [ext_resource type="Texture2D" uid="uid://bu4rkwph7nldg" path="res://Assets/Characters/Personaje 2/Idle.png" id="3_d0nn3"]
 [ext_resource type="FontFile" uid="uid://dsm1uychji3d8" path="res://Assets/Fuentes/PR Confidential.otf" id="3_wcb8c"]
+[ext_resource type="Texture2D" uid="uid://d1nu214qy0cbc" path="res://Assets/UI/Buttons/Checkbox.png" id="4_deomx"]
+[ext_resource type="Texture2D" uid="uid://b51svlyykax23" path="res://Assets/Backgrounds/MenuPrincipal/ColorNegro.png" id="7_deomx"]
+[ext_resource type="Script" uid="uid://c4rvwweptrlsg" path="res://Scripts/Transicion/transicion.gd" id="8_fuuaj"]
+[ext_resource type="AudioStream" uid="uid://dgl6yqca4g2do" path="res://Assets/Sounds/SonidosSeleccion/Blip_Select.mp3" id="9_opwho"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2g6od"]
-bg_color = Color(0.44796568, 0.6631348, 0.45968288, 1)
+bg_color = Color(0.9294305, 0.7367929, 0.6585123, 1)
 skew = Vector2(0.585, 0)
 corner_radius_bottom_right = 4
 expand_margin_left = 4.0
@@ -85,13 +89,102 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Animation" id="Animation_0ygfx"]
+resource_name = "Fade_out"
+length = 2.6666667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_phd7o"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_fuuaj"]
+resource_name = "appear"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fuuaj"]
+_data = {
+&"Fade_out": SubResource("Animation_0ygfx"),
+&"RESET": SubResource("Animation_phd7o"),
+&"appear": SubResource("Animation_fuuaj")
+}
+
+[sub_resource type="Animation" id="Animation_opwho"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_srg3q"]
+resource_name = "apprite"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ivugp"]
+_data = {
+&"RESET": SubResource("Animation_opwho"),
+&"apprite": SubResource("Animation_srg3q")
+}
+
 [node name="SeleccionPersonaje" type="Control" unique_id=1044891591]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 275.0
-offset_top = 160.0
-offset_right = 315.0
-offset_bottom = 200.0
+offset_left = 485.0
+offset_top = 301.0
+offset_right = 525.0
+offset_bottom = 341.0
 size_flags_horizontal = 4
 script = ExtResource("1_h57mr")
 
@@ -100,14 +193,14 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -275.0
-offset_top = -160.0
-offset_right = 325.0
-offset_bottom = 160.0
+offset_left = -489.0
+offset_top = -299.0
+offset_right = 755.0
+offset_bottom = 376.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_d0nn3")
-stretch_mode = 6
+texture = ExtResource("2_2g6od")
+expand_mode = 1
 
 [node name="Label" type="Label" parent="." unique_id=363215332]
 layout_mode = 1
@@ -116,13 +209,14 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -187.0
-offset_top = -110.0
-offset_right = 180.0
-offset_bottom = -59.0
+offset_left = -291.0
+offset_top = -140.0
+offset_right = 76.0
+offset_bottom = -88.99996
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(0.77254903, 1, 0.7372549, 1)
+scale = Vector2(2, 2)
+theme_override_colors/font_color = Color(0.9999997, 0.9199436, 0.7371252, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
 theme_override_fonts/font = ExtResource("3_wcb8c")
@@ -130,38 +224,73 @@ theme_override_font_sizes/font_size = 48
 theme_override_styles/normal = SubResource("StyleBoxFlat_2g6od")
 text = "Elije tu personaje"
 
-[node name="ContenedorBotones" type="HBoxContainer" parent="." unique_id=127854475]
+[node name="BotonHombre" type="TextureButton" parent="." unique_id=663389778]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
+anchors_preset = 6
+anchor_left = 1.0
 anchor_top = 0.5
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -50.0
-offset_top = -31.0
-offset_right = 50.0
-offset_bottom = 31.0
-grow_horizontal = 2
+offset_left = -213.0
+offset_top = 20.0
+offset_right = -76.0
+offset_bottom = 115.0
+grow_horizontal = 0
 grow_vertical = 2
-theme_override_constants/separation = 100
+scale = Vector2(1.5, 1.5)
+size_flags_horizontal = 0
+size_flags_vertical = 0
+size_flags_stretch_ratio = 0.0
+texture_normal = ExtResource("4_deomx")
+ignore_texture_size = true
+stretch_mode = 0
 
-[node name="BotonHombre" type="TextureButton" parent="ContenedorBotones" unique_id=663389778]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="AnimHombre" type="AnimatedSprite2D" parent="ContenedorBotones/BotonHombre" unique_id=1254576034]
-position = Vector2(-34, 51)
+[node name="AnimHombre" type="AnimatedSprite2D" parent="BotonHombre" unique_id=1254576034]
+position = Vector2(75, 50)
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_opwho")
 animation = &"idle"
 autoplay = "idle"
 
-[node name="BotonMujer" type="TextureButton" parent="ContenedorBotones" unique_id=637924897]
-layout_mode = 2
+[node name="BotonMujer" type="TextureButton" parent="." unique_id=637924897]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 144.0
+offset_top = 20.0
+offset_right = 281.0
+offset_bottom = 115.0
+grow_vertical = 2
+scale = Vector2(1.5, 1.5)
+texture_normal = ExtResource("4_deomx")
+ignore_texture_size = true
+stretch_mode = 0
 
-[node name="AnimMujer" type="AnimatedSprite2D" parent="ContenedorBotones/BotonMujer" unique_id=789216042]
-position = Vector2(34, 51)
+[node name="AnimMujer" type="AnimatedSprite2D" parent="BotonMujer" unique_id=789216042]
+position = Vector2(70, 51)
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_3i4hh")
 animation = &"idle"
 autoplay = "idle"
+
+[node name="Transicion" type="Sprite2D" parent="." unique_id=1429181731]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(170.68738, 110)
+scale = Vector2(4.9909697, 4.385417)
+texture = ExtResource("7_deomx")
+script = ExtResource("8_fuuaj")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Transicion" unique_id=2127842332]
+libraries/ = SubResource("AnimationLibrary_fuuaj")
+autoplay = &"Fade_out"
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="Transicion" unique_id=1251328051]
+libraries/ = SubResource("AnimationLibrary_ivugp")
+
+[node name="SonidoSeleccion" type="AudioStreamPlayer" parent="." unique_id=371694109]
+stream = ExtResource("9_opwho")
+volume_db = -5.0
+
+[connection signal="pressed" from="BotonHombre" to="." method="_on_boton_hombre_pressed"]
+[connection signal="pressed" from="BotonMujer" to="." method="_on_boton_mujer_pressed"]

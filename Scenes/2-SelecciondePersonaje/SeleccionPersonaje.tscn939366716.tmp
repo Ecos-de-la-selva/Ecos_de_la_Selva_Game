@@ -1,0 +1,167 @@
+[gd_scene format=3 uid="uid://b444dvawcqtwd"]
+
+[ext_resource type="Script" uid="uid://ctw8phmwk4wlr" path="res://Scripts/2-SelecciondePersonajes/seleccion_personaje.gd" id="1_h57mr"]
+[ext_resource type="Texture2D" uid="uid://c0mt6a3yg1rks" path="res://Assets/Backgrounds/Background_Selva/jungle-background-my-third-pixel-art-piece-ive-been-working-v0-3fazpri7n5t51.webp" id="2_d0nn3"]
+[ext_resource type="Texture2D" uid="uid://bfdcakg0ynhrc" path="res://Assets/Characters/Personaje 1/Idle.png" id="2_w1aje"]
+[ext_resource type="Texture2D" uid="uid://bu4rkwph7nldg" path="res://Assets/Characters/Personaje 2/Idle.png" id="3_d0nn3"]
+[ext_resource type="FontFile" uid="uid://dsm1uychji3d8" path="res://Assets/Fuentes/PR Confidential.otf" id="3_wcb8c"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2g6od"]
+bg_color = Color(0.44796568, 0.6631348, 0.45968288, 1)
+skew = Vector2(0.585, 0)
+corner_radius_bottom_right = 4
+expand_margin_left = 4.0
+expand_margin_right = 4.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wcb8c"]
+atlas = ExtResource("2_w1aje")
+region = Rect2(0, 0, 32, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2g6od"]
+atlas = ExtResource("2_w1aje")
+region = Rect2(32, 0, 32, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_deomx"]
+atlas = ExtResource("2_w1aje")
+region = Rect2(64, 0, 32, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fuuaj"]
+atlas = ExtResource("2_w1aje")
+region = Rect2(96, 0, 32, 23)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_opwho"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wcb8c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2g6od")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_deomx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fuuaj")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_srg3q"]
+atlas = ExtResource("3_d0nn3")
+region = Rect2(0, 0, 32, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ivugp"]
+atlas = ExtResource("3_d0nn3")
+region = Rect2(32, 0, 32, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wffef"]
+atlas = ExtResource("3_d0nn3")
+region = Rect2(64, 0, 32, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_guro7"]
+atlas = ExtResource("3_d0nn3")
+region = Rect2(96, 0, 32, 23)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3i4hh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_srg3q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ivugp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wffef")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_guro7")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="SeleccionPersonaje" type="Control" unique_id=1044891591]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 275.0
+offset_top = 160.0
+offset_right = 315.0
+offset_bottom = 200.0
+size_flags_horizontal = 4
+script = ExtResource("1_h57mr")
+
+[node name="Fondo" type="TextureRect" parent="." unique_id=1755233118]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -275.0
+offset_top = -160.0
+offset_right = 325.0
+offset_bottom = 160.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_d0nn3")
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="." unique_id=363215332]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -187.0
+offset_top = -110.0
+offset_right = 180.0
+offset_bottom = -59.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.77254903, 1, 0.7372549, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("3_wcb8c")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/normal = SubResource("StyleBoxFlat_2g6od")
+text = "Elije tu personaje"
+
+[node name="ContenedorBotones" type="HBoxContainer" parent="." unique_id=127854475]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -31.0
+offset_right = 50.0
+offset_bottom = 31.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 100
+
+[node name="BotonHombre" type="TextureButton" parent="ContenedorBotones" unique_id=663389778]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="AnimHombre" type="AnimatedSprite2D" parent="ContenedorBotones/BotonHombre" unique_id=1254576034]
+position = Vector2(-34, 51)
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_opwho")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="BotonMujer" type="TextureButton" parent="ContenedorBotones" unique_id=637924897]
+layout_mode = 2
+
+[node name="AnimMujer" type="AnimatedSprite2D" parent="ContenedorBotones/BotonMujer" unique_id=789216042]
+position = Vector2(34, 51)
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_3i4hh")
+animation = &"idle"
+autoplay = "idle"

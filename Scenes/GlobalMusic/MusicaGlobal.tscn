@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dfoe606u4js7i"]
+
+[ext_resource type="AudioStream" uid="uid://dl6c1f5e8ggnl" path="res://Assets/Sounds/SonidoMenuPrincipal/Journey To Ascend.mp3" id="1_u2w1w"]
+
+[node name="Node" type="Node" unique_id=1198898759]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=604975362]
+stream = ExtResource("1_u2w1w")
+autoplay = true

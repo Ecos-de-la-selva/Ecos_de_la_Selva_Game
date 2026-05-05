@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dlaxpxe1ooq60"
+path="res://.godot/imported/Sad Piano.mp3-19d04fabfe1e59e6e32af7e738d155b6.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sounds/SonidoGameOver/Sad Piano.mp3"
+dest_files=["res://.godot/imported/Sad Piano.mp3-19d04fabfe1e59e6e32af7e738d155b6.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

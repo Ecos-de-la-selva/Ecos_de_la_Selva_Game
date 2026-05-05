@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://b2pffrr0nfnkh"]
+
+[ext_resource type="Script" uid="uid://celgj3a34grgq" path="res://Scripts/Score/interfaz_hud.gd" id="1_2ubxe"]
+[ext_resource type="Texture2D" uid="uid://n6qs28cm7l0" path="res://Assets/Backgrounds/Basura/lata2.png" id="2_nfx6f"]
+[ext_resource type="FontFile" uid="uid://bnqt3rj6aetmc" path="res://Assets/Fuentes/Super Mindset.ttf" id="2_okulw"]
+
+[node name="InterfazHUD" type="CanvasLayer" unique_id=1805701083]
+script = ExtResource("1_2ubxe")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1241778208]
+offset_left = 300.0
+offset_top = 26.0
+offset_right = 515.0
+offset_bottom = 103.0
+size_flags_horizontal = 0
+theme_override_constants/separation = 20
+
+[node name="ScoreLabel" type="Label" parent="HBoxContainer" unique_id=1871522726]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_okulw")
+theme_override_font_sizes/font_size = 40
+text = "Basura:"
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer" unique_id=17453566]
+custom_minimum_size = Vector2(80, 40)
+layout_mode = 2
+texture = ExtResource("2_nfx6f")
+expand_mode = 1
+stretch_mode = 5
