@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://drl7bkpkcuuk"]
+
+[ext_resource type="PackedScene" uid="uid://cbele6j4fpme5" path="res://Scenes/Score/BasuraBolsa.tscn" id="1_gm8f5"]
+[ext_resource type="Texture2D" uid="uid://c81m3nrrovtho" path="res://Assets/Backgrounds/Basura/lata1.png" id="2_oa708"]
+
+[node name="Basura1" unique_id=1326946369 instance=ExtResource("1_gm8f5")]
+
+[node name="Bolsa" parent="." index="0" unique_id=1438639979]
+position = Vector2(48.5, 37)
+scale = Vector2(0.75652176, 0.8474577)
+texture = ExtResource("2_oa708")

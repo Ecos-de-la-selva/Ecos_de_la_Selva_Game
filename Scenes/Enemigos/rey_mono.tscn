@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bvgh7ilwgn3e"]
+
+[ext_resource type="PackedScene" uid="uid://8h4sfufmn1gs" path="res://Scenes/Enemigos/mono.tscn" id="1_k7rue"]
+
+[node name="Rey Mono" unique_id=393235633 instance=ExtResource("1_k7rue")]
+scale = Vector2(5, 5)

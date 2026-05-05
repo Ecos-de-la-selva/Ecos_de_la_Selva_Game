@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dotcmvdb0oyk8"
-path="res://.godot/imported/Cabeza.png-30d91a697071af64ee5060d7de126604.ctex"
+uid="uid://c6e22bmqjdrde"
+path="res://.godot/imported/Back.png-2f789717097a5e3b532fd3bbe165aa59.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/UI/Cabeza.png"
-dest_files=["res://.godot/imported/Cabeza.png-30d91a697071af64ee5060d7de126604.ctex"]
+source_file="res://Assets/UI/Toon UI Pack/Buttons/Blue/Text/Back.png"
+dest_files=["res://.godot/imported/Back.png-2f789717097a5e3b532fd3bbe165aa59.ctex"]
 
 [params]
 

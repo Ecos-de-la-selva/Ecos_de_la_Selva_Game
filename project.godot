@@ -18,13 +18,20 @@ config/name="Ecos_de_la_Selva"
 run/main_scene="res://Scenes/Levels/Nivel1_UmbralDelMusgo.tscn"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
+"<<<<<<<HEAD[autoload]Global"="*uid://c5f26nbfcg8gx"
+
+[autoload]
+
+Global="*uid://xyefcd4n8y87"
+MusicaGlobal="*uid://dfoe606u4js7i"
+GameManager="*uid://d1rt2l8cd7quo"
 
 [display]
 
-window/size/viewport_width=640
-window/size/viewport_height=360
+window/size/mode=3
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+window/stretch/scale_mode="integer"
 
 [input]
 
@@ -64,6 +71,12 @@ click_izquierdo={
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"canceled":false,"pressed":false,"double_click":false,"script":null)
 ]
 }
+
+[layer_names]
+
+2d_physics/layer_1="jugador"
+2d_physics/layer_2="enemigos"
+2d_physics/layer_3="suelo"
 
 [rendering]
 

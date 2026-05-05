@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://ctkmjfy253wt6"]
+
+[ext_resource type="Script" uid="uid://giwwup2wrmtx" path="res://Scripts/Dialogos/Dialogo1/interfaz_dialogo.gd" id="1_k7coe"]
+[ext_resource type="Texture2D" uid="uid://deyv6p74j0x6n" path="res://Assets/UI/Buttons/TabActive.png" id="2_ccopc"]
+[ext_resource type="FontFile" uid="uid://bnqt3rj6aetmc" path="res://Assets/Fuentes/Super Mindset.ttf" id="3_aovoj"]
+[ext_resource type="AudioStream" uid="uid://c61o1nkaotbqq" path="res://Assets/Sounds/SonidoTexto/beep.wav" id="4_6poaj"]
+[ext_resource type="Texture2D" uid="uid://bec1i5ofw5mdy" path="res://Assets/UI/Toon UI Pack/Buttons/Blue/Icon/Next.png" id="5_jcp33"]
+[ext_resource type="Texture2D" uid="uid://bhigb74ahoxal" path="res://Assets/UI/Toon UI Pack/Buttons/Orange/Icon/next.png" id="6_k2hwt"]
+
+[node name="InterfazDialogo" type="CanvasLayer" unique_id=498964823]
+script = ExtResource("1_k7coe")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=929523732]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -487.0
+offset_top = -85.0
+offset_right = 402.0
+offset_bottom = -11.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("2_ccopc")
+
+[node name="Label" type="Label" parent="NinePatchRect" unique_id=720021670]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 13.0
+offset_right = 784.0
+offset_bottom = 65.0
+theme_override_colors/font_color = Color(0.0020650965, 0.0011415924, 0.00047369825, 1)
+theme_override_fonts/font = ExtResource("3_aovoj")
+theme_override_font_sizes/font_size = 34
+
+[node name="TimerLetras" type="Timer" parent="NinePatchRect/Label" unique_id=215876383]
+wait_time = 0.5
+one_shot = true
+
+[node name="SonidoEscritura" type="AudioStreamPlayer" parent="NinePatchRect/Label" unique_id=1569088957]
+stream = ExtResource("4_6poaj")
+max_polyphony = 4
+
+[node name="Skip" type="TextureButton" parent="." unique_id=156053612]
+offset_left = 919.0
+offset_top = 596.0
+offset_right = 953.0
+offset_bottom = 631.0
+texture_normal = ExtResource("5_jcp33")
+texture_pressed = ExtResource("6_k2hwt")
+ignore_texture_size = true
+stretch_mode = 0
+
+[connection signal="pressed" from="Skip" to="." method="_on_skip_pressed"]

@@ -1,12 +1,16 @@
 [gd_scene format=3 uid="uid://b62g15bbgmn33"]
 
-[ext_resource type="Script" uid="uid://ba5s3krf60uck" path="res://Scenes/Characters/personaje_1.gd" id="1_aclfa"]
+[ext_resource type="Script" uid="uid://ba5s3krf60uck" path="res://Scripts/Characters/personaje_1.gd" id="1_aclfa"]
 [ext_resource type="Texture2D" uid="uid://bfdcakg0ynhrc" path="res://Assets/Characters/Personaje 1/Idle.png" id="1_xkl2q"]
 [ext_resource type="Texture2D" uid="uid://6cgly4bhhuxs" path="res://Assets/Characters/Personaje 1/walk.png" id="3_ankml"]
 [ext_resource type="Texture2D" uid="uid://j5gqe41wofk2" path="res://Assets/Characters/Personaje 1/JumpDown.png" id="3_bre8c"]
 [ext_resource type="Texture2D" uid="uid://b7jvt8m0r7s4m" path="res://Assets/Characters/Personaje 1/Attack.png" id="3_reej2"]
 [ext_resource type="Texture2D" uid="uid://nbecy1iintkr" path="res://Assets/Characters/Personaje 1/JumpUp.png" id="4_reej2"]
 [ext_resource type="Texture2D" uid="uid://pk7jtab3636c" path="res://Assets/Characters/Personaje 1/AttackAir.png" id="4_v7e55"]
+[ext_resource type="Texture2D" uid="uid://t2oejravpyrm" path="res://Assets/Characters/Personaje 1/AnimacioDaño.png" id="5_3jv6a"]
+[ext_resource type="Texture2D" uid="uid://bhfkddy07mc1j" path="res://Assets/Characters/Personaje 1/kill.png" id="6_00m6n"]
+[ext_resource type="AudioStream" uid="uid://c4csgktxboclp" path="res://Assets/Sounds/SonidoCharacter/hurt_01.mp3" id="10_00m6n"]
+[ext_resource type="AudioStream" uid="uid://dmpro3rduhnf5" path="res://Assets/Sounds/SonidoCharacter/freesound_community-sword-hit-7160.mp3" id="11_66yon"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bre8c"]
 atlas = ExtResource("1_xkl2q")
@@ -55,6 +59,34 @@ region = Rect2(64, 0, 32, 23)
 [sub_resource type="AtlasTexture" id="AtlasTexture_c4gor"]
 atlas = ExtResource("4_v7e55")
 region = Rect2(96, 0, 32, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vk2wn"]
+atlas = ExtResource("5_3jv6a")
+region = Rect2(0, 0, 32, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wpsp3"]
+atlas = ExtResource("5_3jv6a")
+region = Rect2(32, 0, 32, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_micm7"]
+atlas = ExtResource("5_3jv6a")
+region = Rect2(64, 0, 32, 23)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ovpw"]
+atlas = ExtResource("6_00m6n")
+region = Rect2(0, 0, 32, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n32pb"]
+atlas = ExtResource("6_00m6n")
+region = Rect2(32, 0, 32, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jb0se"]
+atlas = ExtResource("6_00m6n")
+region = Rect2(64, 0, 32, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r1ukx"]
+atlas = ExtResource("6_00m6n")
+region = Rect2(96, 0, 32, 28)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_00m6n"]
 atlas = ExtResource("3_bre8c")
@@ -119,13 +151,13 @@ animations = [{
 "duration": 0.2,
 "texture": SubResource("AtlasTexture_kjqji")
 }, {
-"duration": 0.4,
+"duration": 0.2,
 "texture": SubResource("AtlasTexture_0dhxt")
 }, {
-"duration": 0.4,
+"duration": 0.2,
 "texture": SubResource("AtlasTexture_7m73v")
 }, {
-"duration": 0.4,
+"duration": 0.2,
 "texture": SubResource("AtlasTexture_h3bg7")
 }],
 "loop": false,
@@ -147,6 +179,37 @@ animations = [{
 }],
 "loop": false,
 "name": &"attackair",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_vk2wn")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_wpsp3")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_micm7")
+}],
+"loop": false,
+"name": &"damage",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.5,
+"texture": SubResource("AtlasTexture_7ovpw")
+}, {
+"duration": 1.5,
+"texture": SubResource("AtlasTexture_n32pb")
+}, {
+"duration": 1.2,
+"texture": SubResource("AtlasTexture_jb0se")
+}, {
+"duration": 1.2,
+"texture": SubResource("AtlasTexture_r1ukx")
+}],
+"loop": false,
+"name": &"die",
 "speed": 5.0
 }, {
 "frames": [{
@@ -196,55 +259,64 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0dhxt"]
-size = Vector2(17, 23)
+size = Vector2(16.25, 22)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t3fx2"]
-size = Vector2(12, 14)
+size = Vector2(37.5, 26)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hurtbox"]
-size = Vector2(18, 24)
+size = Vector2(12.25, 22.5)
 
-[node name="Personaje1" type="CharacterBody2D" unique_id=72214302]
+[node name="Personaje1" type="CharacterBody2D" unique_id=72214302 groups=["jugador"]]
 scale = Vector2(4, 4)
-groups = ["player"]
-collision_mask = 5
+collision_mask = 12
 script = ExtResource("1_aclfa")
 
 [node name="Animaciones" type="AnimatedSprite2D" parent="." unique_id=633562649]
+z_index = 10
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_kjqji")
-animation = &"attackair"
-z_index = 10
+animation = &"attack"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1028914906]
+visible = false
+position = Vector2(-0.125, 0.5)
 shape = SubResource("RectangleShape2D_0dhxt")
 
-[node name="AttackArea" type="Area2D" parent="."]
+[node name="AttackArea" type="Area2D" parent="." unique_id=1888378112]
 position = Vector2(9, 1)
-collision_mask = 4
-monitoring = true
+collision_mask = 2
 monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" unique_id=1199957847]
+position = Vector2(-8.25, -2.5)
 shape = SubResource("RectangleShape2D_t3fx2")
 
-[node name="HurtBox" type="Area2D" parent="."]
+[node name="HurtBox" type="Area2D" parent="." unique_id=621449239]
 position = Vector2(0, 3)
-collision_mask = 4
-monitoring = true
 monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="HurtBox" unique_id=425450397 groups=["jugador"]]
+visible = false
+position = Vector2(-0.125, -2.5)
 shape = SubResource("RectangleShape2D_hurtbox")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=111697442]
-editor_draw_limits = true
-editor_draw_drag_margin = true
-limit_enabled = true
-position_smoothing_enabled = true
-position_smoothing_speed = 8.0
 offset = Vector2(0, 50)
 limit_left = 0
 limit_top = 0
-limit_right = 1800
+limit_right = 18056
 limit_bottom = 360
+position_smoothing_enabled = true
+position_smoothing_speed = 8.0
+editor_draw_limits = true
+editor_draw_drag_margin = true
+
+[node name="SonidoDano" type="AudioStreamPlayer2D" parent="." unique_id=1904999604]
+stream = ExtResource("10_00m6n")
+
+[node name="SonidoAttack" type="AudioStreamPlayer2D" parent="." unique_id=402025182]
+stream = ExtResource("11_66yon")
+volume_db = -0.5
+
+[connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]

@@ -1,0 +1,162 @@
+extends CharacterBody2D
+
+const SPEED = 300.0
+const JUMP_VELOCITY = -650.0
+
+var salud_max = 100
+var salud_actual = 100
+
+@onready var anim = $Animaciones 
+@onready var attack_area = $AttackArea
+@onready var colision_ataque = $AttackArea/CollisionShape2D
+@onready var sonido_dano = $SonidoDano
+@onready var sonido_ataque = $SonidoAttack
+@onready var posicion_ataque_original_x = attack_area.position.x
+
+var is_attacking = false
+var esta_muerto = false 
+
+func _ready():
+	add_to_group("jugador") 
+	if colision_ataque:
+		colision_ataque.disabled = true
+	
+	# Llamamos a actualizar vida al inicio para que la barra se llene
+	actualizar_interfaz_vida()
+
+func _physics_process(delta: float) -> void:
+	if esta_muerto: return 
+
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+
+	if Input.is_action_just_pressed("click_izquierdo") and not is_attacking:
+		attack()
+
+	if not is_attacking:
+		if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+			velocity.y = JUMP_VELOCITY
+
+		var direction := Input.get_axis("ui_left", "ui_right")
+		if direction:
+			velocity.x = direction * SPEED
+			actualizar_orientacion(direction)
+		else:
+			velocity.x = move_toward(velocity.x, 0, SPEED)
+	
+	move_and_slide()
+	decide_animation()
+	limitar_movimiento()
+
+func limitar_movimiento():
+	var mundo = get_tree().current_scene
+	
+	if mundo.has_node("ArenaBoss/LimiteIzq") and mundo.has_node("ArenaBoss/LimiteDer"):
+		var izq = mundo.get_node("ArenaBoss/LimiteIzq").global_position.x
+		var der = mundo.get_node("ArenaBoss/LimiteDer").global_position.x
+		
+		global_position.x = clamp(global_position.x, izq, der)
+
+
+func actualizar_orientacion(direction):
+	if direction < 0:
+		anim.flip_h = true
+		attack_area.position.x = -posicion_ataque_original_x
+	elif direction > 0:
+		anim.flip_h = false
+		attack_area.position.x = posicion_ataque_original_x
+
+func attack():
+	is_attacking = true
+	
+	# 2. Reproducir el sonido al iniciar el ataque
+	if sonido_ataque:
+		sonido_ataque.play()
+	
+	if colision_ataque:
+		colision_ataque.set_deferred("disabled", false)
+	
+	var anim_name = "attack" if is_on_floor() else "attackair"
+	anim.play(anim_name)
+	
+	await anim.animation_finished
+	
+	if colision_ataque:
+		colision_ataque.set_deferred("disabled", true)
+	is_attacking = false
+
+func recibir_danio(cantidad):
+	if esta_muerto: return
+	salud_actual -= cantidad
+	salud_actual = clamp(salud_actual, 0, salud_max)
+	
+	actualizar_interfaz_vida() # <--- Llamada a la función corregida
+	
+	if salud_actual <= 0:
+		morir()
+	else:
+		if sonido_dano:
+			sonido_dano.play()
+		anim.play("damage")
+
+# --- FUNCIÓN DE VIDA CORREGIDA ---
+func actualizar_interfaz_vida():
+	# Intentamos buscar la barra en el HUD de la escena actual
+	# Buscamos en el nodo "HUD" que debería estar al mismo nivel que el jugador o en la raíz
+	var barra = get_tree().root.find_child("VidaBarra", true, false)
+	if barra:
+		barra.max_value = salud_max
+		barra.value = salud_actual
+	else:
+		# Si no la encuentra por nombre, intentamos buscarla dentro de un nodo HUD
+		var hud = get_parent().get_node_or_null("HUD")
+		if hud and hud.has_method("actualizar_vida"):
+			hud.actualizar_vida(salud_actual, salud_max)
+
+# --- FUNCIÓN DE MUERTE CORREGIDA ---
+func morir():
+	if esta_muerto: return
+	esta_muerto = true
+	velocity = Vector2.ZERO
+	
+	# Desactivamos colisiones para que no nos sigan pegando
+	set_deferred("collision_layer", 0)
+	set_deferred("collision_mask", 0)
+	
+	if anim.sprite_frames.has_animation("die"):
+		anim.play("die")
+		# Esperamos un tiempo máximo por si la animación falla
+		await get_tree().create_timer(1.0).timeout 
+	
+	# BUSCAR EL GAMEOVER (Ajustado para ser más flexible)
+	var canvas_gameover = get_tree().root.find_child("Gameover", true, false)
+	
+	if canvas_gameover:
+		canvas_gameover.show() # Mostramos el CanvasLayer
+		# Si dentro tiene un script con la función aparecer()
+		if canvas_gameover.has_method("aparecer"):
+			canvas_gameover.aparecer()
+		elif canvas_gameover.get_child_count() > 0:
+			var hijo = canvas_gameover.get_child(0)
+			if hijo.has_method("aparecer"):
+				hijo.aparecer()
+	else:
+		print("Error: No se encontró el nodo Gameover en la escena")
+
+func decide_animation():
+	if esta_muerto or is_attacking: return
+	if anim.animation == "damage" and anim.is_playing(): return
+	if not is_on_floor():
+		anim.play("jump_up" if velocity.y < 0 else "jump_down")
+	else:
+		anim.play("Idle" if velocity.x == 0 else "walk")
+
+func _on_attack_area_body_entered(body: Node2D) -> void:
+	if body.is_in_group("enemigos") and body.has_method("recibir_danio"):
+		
+		var args = body.recibir_danio.get_argument_count()
+		
+		if args == 2:
+			body.recibir_danio(1, global_position) # nuevo sistema
+		else:
+			body.recibir_danio(1) # viejo sistema

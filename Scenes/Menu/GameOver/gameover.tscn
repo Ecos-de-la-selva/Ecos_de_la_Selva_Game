@@ -1,0 +1,125 @@
+[gd_scene format=3 uid="uid://c6k7e4swskhh2"]
+
+[ext_resource type="Script" uid="uid://3dyy2b38vkhb" path="res://Scripts/GameOver/gameover.gd" id="1_7estu"]
+[ext_resource type="FontFile" uid="uid://bnqt3rj6aetmc" path="res://Assets/Fuentes/Super Mindset.ttf" id="2_gnryc"]
+[ext_resource type="Texture2D" uid="uid://lgw4abytccy8" path="res://Assets/UI/Toon UI Pack/Buttons/Orange/Icon/Retry.png" id="3_xxxni"]
+[ext_resource type="Texture2D" uid="uid://cdwr2vbmc1qwj" path="res://Assets/UI/Toon UI Pack/Buttons/Blue/Icon/Retry.png" id="4_gnryc"]
+[ext_resource type="AudioStream" uid="uid://dlaxpxe1ooq60" path="res://Assets/Sounds/SonidoGameOver/Sad Piano.mp3" id="5_xxxni"]
+
+[sub_resource type="Animation" id="Animation_2fhfk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0.08627451, 0.023529412, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ub5yd"]
+resource_name = "aparecer"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0.08627451, 0.023529412, 1), Color(0, 0.08627451, 0.023529412, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gnryc"]
+_data = {
+&"RESET": SubResource("Animation_2fhfk"),
+&"aparecer": SubResource("Animation_ub5yd")
+}
+
+[node name="Gameover" type="Control" unique_id=1006074328]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7estu")
+
+[node name="Fondo" type="ColorRect" parent="." unique_id=381468467]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(2.9329676e-08, 0.086412095, 0.022592051, 1)
+
+[node name="Center" type="CenterContainer" parent="." unique_id=431800628]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -360.0
+offset_top = -360.0
+offset_right = 360.0
+offset_bottom = 360.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LabelGameOver" type="RichTextLabel" parent="Center" unique_id=587838702]
+custom_minimum_size = Vector2(713.65, 83.66)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("2_gnryc")
+theme_override_font_sizes/normal_font_size = 94
+bbcode_enabled = true
+text = "[center][wave]GAME OVER[/wave][/center]"
+scroll_active = false
+
+[node name="Fade" type="ColorRect" parent="." unique_id=173003438]
+modulate = Color(0, 0.08627451, 0.023529412, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Fade" unique_id=1821923143]
+libraries/ = SubResource("AnimationLibrary_gnryc")
+
+[node name="Timer" type="Timer" parent="." unique_id=335446700]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[node name="Reintentar" type="TextureButton" parent="." unique_id=285053938]
+process_mode = 3
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.47135416
+anchor_top = 0.6018519
+anchor_right = 0.53602433
+anchor_bottom = 0.7157562
+offset_top = -3.0517578e-05
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("3_xxxni")
+texture_pressed = ExtResource("4_gnryc")
+ignore_texture_size = true
+stretch_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="MusicaMuerte" type="AudioStreamPlayer" parent="." unique_id=1809930379]
+stream = ExtResource("5_xxxni")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="Reintentar" to="." method="_on_reintentar_pressed"]
