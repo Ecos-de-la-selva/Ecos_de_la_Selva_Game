@@ -261,11 +261,11 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0dhxt"]
 size = Vector2(17, 23)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_t3fx2"]
-size = Vector2(12, 14)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y1ixo"]
+size = Vector2(37.5, 26)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hurtbox"]
-size = Vector2(18, 24)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xldrq"]
+size = Vector2(12.25, 22.5)
 
 [node name="Personaje2" type="CharacterBody2D" unique_id=72214302]
 scale = Vector2(4, 4)
@@ -286,15 +286,18 @@ position = Vector2(9, 1)
 collision_mask = 2
 monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" unique_id=410485703]
-shape = SubResource("RectangleShape2D_t3fx2")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" unique_id=306087834]
+position = Vector2(-8.25, -2.5)
+shape = SubResource("RectangleShape2D_y1ixo")
 
 [node name="HurtBox" type="Area2D" parent="." unique_id=962672311]
 position = Vector2(0, 3)
 monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=601113801]
-shape = SubResource("RectangleShape2D_hurtbox")
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="HurtBox" unique_id=238148256 groups=["jugador"]]
+visible = false
+position = Vector2(-0.125, -2.5)
+shape = SubResource("RectangleShape2D_xldrq")
 
 [node name="SonidoDano" type="AudioStreamPlayer2D" parent="." unique_id=1026855987]
 stream = ExtResource("10_gj0h0")
@@ -313,3 +316,5 @@ position_smoothing_enabled = true
 position_smoothing_speed = 8.0
 editor_draw_limits = true
 editor_draw_drag_margin = true
+
+[connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]
