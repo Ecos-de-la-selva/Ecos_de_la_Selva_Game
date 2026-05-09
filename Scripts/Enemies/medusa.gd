@@ -9,6 +9,12 @@ extends CharacterBody2D
 @export var dano_ataque: int = 25
 @export var retroceso_fuerza := 350.0
 
+# --- Detección del jugador ---
+# Si el jugador está más cerca que esto y dentro del mismo nivel
+# vertical, la medusa se gira hacia él (aunque venga por detrás).
+@export var rango_deteccion := 220.0
+@export var altura_deteccion := 90.0
+
 # --- ESTADO INTERNO ---
 var direccion := -1
 var atacando := false
@@ -37,7 +43,10 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y += gravedad * delta
 
-	# 2. Movimiento horizontal
+	# 2. Detectar al jugador (incluso si está detrás)
+	detectar_jugador()
+
+	# 3. Movimiento horizontal
 	if esta_retrocediendo:
 		velocity.x = move_toward(velocity.x, 0, 20)
 		if abs(velocity.x) < 5:
@@ -47,19 +56,45 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = direccion * velocidad
 
-	# 3. Animaciones (cuando NO estamos en una animación única)
+	# 4. Animaciones (cuando NO estamos en una animación única)
 	if not atacando and not _en_animacion_unica():
 		if velocity.x != 0:
 			anim.play("walk")
 		else:
 			anim.play("idle")
 
-	# 4. Voltear sprite y área de ataque según dirección
+	# 5. Voltear sprite y área de ataque según dirección
 	# El sprite original mira a la derecha → solo lo volteamos al ir a la izquierda
 	anim.flip_h = (direccion == -1)
 
 	move_and_slide()
 	revisar_colisiones()
+
+
+# Si el jugador está cerca y a su espalda → girarse hacia él.
+# Así la medusa no se queda quieta cuando la pasan por detrás.
+func detectar_jugador() -> void:
+	if atacando or esta_retrocediendo:
+		return
+	var jugador := get_tree().get_first_node_in_group("jugador")
+	if jugador == null or not is_instance_valid(jugador):
+		return
+
+	var dx: float = jugador.global_position.x - global_position.x
+	var dy: float = jugador.global_position.y - global_position.y
+
+	# Solo nos importan jugadores en el mismo "piso" y dentro del rango
+	if abs(dy) > altura_deteccion:
+		return
+	if abs(dx) > rango_deteccion:
+		return
+	# Pequeña zona muerta para que no tiemble cuando el jugador está justo encima
+	if abs(dx) < 8.0:
+		return
+
+	var direccion_objetivo := -1 if dx < 0 else 1
+	if direccion_objetivo != direccion:
+		girar_enemigo()
 
 
 func _en_animacion_unica() -> bool:

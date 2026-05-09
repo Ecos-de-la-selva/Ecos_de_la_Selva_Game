@@ -13826,6 +13826,7 @@ shape = SubResource("RectangleShape2D_pared_izq")
 position = Vector2(8000, 250)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ArenaBoss/ParedDerecha" unique_id=916017117]
+position = Vector2(1262, 14)
 shape = SubResource("RectangleShape2D_pared_der")
 
 [node name="AudioBossAmbiente" type="AudioStreamPlayer" parent="." unique_id=1723564037]

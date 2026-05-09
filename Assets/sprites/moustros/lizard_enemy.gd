@@ -9,6 +9,12 @@ extends CharacterBody2D
 @export var dano_ataque: int = 20
 @export var retroceso_fuerza := 350.0
 
+# --- Detección del jugador ---
+# Si el jugador está más cerca que esto y dentro del mismo nivel
+# vertical, el lizard se gira hacia él (aunque venga por detrás).
+@export var rango_deteccion := 220.0
+@export var altura_deteccion := 90.0
+
 # --- Estado interno ---
 var direccion := 1
 var atacando := false
@@ -36,7 +42,10 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y += gravedad * delta
 
-	# 2. Movimiento horizontal
+	# 2. Detectar al jugador (incluso si está detrás)
+	detectar_jugador()
+
+	# 3. Movimiento horizontal
 	if esta_retrocediendo:
 		velocity.x = move_toward(velocity.x, 0, 20)
 		if abs(velocity.x) < 5:
@@ -46,7 +55,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = direccion * velocidad
 
-	# 3. Animaciones (mientras NO estemos en attack/hurt/death)
+	# 4. Animaciones (mientras NO estemos en attack/hurt/death)
 	if not atacando and not _en_animacion_unica():
 		if velocity.x != 0:
 			anim.play("walk")
@@ -55,6 +64,33 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 	revisar_colisiones()
+
+
+# Si el jugador está cerca y a su espalda → girarse hacia él.
+# Así el lizard no se queda quieto mientras lo atacan por detrás.
+func detectar_jugador() -> void:
+	if atacando or esta_retrocediendo:
+		return
+	var jugador := get_tree().get_first_node_in_group("jugador")
+	if jugador == null or not is_instance_valid(jugador):
+		return
+
+	var dx: float = jugador.global_position.x - global_position.x
+	var dy: float = jugador.global_position.y - global_position.y
+
+	# Solo nos importan jugadores en el mismo "piso" (rango vertical pequeño)
+	# y dentro del rango horizontal
+	if abs(dy) > altura_deteccion:
+		return
+	if abs(dx) > rango_deteccion:
+		return
+	# Pequeña zona muerta para que no tiemble cuando el jugador está justo encima
+	if abs(dx) < 8.0:
+		return
+
+	var direccion_objetivo := -1 if dx < 0 else 1
+	if direccion_objetivo != direccion:
+		girar_enemigo()
 
 
 func _en_animacion_unica() -> bool:
