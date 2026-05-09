@@ -133,8 +133,11 @@ func iniciar_cinematica_jefe():
 	if has_node("AudioBossAmbiente"):
 		$AudioBossAmbiente.play()
 
-	# 👹 ENTRA EL JEFE (si existe en la escena)
-	var jefe = get_node_or_null("Enemigos/Jefe/Rey Mono")
+	# 👹 ENTRA EL JEFE (Genio del templo)
+	var jefe = get_node_or_null("Enemigos/Jefe/JefeGenio")
+	if jefe == null:
+		# Compatibilidad con jefes anteriores
+		jefe = get_node_or_null("Enemigos/Jefe/Rey Mono")
 	if jefe and jefe.has_method("iniciar_pelea"):
 		await jefe.iniciar_pelea(hud)
 

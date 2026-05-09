@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://bkg7pflquqnup" path="res://Assets/sprites/moustros/lizard_enemy.tscn" id="15_lizard"]
 [ext_resource type="PackedScene" uid="uid://djpxpgk5j0x5x" path="res://Assets/sprites/moustros/medusa_enemigo.tscn" id="16_medusa"]
 [ext_resource type="PackedScene" uid="uid://bb0sarcr57bb5" path="res://Assets/sprites/moustros/genio_Enemigo.tscn" id="17_genio"]
+[ext_resource type="PackedScene" path="res://Scenes/Enemies/JefeGenio.tscn" id="18_jefe"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yfouh"]
 texture = ExtResource("1_s4ryv")
@@ -13725,6 +13726,15 @@ sources/0 = SubResource("TileSetAtlasSource_yfouh")
 sources/2 = SubResource("TileSetAtlasSource_nhxrk")
 sources/3 = SubResource("TileSetAtlasSource_qgbrh")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_trigger_jefe"]
+size = Vector2(60, 400)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pared_izq"]
+size = Vector2(40, 600)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pared_der"]
+size = Vector2(40, 600)
+
 [sub_resource type="Animation" id="Animation_0ygfx"]
 resource_name = "Fade_out"
 length = 2.6666667
@@ -13796,17 +13806,77 @@ tile_set = SubResource("TileSet_2x6iy")
 position = Vector2(50, 517)
 
 [node name="SpawnBoss" type="Marker2D" parent="." unique_id=75878836]
+position = Vector2(7300, 280)
+
+[node name="TriggerJefe" type="Area2D" parent="." unique_id=180614873]
+position = Vector2(6600, 300)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TriggerJefe" unique_id=38401187]
+shape = SubResource("RectangleShape2D_trigger_jefe")
+
+[node name="ArenaBoss" type="Node2D" parent="." unique_id=839741586]
+
+[node name="ParedIzquierda" type="StaticBody2D" parent="ArenaBoss" unique_id=2008089814]
+position = Vector2(6500, 250)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ArenaBoss/ParedIzquierda" unique_id=536242761]
+shape = SubResource("RectangleShape2D_pared_izq")
+
+[node name="ParedDerecha" type="StaticBody2D" parent="ArenaBoss" unique_id=1332063687]
+position = Vector2(8000, 250)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ArenaBoss/ParedDerecha" unique_id=916017117]
+shape = SubResource("RectangleShape2D_pared_der")
+
+[node name="AudioBossAmbiente" type="AudioStreamPlayer" parent="." unique_id=1723564037]
+volume_db = -8.0
 
 [node name="Enemigos" type="Node2D" parent="." unique_id=996189241]
 
 [node name="LizardEnemy" parent="Enemigos" unique_id=1130544808 instance=ExtResource("15_lizard")]
-position = Vector2(1500, 210)
+position = Vector2(1500, 100)
+
+[node name="LizardEnemy2" parent="Enemigos" unique_id=1616683878 instance=ExtResource("15_lizard")]
+position = Vector2(3500, 100)
+
+[node name="LizardEnemy3" parent="Enemigos" unique_id=925003367 instance=ExtResource("15_lizard")]
+position = Vector2(4500, 100)
+
+[node name="LizardEnemy4" parent="Enemigos" unique_id=647671843 instance=ExtResource("15_lizard")]
+position = Vector2(900, 470)
 
 [node name="Medusa" parent="Enemigos" unique_id=743484142 instance=ExtResource("16_medusa")]
-position = Vector2(2200, 210)
+position = Vector2(2200, 100)
+
+[node name="Medusa2" parent="Enemigos" unique_id=1684972593 instance=ExtResource("16_medusa")]
+position = Vector2(3200, 100)
+
+[node name="Medusa3" parent="Enemigos" unique_id=982021017 instance=ExtResource("16_medusa")]
+position = Vector2(4000, 100)
+
+[node name="Medusa4" parent="Enemigos" unique_id=342022595 instance=ExtResource("16_medusa")]
+position = Vector2(5000, 100)
 
 [node name="Genio" parent="Enemigos" unique_id=980838238 instance=ExtResource("17_genio")]
 position = Vector2(2800, 80)
+
+[node name="Genio2" parent="Enemigos" unique_id=127058620 instance=ExtResource("17_genio")]
+position = Vector2(1700, 80)
+
+[node name="Genio3" parent="Enemigos" unique_id=1664331978 instance=ExtResource("17_genio")]
+position = Vector2(3700, 80)
+
+[node name="Genio4" parent="Enemigos" unique_id=394594138 instance=ExtResource("17_genio")]
+position = Vector2(4800, 80)
+
+[node name="Jefe" type="Node2D" parent="Enemigos" unique_id=743305157]
+
+[node name="JefeGenio" parent="Enemigos/Jefe" unique_id=1945408010 instance=ExtResource("18_jefe")]
+position = Vector2(7300, 280)
+vida_max = 30
+dano_contacto = 35
+cooldown_disparo_normal = 1.4
+cooldown_disparo_furioso = 0.7
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1151552552]
 scale = Vector2(2, 2)
@@ -13916,4 +13986,5 @@ visible = false
 stream = ExtResource("14_jotr5")
 volume_db = -10.0
 
+[connection signal="body_entered" from="TriggerJefe" to="." method="_on_trigger_jefe_body_entered"]
 [connection signal="pressed" from="HUD/BotonPausa" to="." method="_on_boton_pausa_pressed"]
