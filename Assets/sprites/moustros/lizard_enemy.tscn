@@ -1,0 +1,152 @@
+[gd_scene format=3 uid="uid://bkg7pflquqnup"]
+
+[ext_resource type="Texture2D" uid="uid://dvb3dwufqd7nq" path="res://Assets/sprites/moustros/lizard/Attack1.png" id="1_v12pj"]
+[ext_resource type="Texture2D" uid="uid://dtdlnk635t1ab" path="res://Assets/sprites/moustros/lizard/Attack2.png" id="2_sv866"]
+[ext_resource type="Texture2D" uid="uid://0tbokf4l2m4w" path="res://Assets/sprites/moustros/lizard/Attack3.png" id="3_3q7rd"]
+[ext_resource type="Texture2D" uid="uid://diqup801wqlqw" path="res://Assets/sprites/moustros/lizard/Attack4.png" id="4_of4c5"]
+[ext_resource type="Texture2D" uid="uid://dudx6a262iprm" path="res://Assets/sprites/moustros/lizard/Attack5.png" id="5_e8rle"]
+[ext_resource type="Texture2D" uid="uid://dbr7rl0d17nkx" path="res://Assets/sprites/moustros/lizard/Walk6.png" id="6_6o14f"]
+[ext_resource type="Texture2D" uid="uid://bryeax6awu1sg" path="res://Assets/sprites/moustros/lizard/Death1.png" id="7_ivllv"]
+[ext_resource type="Texture2D" uid="uid://0rsptcd43wdl" path="res://Assets/sprites/moustros/lizard/Death2.png" id="8_2uyw5"]
+[ext_resource type="Texture2D" uid="uid://1pjscc3qvhoa" path="res://Assets/sprites/moustros/lizard/Death3.png" id="9_75aw7"]
+[ext_resource type="Texture2D" uid="uid://dhs6jrl0r6aet" path="res://Assets/sprites/moustros/lizard/Death4.png" id="10_kbe8a"]
+[ext_resource type="Texture2D" uid="uid://lskx1o86jxqc" path="res://Assets/sprites/moustros/lizard/Death5.png" id="11_7vakk"]
+[ext_resource type="Texture2D" uid="uid://q4m5wvhoifj8" path="res://Assets/sprites/moustros/lizard/Death6.png" id="12_h1m8r"]
+[ext_resource type="Texture2D" uid="uid://b8bnqpcjmrn0g" path="res://Assets/sprites/moustros/lizard/Hurt1.png" id="13_quyke"]
+[ext_resource type="Texture2D" uid="uid://bfcibwn8cgike" path="res://Assets/sprites/moustros/lizard/Hurt2.png" id="14_ffk1l"]
+[ext_resource type="Texture2D" uid="uid://cm3ihrkdm47ef" path="res://Assets/sprites/moustros/lizard/Idle1.png" id="15_wg72i"]
+[ext_resource type="Texture2D" uid="uid://cww3gu4imu33i" path="res://Assets/sprites/moustros/lizard/Idle2.png" id="16_jh6n8"]
+[ext_resource type="Texture2D" uid="uid://drgmmolib6j8c" path="res://Assets/sprites/moustros/lizard/Idle3.png" id="17_u46qb"]
+[ext_resource type="Texture2D" uid="uid://df8lx3f6oxtx7" path="res://Assets/sprites/moustros/lizard/Walk1.png" id="18_3dsct"]
+[ext_resource type="Texture2D" uid="uid://c06tav7cnsn37" path="res://Assets/sprites/moustros/lizard/Walk2.png" id="19_k8sln"]
+[ext_resource type="Texture2D" uid="uid://6eyxtyq06xlv" path="res://Assets/sprites/moustros/lizard/Walk3.png" id="20_vvi1r"]
+[ext_resource type="Texture2D" uid="uid://d3b6grl20i8j7" path="res://Assets/sprites/moustros/lizard/Walk4.png" id="21_rhql1"]
+[ext_resource type="Texture2D" uid="uid://cy041wsmvryhe" path="res://Assets/sprites/moustros/lizard/Walk5.png" id="22_4ot4d"]
+[ext_resource type="Script" uid="uid://wh1x70y4gyoa" path="res://Assets/sprites/moustros/lizard_enemy.gd" id="23_sv866"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j53vr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_v12pj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_sv866")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_3q7rd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_of4c5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_e8rle")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_6o14f")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_ivllv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_2uyw5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_75aw7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_kbe8a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_7vakk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_h1m8r")
+}],
+"loop": false,
+"name": &"death",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_h1m8r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_quyke")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_ffk1l")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_wg72i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_jh6n8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_u46qb")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("17_u46qb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_3dsct")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_k8sln")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_vvi1r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_rhql1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_4ot4d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_6o14f")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1fdyl"]
+size = Vector2(42, 49)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ol7l1"]
+size = Vector2(22, 20)
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=946315806]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1832410837]
+sprite_frames = SubResource("SpriteFrames_j53vr")
+animation = &"death"
+script = ExtResource("23_sv866")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1669131812]
+position = Vector2(-13, 4.5)
+shape = SubResource("RectangleShape2D_1fdyl")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=625429682]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1551639692]
+position = Vector2(31, 17)
+shape = SubResource("RectangleShape2D_ol7l1")
+disabled = true
