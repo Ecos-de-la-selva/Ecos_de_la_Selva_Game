@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://bnyt1jvjd1sv8" path="res://Scenes/Menu/MenuPause/MenuPause.tscn" id="12_pfme4"]
 [ext_resource type="PackedScene" uid="uid://c6k7e4swskhh2" path="res://Scenes/Menu/GameOver/gameover.tscn" id="13_b4xdy"]
 [ext_resource type="AudioStream" uid="uid://cvxr2f3rcikrl" path="res://Assets/Sounds/SonidoLevel1/hitslab-ethnic-tribal-jungle-music-457833.mp3" id="14_jotr5"]
+[ext_resource type="PackedScene" uid="uid://bkg7pflquqnup" path="res://Assets/sprites/moustros/lizard_enemy.tscn" id="15_lizard"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yfouh"]
 texture = ExtResource("1_s4ryv")
@@ -13802,6 +13803,11 @@ tile_set = SubResource("TileSet_2x6iy")
 position = Vector2(50, 517)
 
 [node name="SpawnBoss" type="Marker2D" parent="." unique_id=75878836]
+
+[node name="Enemigos" type="Node2D" parent="."]
+
+[node name="LizardEnemy" parent="Enemigos" instance=ExtResource("15_lizard")]
+position = Vector2(1500, 210)
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1151552552]
 scale = Vector2(2, 2)

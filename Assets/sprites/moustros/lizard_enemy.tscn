@@ -133,20 +133,26 @@ size = Vector2(42, 49)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ol7l1"]
 size = Vector2(22, 20)
 
-[node name="CharacterBody2D" type="CharacterBody2D" unique_id=946315806]
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=946315806 groups=["enemigos"]]
+collision_layer = 2
+collision_mask = 13
+script = ExtResource("23_sv866")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1832410837]
 sprite_frames = SubResource("SpriteFrames_j53vr")
-animation = &"death"
-script = ExtResource("23_sv866")
+animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1669131812]
 position = Vector2(-13, 4.5)
 shape = SubResource("RectangleShape2D_1fdyl")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=625429682]
+collision_layer = 0
+collision_mask = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1551639692]
 position = Vector2(31, 17)
 shape = SubResource("RectangleShape2D_ol7l1")
 disabled = true
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
