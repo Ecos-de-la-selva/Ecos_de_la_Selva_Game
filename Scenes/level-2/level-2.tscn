@@ -1430,7 +1430,6 @@ texture = ExtResource("2_y2liy")
 33:35/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 34:35/0 = 0
 35:35/0 = 0
-35:35/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 36:35/0 = 0
 37:35/0 = 0
 38:35/0 = 0
@@ -1477,7 +1476,6 @@ texture = ExtResource("2_y2liy")
 33:36/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 34:36/0 = 0
 35:36/0 = 0
-35:36/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 36:36/0 = 0
 36:36/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 37:36/0 = 0
@@ -13787,7 +13785,7 @@ script = ExtResource("0_lvl2")
 repeat_size = Vector2(2304, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=1321307592]
-position = Vector2(1045, 2)
+position = Vector2(1042, -1)
 texture = ExtResource("2_qgbrh")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1537079598]

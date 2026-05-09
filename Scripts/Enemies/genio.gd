@@ -11,6 +11,12 @@ extends CharacterBody2D
 @export var dano_ataque: int = 30
 @export var retroceso_fuerza := 200.0
 
+# Disparo a distancia
+@export var rango_deteccion := 450.0
+@export var cooldown_disparo := 1.8
+@export var dano_proyectil: int = 20
+const PROYECTIL_MAGICO := preload("res://Scenes/Enemies/proyectil_magico.tscn")
+
 # --- ESTADO INTERNO ---
 var direccion := -1
 var atacando := false
@@ -18,6 +24,7 @@ var puede_atacar := true
 var muerto := false
 var esta_retrocediendo := false
 var posicion_inicial := Vector2.ZERO
+var jugador: Node2D = null
 
 # --- NODOS ---
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
@@ -27,9 +34,11 @@ var posicion_inicial := Vector2.ZERO
 
 func _ready() -> void:
 	add_to_group("enemigos")
+	# Mantenemos el área de ataque por si el jugador llega a tocar al genio
+	# (golpe cuerpo a cuerpo de respaldo).
 	area_ataque.monitoring = true
 	posicion_inicial = global_position
-	anim.play("flight")
+	reproducir_movimiento()
 
 
 func _physics_process(_delta: float) -> void:
@@ -37,8 +46,11 @@ func _physics_process(_delta: float) -> void:
 		velocity = Vector2.ZERO
 		return
 
+	# Buscar al jugador (lo cacheamos por rendimiento)
+	if jugador == null or not is_instance_valid(jugador):
+		jugador = get_tree().get_first_node_in_group("jugador")
+
 	# El genio vuela: NO se le aplica gravedad.
-	# 1. Movimiento horizontal
 	if esta_retrocediendo:
 		velocity = velocity.move_toward(Vector2.ZERO, 25)
 		if velocity.length() < 5:
@@ -56,12 +68,19 @@ func _physics_process(_delta: float) -> void:
 		elif desvio < -rango_patrulla and direccion == -1:
 			girar_enemigo()
 
-	# 2. Animaciones cuando no está en attack/hurt/death
-	if not atacando and not _en_animacion_unica():
-		anim.play("flight")
+		# Si el jugador está cerca y mirando hacia él → disparar
+		if jugador and puede_atacar:
+			var distancia := global_position.distance_to(jugador.global_position)
+			if distancia <= rango_deteccion:
+				# Mira al jugador antes de disparar
+				direccion = -1 if jugador.global_position.x < global_position.x else 1
+				disparar_proyectil()
 
-	# 3. Voltear sprite según dirección
-	# El sprite original mira a la derecha → solo lo volteamos al ir a la izquierda
+	# Animación de movimiento
+	if not atacando and not _en_animacion_unica():
+		reproducir_movimiento()
+
+	# Voltear sprite (sprite original mira a la derecha)
 	anim.flip_h = (direccion == -1)
 
 	move_and_slide()
@@ -72,23 +91,36 @@ func _en_animacion_unica() -> bool:
 	return anim.animation in ["hurt", "death", "attack", "magic_attack"] and anim.is_playing()
 
 
-# Recorre las colisiones del último move_and_slide:
-# - si tocó al jugador → ataque mágico
-# - si tocó una pared → gira
+func reproducir_movimiento() -> void:
+	if anim.sprite_frames.has_animation("flight"):
+		anim.play("flight")
+	elif anim.sprite_frames.has_animation("idle"):
+		anim.play("idle")
+
+
+func reproducir_ataque() -> void:
+	# La animación "attack" muestra al genio lanzando el proyectil con la mano,
+	# así que la usamos al disparar. "magic_attack" queda como respaldo.
+	if anim.sprite_frames.has_animation("attack"):
+		anim.play("attack")
+	elif anim.sprite_frames.has_animation("magic_attack"):
+		anim.play("magic_attack")
+
+
 func revisar_colisiones() -> void:
 	if atacando or muerto:
 		return
 
 	for i in get_slide_collision_count():
 		var colision := get_slide_collision(i)
-		# Solo nos interesan colisiones laterales (en caso de que tope con algo)
 		if abs(colision.get_normal().x) < 0.5:
 			continue
 
 		var cuerpo := colision.get_collider()
 		if cuerpo and cuerpo.is_in_group("jugador"):
+			# Golpe cuerpo a cuerpo de respaldo
 			if puede_atacar:
-				ejecutar_ataque()
+				ejecutar_ataque_cercano()
 			return
 
 		girar_enemigo()
@@ -100,37 +132,64 @@ func girar_enemigo() -> void:
 	area_ataque.scale.x *= -1
 
 
-# --- ATAQUE MÁGICO ---
-func ejecutar_ataque() -> void:
+# --- DISPARO A DISTANCIA ---
+func disparar_proyectil() -> void:
+	if muerto or jugador == null:
+		return
 	atacando = true
 	puede_atacar = false
 	velocity = Vector2.ZERO
+	reproducir_ataque()
 
-	# Usamos magic_attack si existe, si no la animación attack normal
-	if anim.sprite_frames.has_animation("magic_attack"):
-		anim.play("magic_attack")
-	else:
-		anim.play("attack")
+	# La animación "attack" tiene ~4 frames a 14 FPS (~0.28s).
+	# Esperamos hasta el frame en el que el genio extiende la mano (~0.15s)
+	# para que el proyectil aparezca exactamente cuando "lanza" el conjuro.
+	await get_tree().create_timer(0.15).timeout
+	if muerto or jugador == null or not is_instance_valid(jugador):
+		atacando = false
+		await get_tree().create_timer(cooldown_disparo).timeout
+		puede_atacar = true
+		return
 
-	# El conjuro tarda en formarse antes de hacer daño
+	# Instanciar el proyectil hacia el jugador
+	var proyectil := PROYECTIL_MAGICO.instantiate()
+	proyectil.direccion = (jugador.global_position - global_position).normalized()
+	proyectil.dano = dano_proyectil
+	# Posición inicial: un poquito al frente del genio (a la altura de su mano)
+	proyectil.global_position = global_position + proyectil.direccion * 25.0
+	get_tree().current_scene.add_child(proyectil)
+
+	# Dejar terminar la animación de ataque
+	await get_tree().create_timer(0.2).timeout
+	atacando = false
+
+	# Cooldown
+	await get_tree().create_timer(cooldown_disparo).timeout
+	puede_atacar = true
+
+
+# --- ATAQUE CUERPO A CUERPO (respaldo) ---
+func ejecutar_ataque_cercano() -> void:
+	atacando = true
+	puede_atacar = false
+	velocity = Vector2.ZERO
+	reproducir_ataque()
+
 	await get_tree().create_timer(0.5).timeout
 	if muerto:
 		return
 	colision_ataque.disabled = false
 
-	# Tiempo que el ataque puede hacer daño
 	await get_tree().create_timer(0.3).timeout
 	colision_ataque.disabled = true
 
 	await get_tree().create_timer(0.4).timeout
 	atacando = false
 
-	# Cooldown antes del siguiente ataque
 	await get_tree().create_timer(1.0).timeout
 	puede_atacar = true
 
 
-# Cuando el conjuro toca al jugador → daño
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if muerto:
 		return
@@ -145,13 +204,11 @@ func recibir_danio(dmg: int, posicion_atacante: Vector2 = Vector2.ZERO) -> void:
 
 	vida -= dmg
 
-	# Retroceso (más suave porque está volando)
 	if posicion_atacante != Vector2.ZERO:
 		esta_retrocediendo = true
 		var direccion_empuje := (global_position - posicion_atacante).normalized()
 		velocity = direccion_empuje * retroceso_fuerza
 
-	# Flash blanco
 	var tween_hit := create_tween()
 	tween_hit.tween_property(anim, "modulate", Color(10, 10, 10), 0.05)
 	tween_hit.tween_property(anim, "modulate", Color(1, 1, 1), 0.05)
