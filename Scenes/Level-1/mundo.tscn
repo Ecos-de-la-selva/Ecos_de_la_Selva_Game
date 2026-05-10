@@ -20,7 +20,6 @@
 [ext_resource type="PackedScene" uid="uid://bnyt1jvjd1sv8" path="res://Scenes/Menu/MenuPause/MenuPause.tscn" id="17_gpp8l"]
 [ext_resource type="PackedScene" uid="uid://c6k7e4swskhh2" path="res://Scenes/Menu/GameOver/gameover.tscn" id="18_2fhfk"]
 [ext_resource type="AudioStream" uid="uid://cvxr2f3rcikrl" path="res://Assets/Sounds/SonidoLevel1/hitslab-ethnic-tribal-jungle-music-457833.mp3" id="19_ub5yd"]
-[ext_resource type="PackedScene" uid="uid://ctkmjfy253wt6" path="res://Scenes/Dialogos/Dialogo1/interfaz_dialogo.tscn" id="20_ciuhc"]
 [ext_resource type="PackedScene" uid="uid://b2pffrr0nfnkh" path="res://Scenes/Score/interfaz_hud.tscn" id="21_546lb"]
 [ext_resource type="PackedScene" uid="uid://8h4sfufmn1gs" path="res://Scenes/Enemigos/mono.tscn" id="22_86utl"]
 [ext_resource type="PackedScene" uid="uid://dn21rnnh5e6ec" path="res://Scenes/Enemigos/Hongo.tscn" id="23_qs2c4"]
@@ -238,14 +237,17 @@ script = ExtResource("14_e1iy0")
 libraries/ = SubResource("AnimationLibrary_jcf73")
 autoplay = &"Fade_out"
 
-[node name="BotonPausa" type="TextureButton" parent="HUD" unique_id=692679576]
+[node name="HUDBotones" type="CanvasLayer" parent="." unique_id=692679577]
+layer = 11
+
+[node name="BotonPausa" type="TextureButton" parent="HUDBotones" unique_id=692679576]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -50.0
-offset_top = 16.0
-offset_right = -16.0
-offset_bottom = 50.0
+offset_left = -70.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 70.0
 grow_horizontal = 0
 texture_normal = ExtResource("15_e1iy0")
 texture_pressed = ExtResource("16_jcf73")
@@ -269,8 +271,6 @@ visible = false
 [node name="MusicaAmbiente" type="AudioStreamPlayer" parent="." unique_id=1970783696]
 stream = ExtResource("19_ub5yd")
 volume_db = -10.0
-
-[node name="InterfazDialogo" parent="." unique_id=498964823 instance=ExtResource("20_ciuhc")]
 
 [node name="InterfazHUD" parent="." unique_id=1805701083 instance=ExtResource("21_546lb")]
 
@@ -392,7 +392,7 @@ stream = ExtResource("29_10u1e")
 
 [node name="TouchControls" parent="." instance=ExtResource("30_touch")]
 
-[connection signal="pressed" from="HUD/BotonPausa" to="." method="_on_boton_pausa_pressed"]
+[connection signal="pressed" from="HUDBotones/BotonPausa" to="." method="_on_boton_pausa_pressed"]
 [connection signal="body_entered" from="TriggerJefe" to="." method="_on_trigger_jefe_body_entered"]
 
 [editable path="Enemigos/Jefe/Rey Mono"]

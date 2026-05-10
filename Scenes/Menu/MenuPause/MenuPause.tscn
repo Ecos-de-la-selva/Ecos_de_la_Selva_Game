@@ -17,31 +17,55 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 0
 script = ExtResource("1_d6wwu")
 
-[node name="ColorNegro" type="Sprite2D" parent="." unique_id=1301117848]
+[node name="ColorNegro" type="TextureRect" parent="." unique_id=1301117848]
 modulate = Color(1, 1, 1, 0.73333335)
-position = Vector2(574.25, 322.5)
-scale = Vector2(4.393536, 3.390625)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("1_nha8i")
+expand_mode = 1
+stretch_mode = 6
 
-[node name="TabActive" type="Sprite2D" parent="." unique_id=1434852247]
-position = Vector2(573.74994, 324.00003)
-scale = Vector2(2.5931175, 4.984616)
+[node name="TabActive" type="TextureRect" parent="." unique_id=1434852247]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -260.0
+offset_top = -220.0
+offset_right = 260.0
+offset_bottom = 220.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("1_rkese")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=2066155421]
 process_mode = 3
-custom_minimum_size = Vector2(0, -6.76)
 layout_mode = 1
-anchors_preset = -1
-anchor_left = -0.083307296
-anchor_right = 0.097248286
-offset_left = 448.97
-offset_top = 112.895
-offset_right = 662.97
-offset_bottom = 482.895
-metadata/_edit_use_anchors_ = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -110.0
+offset_top = -160.0
+offset_right = 110.0
+offset_bottom = 160.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
 
 [node name="BotonContinuar" type="TextureButton" parent="VBoxContainer" unique_id=423268533]
 process_mode = 3
