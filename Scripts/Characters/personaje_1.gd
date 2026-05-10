@@ -30,7 +30,7 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-	if Input.is_action_just_pressed("click_izquierdo") and not is_attacking:
+	if Input.is_action_just_pressed("atacar") and not is_attacking:
 		attack()
 
 	if not is_attacking:

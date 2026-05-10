@@ -16,10 +16,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -487.0
-offset_top = -85.0
-offset_right = 402.0
-offset_bottom = -11.0
+offset_left = -444.5
+offset_top = -74.0
+offset_right = 444.5
 grow_horizontal = 2
 grow_vertical = 0
 texture = ExtResource("2_ccopc")
@@ -42,14 +41,16 @@ one_shot = true
 stream = ExtResource("4_6poaj")
 max_polyphony = 4
 
-[node name="Skip" type="TextureButton" parent="." unique_id=156053612]
-offset_left = 919.0
-offset_top = 596.0
-offset_right = 953.0
-offset_bottom = 631.0
+[node name="Skip" type="TextureButton" parent="NinePatchRect" unique_id=156053612]
+layout_mode = 0
+offset_left = 784.5
+offset_top = 13.0
+offset_right = 836.5
+offset_bottom = 65.0
 texture_normal = ExtResource("5_jcp33")
 texture_pressed = ExtResource("6_k2hwt")
 ignore_texture_size = true
 stretch_mode = 0
+metadata/_edit_use_anchors_ = true
 
-[connection signal="pressed" from="Skip" to="." method="_on_skip_pressed"]
+[connection signal="pressed" from="NinePatchRect/Skip" to="." method="_on_skip_pressed"]

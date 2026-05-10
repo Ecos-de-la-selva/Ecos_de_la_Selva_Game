@@ -1,7 +1,7 @@
 extends Control
 
 # --- CONFIGURACIÓN DE RUTAS ---
-const ESCENA_MUNDO = "res://Scenes/Level-1/Mundo.tscn" 
+const ESCENA_MUNDO = "res://Scenes/Level-1/mundo.tscn" 
 
 # --- REFERENCIAS A NODOS ---
 @onready var btn_hombre = $BotonHombre

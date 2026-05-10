@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://dljmfske26cgd" path="res://Assets/Backgrounds/Background_Selva/02.png" id="4_2gdik"]
 [ext_resource type="Texture2D" uid="uid://dckf1x4c1lkhj" path="res://Assets/UI/barraroja.png" id="5_dfdqk"]
 [ext_resource type="Texture2D" uid="uid://djgjsi7lmukfi" path="res://Assets/Backgrounds/Background_Selva/03.png" id="5_l26vs"]
-[ext_resource type="Texture2D" uid="uid://sxglhb5flk75" path="res://Assets/Backgrounds/Background_Selva/04.png" id="6_76kui"]
 [ext_resource type="PackedScene" uid="uid://vy46ny003hmt" path="res://Scenes/Enemigos/murcielago.tscn" id="8_2gdik"]
 [ext_resource type="Script" uid="uid://5bw5l4ypcbif" path="res://Scripts/HUD/hud.gd" id="9_dfdqk"]
 [ext_resource type="Texture2D" uid="uid://drjg05nehki7g" path="res://Assets/UI/BarraFondoVacia.png" id="10_4fdse"]
@@ -30,7 +29,8 @@
 [ext_resource type="AudioStream" uid="uid://cx2jn56m7n2l5" path="res://Assets/Sounds/Boss/flutie8211-gorilla-roar-523007.mp3" id="28_rn7yk"]
 [ext_resource type="AudioStream" uid="uid://6pj6repvvjvx" path="res://Assets/Sounds/Boss/theeoffender1-final-fight-320156.mp3" id="29_10u1e"]
 [ext_resource type="PackedScene" uid="uid://dr5vc7jla0sqa" path="res://Scenes/Fruit/chontaduro.tscn" id="30_10u1e"]
-[ext_resource type="PackedScene" uid="uid://doxn2cm1fybif" path="res://Scenes/Save/checkpoint.tscn" id="31_tb214"]
+[ext_resource type="PackedScene" uid="uid://6ueytw10lrl8" path="res://Scenes/ZonaMuerte/zona_muerte.tscn" id="31_ddr0u"]
+[ext_resource type="PackedScene" uid="uid://ccl6kbobl7mnw" path="res://Scenes/Controles/Controles.tscn" id="31_tb214"]
 
 [sub_resource type="Animation" id="Animation_0ygfx"]
 resource_name = "Fade_out"
@@ -94,6 +94,59 @@ size = Vector2(425, 455.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vksgs"]
 size = Vector2(365.125, 352)
 
+[sub_resource type="Animation" id="Animation_h4pm5"]
+resource_name = "Fade_out"
+length = 2.6666667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_0n4j3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_dko3h"]
+resource_name = "appear"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_10u1e"]
+_data = {
+&"Fade_out": SubResource("Animation_h4pm5"),
+&"RESET": SubResource("Animation_0n4j3"),
+&"appear": SubResource("Animation_dko3h")
+}
+
 [node name="Mundo" type="Node2D" unique_id=1465186205]
 script = ExtResource("1_4t7lg")
 
@@ -115,8 +168,8 @@ motion_scale = Vector2(0.8, 1)
 motion_mirroring = Vector2(1250, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer" unique_id=1560988064]
-position = Vector2(641.00006, 340)
-scale = Vector2(5.0156255, 5.083333)
+position = Vector2(641.00006, 298.5)
+scale = Vector2(5.0156255, 5.6597223)
 texture = ExtResource("3_28gre")
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1233044432]
@@ -125,8 +178,8 @@ motion_scale = Vector2(0.2, 1)
 motion_mirroring = Vector2(1250, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2" unique_id=535079532]
-position = Vector2(641, 339.99997)
-scale = Vector2(5.015625, 5.083333)
+position = Vector2(641, 298.49997)
+scale = Vector2(5.015625, 5.659722)
 texture = ExtResource("3_ott5c")
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground" unique_id=722290767]
@@ -135,8 +188,8 @@ motion_scale = Vector2(0.4, 1)
 motion_mirroring = Vector2(1250, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3" unique_id=589407246]
-position = Vector2(641, 339.99997)
-scale = Vector2(5.015625, 5.083333)
+position = Vector2(641, 298.49997)
+scale = Vector2(5.015625, 5.659722)
 texture = ExtResource("4_2gdik")
 
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1084008769]
@@ -145,17 +198,9 @@ motion_scale = Vector2(0.6, 1)
 motion_mirroring = Vector2(1250, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4" unique_id=677119190]
-position = Vector2(641.5, 339.99997)
-scale = Vector2(5.0117188, 5.083333)
+position = Vector2(641.5, 298.49997)
+scale = Vector2(5.0117188, 5.6597223)
 texture = ExtResource("5_l26vs")
-
-[node name="ParallaxLayer5" type="ParallaxLayer" parent="ParallaxBackground" unique_id=2146907285]
-visible = false
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer5" unique_id=508096348]
-position = Vector2(577.5, 353.5)
-scale = Vector2(5.5117188, 4.895833)
-texture = ExtResource("6_76kui")
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1044146416]
 scale = Vector2(2, 2)
@@ -195,12 +240,13 @@ metadata/_edit_use_anchors_ = true
 
 [node name="ContenedorJefe" type="Control" parent="HUD/Control" unique_id=882837413]
 layout_mode = 1
-anchors_preset = 0
-offset_left = 136.5
-offset_top = -14.5
-offset_right = 225.0
-offset_bottom = 25.5
-metadata/_edit_use_anchors_ = true
+anchor_left = 0.6402439
+anchor_right = 0.6402439
+offset_left = 127.75
+offset_top = -15.25
+offset_right = 216.25
+offset_bottom = 24.75
+grow_horizontal = 2
 
 [node name="MarcoJefe" type="TextureRect" parent="HUD/Control/ContenedorJefe" unique_id=869560408]
 layout_mode = 0
@@ -237,11 +283,30 @@ script = ExtResource("14_e1iy0")
 libraries/ = SubResource("AnimationLibrary_jcf73")
 autoplay = &"Fade_out"
 
-[node name="BotonPausa" type="TextureButton" parent="HUD" unique_id=692679576]
-offset_left = 542.5
-offset_top = 11.0
-offset_right = 566.5
-offset_bottom = 33.5
+[node name="Control2" type="Control" parent="HUD" unique_id=1319157804]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -62.0
+offset_top = 13.0
+offset_right = -22.0
+offset_bottom = 53.0
+grow_horizontal = 2
+
+[node name="BotonPausa" type="TextureButton" parent="HUD/Control2" unique_id=692679576]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.587
+anchor_top = 0.23700002
+anchor_right = 0.587
+anchor_bottom = 0.23700002
+offset_left = -16.48
+offset_top = -9.4800005
+offset_right = 17.52
+offset_bottom = 22.52
+grow_horizontal = 2
+grow_vertical = 2
 texture_normal = ExtResource("15_e1iy0")
 texture_pressed = ExtResource("16_jcf73")
 ignore_texture_size = true
@@ -253,6 +318,7 @@ layer = 10
 visible = false
 
 [node name="Control" parent="CapaPausa" unique_id=1436490130 instance=ExtResource("17_gpp8l")]
+offset_right = -5.0
 
 [node name="Gameover" type="CanvasLayer" parent="." unique_id=1645758104]
 process_mode = 3
@@ -384,6 +450,7 @@ shape = SubResource("RectangleShape2D_vksgs")
 
 [node name="AudioBossAmbiente" type="AudioStreamPlayer" parent="." unique_id=1795446778]
 stream = ExtResource("29_10u1e")
+volume_db = -10.0
 
 [node name="Consumibles" type="Node2D" parent="." unique_id=893743054]
 position = Vector2(6990, 296)
@@ -404,12 +471,24 @@ scale = Vector2(2, 2)
 position = Vector2(4461, 64)
 scale = Vector2(2, 2)
 
-[node name="Checkpoint" type="Node2D" parent="." unique_id=1049190709]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1451644227]
 
-[node name="Checkpoint" parent="Checkpoint" unique_id=1080163000 instance=ExtResource("31_tb214")]
-position = Vector2(3303, 85)
+[node name="Transicion" type="Sprite2D" parent="CanvasLayer" unique_id=1349862092]
+visible = false
+position = Vector2(591.18744, 334)
+scale = Vector2(4.652567, 3.5520833)
+texture = ExtResource("13_roxh1")
+script = ExtResource("14_e1iy0")
 
-[connection signal="pressed" from="HUD/BotonPausa" to="." method="_on_boton_pausa_pressed"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Transicion" unique_id=38052806]
+libraries/ = SubResource("AnimationLibrary_10u1e")
+
+[node name="Controles" parent="." unique_id=1910283568 instance=ExtResource("31_tb214")]
+
+[node name="ZonaMuerte" parent="." unique_id=682039928 instance=ExtResource("31_ddr0u")]
+position = Vector2(55, 720)
+
+[connection signal="pressed" from="HUD/Control2/BotonPausa" to="." method="_on_boton_pausa_pressed"]
 [connection signal="body_entered" from="TriggerJefe" to="." method="_on_trigger_jefe_body_entered"]
 
 [editable path="Enemigos/Jefe/Rey Mono"]

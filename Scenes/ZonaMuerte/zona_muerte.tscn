@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://6ueytw10lrl8"]
+
+[ext_resource type="Script" uid="uid://ox8ihkqeatv5" path="res://Scripts/ZOnaMuerte/zona_muerte.gd" id="1_ij0o8"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ij0o8"]
+distance = -0.25
+
+[node name="ZonaMuerte" type="Area2D" unique_id=682039928]
+script = ExtResource("1_ij0o8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1285166308]
+shape = SubResource("WorldBoundaryShape2D_ij0o8")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://ddlrtd07pl6wj"]
+
+[ext_resource type="Script" uid="uid://cywg8ygh6arww" path="res://Scenes/CambioNivel/escenas.gd" id="1_3f8rt"]
+
+[node name="Escenas" type="Node2D" unique_id=262799166]
+script = ExtResource("1_3f8rt")

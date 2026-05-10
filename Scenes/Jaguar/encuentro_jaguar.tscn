@@ -1,19 +1,26 @@
 [gd_scene format=3 uid="uid://b0hcagfeyx8bi"]
 
 [ext_resource type="Script" uid="uid://bhdmyvvhiuwsg" path="res://Scripts/Jaguar/encuentro_jaguar.gd" id="1_8gmlt"]
+[ext_resource type="PackedScene" uid="uid://chd4k7nnfhgxt" path="res://Scenes/Characters/Personaje1_Montado.tscn" id="2_ks8n8"]
 [ext_resource type="Texture2D" uid="uid://tfcpdn0d6gor" path="res://Assets/Animals/Jaguar/Derribado.png" id="2_q1d4t"]
 [ext_resource type="PackedScene" uid="uid://8h4sfufmn1gs" path="res://Scenes/Enemigos/mono.tscn" id="3_ks8n8"]
 [ext_resource type="PackedScene" uid="uid://oa6h0vu8vw18" path="res://Scenes/Jaguar/jaguar.tscn" id="4_q1d4t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_avuyi"]
-size = Vector2(1304, 179.5)
+size = Vector2(1152, 179.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q1d4t"]
 size = Vector2(812, 184)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ks8n8"]
+size = Vector2(126, 54)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gj27u"]
+size = Vector2(68, 181)
+
 [node name="EncuentroJaguar" type="Node2D" unique_id=1720820441]
 script = ExtResource("1_8gmlt")
-escena_jaguar_pro = ExtResource("4_q1d4t")
+personaje_montado_hombre = ExtResource("2_ks8n8")
 
 [node name="JaguarHerido" type="Sprite2D" parent="." unique_id=1544817480]
 position = Vector2(103.874985, 31.000004)
@@ -21,32 +28,31 @@ scale = Vector2(3.400944, 3.1764705)
 texture = ExtResource("2_q1d4t")
 
 [node name="ZonaActivacion" type="Area2D" parent="." unique_id=2107483833]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ZonaActivacion" unique_id=544917641]
-position = Vector2(132, 26.75)
+position = Vector2(208, 26.75)
 shape = SubResource("RectangleShape2D_avuyi")
 
 [node name="MonosEnemigos" type="Node2D" parent="." unique_id=2048854986]
 
 [node name="Mono" parent="MonosEnemigos" unique_id=393235633 instance=ExtResource("3_ks8n8")]
-position = Vector2(0, 36)
+position = Vector2(-17, 0)
 scale = Vector2(4, 4)
 
 [node name="Mono2" parent="MonosEnemigos" unique_id=1842614166 instance=ExtResource("3_ks8n8")]
-position = Vector2(48, 36)
+position = Vector2(64, -7)
 scale = Vector2(4, 4)
 
 [node name="Mono3" parent="MonosEnemigos" unique_id=687147730 instance=ExtResource("3_ks8n8")]
-position = Vector2(209, 36)
+position = Vector2(0, -7)
 scale = Vector2(4, 4)
 
 [node name="Mono4" parent="MonosEnemigos" unique_id=46351481 instance=ExtResource("3_ks8n8")]
-position = Vector2(257, 36)
+position = Vector2(-44, 0)
 scale = Vector2(4, 4)
 
 [node name="Mono5" parent="MonosEnemigos" unique_id=1109092489 instance=ExtResource("3_ks8n8")]
-position = Vector2(-48, 36)
+position = Vector2(-93, 0)
 scale = Vector2(4, 4)
 
 [node name="Jaguar" parent="." unique_id=1170129077 instance=ExtResource("4_q1d4t")]
@@ -55,10 +61,23 @@ position = Vector2(132, 33)
 scale = Vector2(4, 4)
 
 [node name="AreaVigilancia" type="Area2D" parent="." unique_id=245940800]
+visible = false
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaVigilancia" unique_id=381169347]
 position = Vector2(132, 27)
 shape = SubResource("RectangleShape2D_q1d4t")
+
+[node name="AreaJaguar" type="Area2D" parent="." unique_id=104051689]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaJaguar" unique_id=1241446905]
+position = Vector2(124, 58)
+shape = SubResource("RectangleShape2D_ks8n8")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=663323897]
+
+[node name="MuroInvisible" type="CollisionShape2D" parent="StaticBody2D" unique_id=166064573]
+position = Vector2(187, 9.5)
+shape = SubResource("RectangleShape2D_gj27u")
 
 [connection signal="body_entered" from="ZonaActivacion" to="." method="_on_zona_activacion_body_entered"]

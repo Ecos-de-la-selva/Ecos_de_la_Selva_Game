@@ -172,7 +172,8 @@ func morir():
 	# 🟢 DIÁLOGO FINAL
 	await mostrar_dialogo([
 		"Hemos triunfado...",
-		"Hemos recolectado la basura que afectaba a estos pobres animales.",
+		"Hemos recolectado la basura que afectaba",
+		"a estos animales.",
 		"La selva comienza a sanar..."
 	])
 

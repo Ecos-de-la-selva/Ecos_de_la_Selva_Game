@@ -56,6 +56,7 @@ animations = [{
 size = Vector2(37, 29)
 
 [node name="Jaguar" type="CharacterBody2D" unique_id=1170129077]
+scale = Vector2(2, 2)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2008784395]
 sprite_frames = SubResource("SpriteFrames_5i5rx")

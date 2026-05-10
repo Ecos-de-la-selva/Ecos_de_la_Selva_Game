@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://byddn2p4q0trw" path="res://Assets/Enemies/Frogs/PurpleWhite/ToxicFrogPurpleWhite_Hurt.png" id="7_dbxfk"]
 [ext_resource type="Texture2D" uid="uid://bn0me3ksynkmp" path="res://Assets/Enemies/Frogs/PurpleWhite/ToxicFrogPurpleWhite_Idle.png" id="8_dc5yk"]
 [ext_resource type="Texture2D" uid="uid://68ichiqy4c6o" path="res://Assets/Enemies/Frogs/PurpleWhite/ToxicFrogPurpleWhite_Hop.png" id="9_77drm"]
+[ext_resource type="AudioStream" uid="uid://d4beqgnl40fsq" path="res://Assets/Sounds/Enemigos/Frog/fr.mp3" id="10_412ye"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yksdx"]
 atlas = ExtResource("5_nw83c")
@@ -283,9 +284,7 @@ size = Vector2(20, 18)
 radius = 143.37712
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gjg0i"]
-size = Vector2(65, 20)
-
-[sub_resource type="AudioStreamWAV" id="AudioStreamWAV_bq22t"]
+size = Vector2(23, 20)
 
 [node name="RanaVenenosa" type="CharacterBody2D" unique_id=471878191 groups=["enemigos"]]
 collision_layer = 2
@@ -298,6 +297,7 @@ sprite_frames = SubResource("SpriteFrames_swysw")
 animation = &"attack"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1504314961]
+visible = false
 position = Vector2(-3, 7)
 shape = SubResource("RectangleShape2D_bq22t")
 
@@ -312,11 +312,11 @@ shape = SubResource("CircleShape2D_rtuwi")
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaAtaque" unique_id=123426158]
-position = Vector2(-3, 8)
+position = Vector2(-2.5, 8)
 shape = SubResource("RectangleShape2D_gjg0i")
 
 [node name="SonidoRana" type="AudioStreamPlayer2D" parent="." unique_id=270443658]
-stream = SubResource("AudioStreamWAV_bq22t")
+stream = ExtResource("10_412ye")
 volume_db = -0.5
 
 [connection signal="body_entered" from="ZonaDeteccion" to="." method="_on_zona_deteccion_body_entered"]

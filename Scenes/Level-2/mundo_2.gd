@@ -31,6 +31,9 @@ var posicion_camara_guardada
 # READY
 # =========================================================
 func _ready():
+	var anim_player = find_child("AnimationPlayer", true, false)
+	if anim_player and anim_player.has_animation("Fade_out"):
+		anim_player.play("Fade_out")
 
 	# 🔒 paredes arena boss
 	$ArenaBoss/ParedIzquierda/CollisionShape2D.disabled = true

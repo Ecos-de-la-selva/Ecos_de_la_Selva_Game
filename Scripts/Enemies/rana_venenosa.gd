@@ -53,7 +53,7 @@ func patrullar():
 	actualizar_giro(direccion)
 	
 	if is_on_wall():
-		direccion *= -1
+		direccion *= 1
 
 func atacar_jugador():
 	if atacando or muerto or recibiendo_golpe: return 
