@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://djpxpgk5j0x5x" path="res://Assets/sprites/moustros/medusa_enemigo.tscn" id="16_medusa"]
 [ext_resource type="PackedScene" uid="uid://bb0sarcr57bb5" path="res://Assets/sprites/moustros/genio_Enemigo.tscn" id="17_genio"]
 [ext_resource type="PackedScene" path="res://Scenes/Enemies/JefeGenio.tscn" id="18_jefe"]
+[ext_resource type="PackedScene" uid="uid://b2pffrr0nfnkh" path="res://Scenes/Score/interfaz_hud.tscn" id="19_basurahud"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yfouh"]
 texture = ExtResource("1_s4ryv")
@@ -13795,7 +13796,7 @@ script = ExtResource("0_lvl2")
 repeat_size = Vector2(2304, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=1321307592]
-position = Vector2(1042, -1)
+position = Vector2(1041, 70)
 texture = ExtResource("2_qgbrh")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1537079598]
@@ -13986,6 +13987,8 @@ visible = false
 [node name="MusicaAmbiente" type="AudioStreamPlayer" parent="." unique_id=976777546]
 stream = ExtResource("14_jotr5")
 volume_db = -10.0
+
+[node name="InterfazHUD" parent="." instance=ExtResource("19_basurahud")]
 
 [connection signal="body_entered" from="TriggerJefe" to="." method="_on_trigger_jefe_body_entered"]
 [connection signal="pressed" from="HUD/BotonPausa" to="." method="_on_boton_pausa_pressed"]

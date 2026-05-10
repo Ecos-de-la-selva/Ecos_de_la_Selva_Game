@@ -17,6 +17,14 @@ extends CharacterBody2D
 @export var dano_proyectil: int = 20
 const PROYECTIL_MAGICO := preload("res://Scenes/Enemies/proyectil_magico.tscn")
 
+# --- Drop de basura al morir (igual que en el nivel 1) ---
+@export var tipos_de_basura: Array[PackedScene] = []
+@export var probabilidad_drop: float = 0.7
+
+const BASURA_BOLSA := preload("res://Scenes/Score/BasuraBolsa.tscn")
+const BASURA_LATA1 := preload("res://Scenes/Score/basura_lata_1.tscn")
+const BASURA_LATA2 := preload("res://Scenes/Score/basura_lata_2.tscn")
+
 # --- ESTADO INTERNO ---
 var direccion := -1
 var atacando := false
@@ -39,6 +47,9 @@ func _ready() -> void:
 	area_ataque.monitoring = true
 	posicion_inicial = global_position
 	reproducir_movimiento()
+	# Si no se asignaron basuras a este enemigo, usar las tres por defecto.
+	if tipos_de_basura.is_empty():
+		tipos_de_basura = [BASURA_BOLSA, BASURA_LATA1, BASURA_LATA2]
 
 
 func _physics_process(_delta: float) -> void:
@@ -226,6 +237,9 @@ func morir() -> void:
 	muerto = true
 	velocity = Vector2.ZERO
 
+	# Soltar basura antes de desaparecer
+	_soltar_basura()
+
 	set_deferred("collision_layer", 0)
 	set_deferred("collision_mask", 0)
 	colision_ataque.set_deferred("disabled", true)
@@ -239,3 +253,21 @@ func morir() -> void:
 	fade.tween_property(anim, "modulate:a", 0.0, 0.5)
 	await fade.finished
 	queue_free()
+
+
+# Suelta una basura aleatoria en la posición del enemigo (igual que en mundo).
+# Como el genio vuela, llamamos a empezar_caida() para que aterrice en el piso.
+func _soltar_basura() -> void:
+	if tipos_de_basura.is_empty() or randf() > probabilidad_drop:
+		return
+	var escena: PackedScene = tipos_de_basura.pick_random()
+	if escena == null:
+		return
+	var instancia := escena.instantiate()
+	var pos_muerte := global_position
+	get_tree().current_scene.call_deferred("add_child", instancia)
+	instancia.set_deferred("global_position", pos_muerte)
+	get_tree().create_timer(0.01).timeout.connect(func():
+		if is_instance_valid(instancia) and instancia.has_method("empezar_caida"):
+			instancia.empezar_caida()
+	)
