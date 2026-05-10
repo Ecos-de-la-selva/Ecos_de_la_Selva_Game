@@ -1,0 +1,120 @@
+[gd_scene format=3 uid="uid://clqn8gmu07o2v"]
+
+[ext_resource type="Script" uid="uid://df5agi6fc4mmx" path="res://Scripts/Animals/colibrii.gd" id="1_76aim"]
+[ext_resource type="Texture2D" uid="uid://bgcxlvrt8xb6d" path="res://Assets/Animals/Garden Birds_Download/Spritesheets/spritesheet_hummingbird.png" id="1_icvbn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_76aim"]
+atlas = ExtResource("1_icvbn")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qliaw"]
+atlas = ExtResource("1_icvbn")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pur88"]
+atlas = ExtResource("1_icvbn")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2x6j7"]
+atlas = ExtResource("1_icvbn")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y4aha"]
+atlas = ExtResource("1_icvbn")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sg1ay"]
+atlas = ExtResource("1_icvbn")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aixbf"]
+atlas = ExtResource("1_icvbn")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4jyt7"]
+atlas = ExtResource("1_icvbn")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1vdoe"]
+atlas = ExtResource("1_icvbn")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rl1j8"]
+atlas = ExtResource("1_icvbn")
+region = Rect2(16, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pr4qo"]
+atlas = ExtResource("1_icvbn")
+region = Rect2(32, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tvoir"]
+atlas = ExtResource("1_icvbn")
+region = Rect2(48, 48, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_knl2u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_76aim")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qliaw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pur88")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2x6j7")
+}],
+"loop": true,
+"name": &"Idle_Cantando",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y4aha")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sg1ay")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aixbf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4jyt7")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1vdoe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rl1j8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pr4qo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tvoir")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_avk4t"]
+radius = 4.0
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=325833723]
+script = ExtResource("1_76aim")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=191602396]
+sprite_frames = SubResource("SpriteFrames_knl2u")
+animation = &"Idle_Cantando"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1472967491]
+position = Vector2(-2, 0)
+shape = SubResource("CircleShape2D_avk4t")

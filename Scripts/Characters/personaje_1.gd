@@ -85,19 +85,28 @@ func attack():
 		colision_ataque.set_deferred("disabled", true)
 	is_attacking = false
 
-func recibir_danio(cantidad):
-	if esta_muerto: return
+func recibir_danio(cantidad: int, posicion_atacante: Vector2 = Vector2.ZERO):
+	if esta_muerto: 
+		return
+	
 	salud_actual -= cantidad
 	salud_actual = clamp(salud_actual, 0, salud_max)
 	
-	actualizar_interfaz_vida() # <--- Llamada a la función corregida
+	actualizar_interfaz_vida()
 	
 	if salud_actual <= 0:
 		morir()
 	else:
 		if sonido_dano:
 			sonido_dano.play()
+		
+		# Animación de recibir golpe
 		anim.play("damage")
+		
+		# Opcional: Si quieres que el jugador salte un poco hacia atrás al ser golpeado
+		if posicion_atacante != Vector2.ZERO:
+			var direccion_empuje = (global_position - posicion_atacante).normalized()
+			velocity = direccion_empuje * 300 # Ajusta la fuerza del impacto
 
 # --- FUNCIÓN DE VIDA CORREGIDA ---
 func actualizar_interfaz_vida():
@@ -152,11 +161,29 @@ func decide_animation():
 		anim.play("Idle" if velocity.x == 0 else "walk")
 
 func _on_attack_area_body_entered(body: Node2D) -> void:
-	if body.is_in_group("enemigos") and body.has_method("recibir_danio"):
-		
-		var args = body.recibir_danio.get_argument_count()
-		
-		if args == 2:
-			body.recibir_danio(1, global_position) # nuevo sistema
+	# Este print saldrá CUALQUIER cosa que toque el arma
+	print("El arma tocó algo: ", body.name) 
+	
+	if body.is_in_group("enemigos"):
+		print("Confirmado: Es del grupo enemigos")
+		if body.has_method("recibir_danio"):
+			body.recibir_danio(15, global_position)
 		else:
-			body.recibir_danio(1) # viejo sistema
+			print("ERROR: El enemigo no tiene la función recibir_danio")
+	else:
+		print("ERROR: El objeto ", body.name, " no está en el grupo 'enemigos'")
+
+# --- NUEVA FUNCIÓN PARA EL CHONTADURO ---
+# --- FUNCIÓN DE CURAR CORREGIDA ---
+func curar(cantidad):
+	if esta_muerto: return
+	
+	# Si por alguna razón salud_actual es Nil, le damos el valor máximo antes de sumar
+	if salud_actual == null:
+		salud_actual = salud_max
+	
+	salud_actual += cantidad
+	salud_actual = clamp(salud_actual, 0, salud_max)
+	
+	actualizar_interfaz_vida()
+	print("Vida recuperada. Ahora tienes: ", salud_actual)

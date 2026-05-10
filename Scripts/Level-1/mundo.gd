@@ -173,3 +173,5 @@ func desactivar_arena():
 	# 🎵 volver música normal
 	if musica_normal:
 		musica_normal.play()
+		
+		

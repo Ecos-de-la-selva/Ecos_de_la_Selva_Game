@@ -2,9 +2,10 @@ extends CharacterBody2D
 
 # --- CONFIGURACIÓN ---
 @export var velocidad: float = 100.0
-@export var vida: int = 4
+@export var vida: int = 35
 @export var tipos_de_basura: Array[PackedScene] = []
 @export var probabilidad_drop: float = 0.7
+@export var enemy_id = ""
 
 # --- NODOS ---
 @onready var anim = $AnimatedSprite2D
@@ -20,6 +21,8 @@ var esta_retrocediendo = false
 func _ready():
 	add_to_group("enemigos")
 	anim.play("idle")
+		
+	
 func _physics_process(delta):
 	if muerto:
 		velocity = Vector2.ZERO
@@ -122,6 +125,11 @@ func morir():
 	var tw = create_tween()
 	tw.tween_property(anim, "modulate:a", 0, 1.0).set_delay(0.5)
 	await tw.finished
+	if muerto:
+		return
+
+
+
 	queue_free()
 
 # --- EL ARREGLO PARA LA BASURA ---

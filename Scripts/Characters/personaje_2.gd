@@ -157,6 +157,21 @@ func _on_attack_area_body_entered(body: Node2D) -> void:
 		var args = body.recibir_danio.get_argument_count()
 		
 		if args == 2:
-			body.recibir_danio(1, global_position) # nuevo sistema
+			body.recibir_danio(15, global_position) # nuevo sistema
 		else:
 			body.recibir_danio(1) # viejo sistema
+
+# --- NUEVA FUNCIÓN PARA EL CHONTADURO ---
+# --- FUNCIÓN DE CURAR CORREGIDA ---
+func curar(cantidad):
+	if esta_muerto: return
+	
+	# Si por alguna razón salud_actual es Nil, le damos el valor máximo antes de sumar
+	if salud_actual == null:
+		salud_actual = salud_max
+	
+	salud_actual += cantidad
+	salud_actual = clamp(salud_actual, 0, salud_max)
+	
+	actualizar_interfaz_vida()
+	print("Vida recuperada. Ahora tienes: ", salud_actual)

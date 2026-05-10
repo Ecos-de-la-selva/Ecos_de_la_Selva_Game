@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://oa6h0vu8vw18"]
+
+[ext_resource type="Texture2D" uid="uid://bjeo717ll2ttl" path="res://Assets/Animals/Jaguar/idle/Idle.png" id="1_hhyc2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_33ljh"]
+atlas = ExtResource("1_hhyc2")
+region = Rect2(0, 0, 47, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ebqo"]
+atlas = ExtResource("1_hhyc2")
+region = Rect2(47, 0, 47, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jtiqg"]
+atlas = ExtResource("1_hhyc2")
+region = Rect2(94, 0, 47, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y8d21"]
+atlas = ExtResource("1_hhyc2")
+region = Rect2(141, 0, 47, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_piq6g"]
+atlas = ExtResource("1_hhyc2")
+region = Rect2(188, 0, 47, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h6m0q"]
+atlas = ExtResource("1_hhyc2")
+region = Rect2(235, 0, 47, 34)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5i5rx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_33ljh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ebqo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jtiqg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y8d21")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_piq6g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h6m0q")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_chuu0"]
+size = Vector2(37, 29)
+
+[node name="Jaguar" type="CharacterBody2D" unique_id=1170129077]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2008784395]
+sprite_frames = SubResource("SpriteFrames_5i5rx")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1494581088]
+position = Vector2(2.5, 1.5)
+shape = SubResource("RectangleShape2D_chuu0")

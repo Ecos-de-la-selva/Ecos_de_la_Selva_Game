@@ -1,0 +1,122 @@
+[gd_scene format=3 uid="uid://dd5ykjjnldjr3"]
+
+[ext_resource type="Texture2D" uid="uid://bo1rxnft00cja" path="res://Assets/Animals/Garden Birds_Download/Spritesheets/spritesheet_blue jay.png" id="1_m3bw2"]
+[ext_resource type="Script" uid="uid://rgqj8sjhsbv0" path="res://Scripts/Animals/azulejo.gd" id="1_ngtkb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ngtkb"]
+atlas = ExtResource("1_m3bw2")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b7p2d"]
+atlas = ExtResource("1_m3bw2")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eujj3"]
+atlas = ExtResource("1_m3bw2")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pyfig"]
+atlas = ExtResource("1_m3bw2")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ghyp"]
+atlas = ExtResource("1_m3bw2")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hcvjk"]
+atlas = ExtResource("1_m3bw2")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jpu6u"]
+atlas = ExtResource("1_m3bw2")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wk5tp"]
+atlas = ExtResource("1_m3bw2")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qudsb"]
+atlas = ExtResource("1_m3bw2")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b7xcl"]
+atlas = ExtResource("1_m3bw2")
+region = Rect2(16, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dj74o"]
+atlas = ExtResource("1_m3bw2")
+region = Rect2(32, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w7aha"]
+atlas = ExtResource("1_m3bw2")
+region = Rect2(48, 48, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_knl2u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ngtkb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b7p2d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eujj3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pyfig")
+}],
+"loop": true,
+"name": &"Idle_Cantando",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ghyp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hcvjk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jpu6u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wk5tp")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qudsb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b7xcl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dj74o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w7aha")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_avk4t"]
+radius = 4.0
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=325833723]
+collision_mask = 4
+script = ExtResource("1_ngtkb")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=191602396]
+sprite_frames = SubResource("SpriteFrames_knl2u")
+animation = &"Idle_Cantando"
+frame_progress = 0.3347376
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1472967491]
+position = Vector2(-2, 0)
+shape = SubResource("CircleShape2D_avk4t")
