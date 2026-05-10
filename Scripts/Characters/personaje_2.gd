@@ -30,9 +30,6 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-	if Input.is_action_just_pressed("click_izquierdo") and not is_attacking:
-		attack()
-
 	if not is_attacking:
 		if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 			velocity.y = JUMP_VELOCITY
@@ -47,6 +44,14 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	decide_animation()
 	limitar_movimiento()
+
+# El ataque se gestiona en _unhandled_input para que los Botones de la UI
+# (joystick, saltar, etc.) puedan absorber el clic sin disparar el ataque.
+func _unhandled_input(event: InputEvent) -> void:
+	if esta_muerto:
+		return
+	if event.is_action_pressed("click_izquierdo") and not is_attacking:
+		attack()
 
 func limitar_movimiento():
 	var mundo = get_tree().current_scene

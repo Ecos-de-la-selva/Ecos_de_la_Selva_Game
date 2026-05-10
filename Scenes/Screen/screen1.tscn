@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://b62g15bbgmn33" path="res://Scenes/Characters/Personaje-1.tscn" id="1_rox7j"]
 [ext_resource type="PackedScene" uid="uid://bhftnb32q2jv4" path="res://Scenes/Escenarios/escenario1.tscn" id="2_ay1ry"]
-[ext_resource type="Texture2D" uid="uid://wrygcw7tl0fi" path="res://Assets/UI/BarraFondoVacia.png" id="3_iuojh"]
-[ext_resource type="Texture2D" uid="uid://dotcmvdb0oyk8" path="res://Assets/UI/Cabeza.png" id="4_tswog"]
+[ext_resource type="Texture2D" uid="uid://drjg05nehki7g" path="res://Assets/UI/BarraFondoVacia.png" id="3_iuojh"]
+[ext_resource type="Texture2D" uid="uid://dotcmvdb0oyk8" path="res://Assets/UI/cara_hombre.png" id="4_tswog"]
 [ext_resource type="Texture2D" uid="uid://dckf1x4c1lkhj" path="res://Assets/UI/BarraRoja.png" id="5_3hskk"]
 
 [node name="Node2D" type="Node2D" unique_id=1743488872]

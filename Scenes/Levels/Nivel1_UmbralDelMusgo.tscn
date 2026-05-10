@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://djgjsi7lmukfi" path="res://Assets/Backgrounds/Background_Selva/03.png" id="8_lvl1"]
 [ext_resource type="Texture2D" uid="uid://dljmfske26cgd" path="res://Assets/Backgrounds/Background_Selva/02.png" id="9_lvl1"]
 [ext_resource type="Texture2D" uid="uid://bvrf5dhmadx0c" path="res://Assets/Backgrounds/Background_Selva/01.png" id="10_lvl1"]
-[ext_resource type="Texture2D" uid="uid://wrygcw7tl0fi" path="res://Assets/UI/BarraFondoVacia.png" id="11_lvl1"]
+[ext_resource type="Texture2D" uid="uid://drjg05nehki7g" path="res://Assets/UI/BarraFondoVacia.png" id="11_lvl1"]
 [ext_resource type="Texture2D" uid="uid://dotcmvdb0oyk8" path="res://Assets/UI/cara_hombre.png" id="12_lvl1"]
 [ext_resource type="Texture2D" uid="uid://dckf1x4c1lkhj" path="res://Assets/UI/BarraRoja.png" id="13_lvl1"]
 [ext_resource type="PackedScene" path="res://Scenes/Obstacles/FallingPlatform.tscn" id="14_lvl1"]

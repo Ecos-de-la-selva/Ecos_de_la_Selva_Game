@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" path="res://Scenes/Enemies/HongoExplosivo.tscn" id="5_n2"]
 [ext_resource type="PackedScene" path="res://Scenes/Enemies/GuardianCaido.tscn" id="6_n2"]
 [ext_resource type="Texture2D" path="res://Assets/UI/BarraFondoVacia.png" id="7_n2"]
-[ext_resource type="Texture2D" path="res://Assets/UI/Cabeza.png" id="8_n2"]
+[ext_resource type="Texture2D" path="res://Assets/UI/cara_hombre.png" id="8_n2"]
 [ext_resource type="Texture2D" path="res://Assets/UI/BarraRoja.png" id="9_n2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gate"]

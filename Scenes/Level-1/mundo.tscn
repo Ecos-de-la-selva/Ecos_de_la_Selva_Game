@@ -29,6 +29,7 @@
 [ext_resource type="Script" uid="uid://u55xdjvv3h02" path="res://Scripts/Enemies/rey_mono.gd" id="26_hb7nd"]
 [ext_resource type="AudioStream" uid="uid://cx2jn56m7n2l5" path="res://Assets/Sounds/Boss/flutie8211-gorilla-roar-523007.mp3" id="28_rn7yk"]
 [ext_resource type="AudioStream" uid="uid://6pj6repvvjvx" path="res://Assets/Sounds/Boss/theeoffender1-final-fight-320156.mp3" id="29_10u1e"]
+[ext_resource type="PackedScene" uid="uid://btouchctrl0001" path="res://Scenes/UI/TouchControls.tscn" id="30_touch"]
 
 [sub_resource type="Animation" id="Animation_0ygfx"]
 resource_name = "Fade_out"
@@ -382,6 +383,8 @@ shape = SubResource("RectangleShape2D_vksgs")
 
 [node name="AudioBossAmbiente" type="AudioStreamPlayer" parent="." unique_id=1795446778]
 stream = ExtResource("29_10u1e")
+
+[node name="TouchControls" parent="." instance=ExtResource("30_touch")]
 
 [connection signal="pressed" from="HUD/BotonPausa" to="." method="_on_boton_pausa_pressed"]
 [connection signal="body_entered" from="TriggerJefe" to="." method="_on_trigger_jefe_body_entered"]
