@@ -17,7 +17,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 config/name="Ecos_de_la_Selva"
 run/main_scene="res://Scenes/1-MenuPrincipal/menu_principal.tscn"
 config/features=PackedStringArray("4.6", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="uid://c8ieerju581ab"
 
 [autoload]
 
