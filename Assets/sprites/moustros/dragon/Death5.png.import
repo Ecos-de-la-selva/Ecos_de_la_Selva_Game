@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dckf1x4c1lkhj"
-path="res://.godot/imported/BarraRoja.png-aafd288dd7065250ba77e69d5aaf0a3c.ctex"
+uid="uid://0iyn2a2gh4p"
+path="res://.godot/imported/Death5.png-6a892dce7b7521a9bd0019b6b9af0682.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/UI/BarraRoja.png"
-dest_files=["res://.godot/imported/BarraRoja.png-aafd288dd7065250ba77e69d5aaf0a3c.ctex"]
+source_file="res://Assets/sprites/moustros/dragon/Death5.png"
+dest_files=["res://.godot/imported/Death5.png-6a892dce7b7521a9bd0019b6b9af0682.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dckf1x4c1lkhj"
-path="res://.godot/imported/BarraRoja.png-aafd288dd7065250ba77e69d5aaf0a3c.ctex"
+uid="uid://3yf3blbxhibf"
+path="res://.godot/imported/Idle2.png-1380c250abaab81fa27067c1250c6c17.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/UI/BarraRoja.png"
-dest_files=["res://.godot/imported/BarraRoja.png-aafd288dd7065250ba77e69d5aaf0a3c.ctex"]
+source_file="res://Assets/sprites/moustros/small_dragon/Idle2.png"
+dest_files=["res://.godot/imported/Idle2.png-1380c250abaab81fa27067c1250c6c17.ctex"]
 
 [params]
 

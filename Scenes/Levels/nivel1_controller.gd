@@ -57,7 +57,7 @@ func _on_guardian_defeated() -> void:
 
 func _on_salida_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
-		get_tree().change_scene_to_file("res://Scenes/Screen/escreen1.tscn")
+		get_tree().change_scene_to_file("res://Scenes/Levels/Nivel2_LasVenasDeLaTierra.tscn")
 
 func _start_spike_cycle() -> void:
 	while is_inside_tree():

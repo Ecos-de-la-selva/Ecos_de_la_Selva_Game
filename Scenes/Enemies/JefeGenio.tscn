@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" uid="uid://bb0sarcr57bb5" path="res://Assets/sprites/moustros/genio_Enemigo.tscn" id="1_basegenio"]
+[ext_resource type="Script" path="res://Scripts/Enemies/jefe_genio.gd" id="2_jefe"]
+
+[node name="JefeGenio" instance=ExtResource("1_basegenio")]
+scale = Vector2(2.5, 2.5)
+script = ExtResource("2_jefe")
+modulate = Color(1.1, 0.85, 0.85, 1)
