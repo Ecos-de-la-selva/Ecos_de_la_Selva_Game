@@ -164,8 +164,10 @@ script = ExtResource("9_dfdqk")
 [node name="Control" type="Control" parent="HUD" unique_id=1753463591]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 41.0
-offset_bottom = 40.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 45.0
+offset_bottom = 44.0
 scale = Vector2(2, 2)
 metadata/_edit_use_anchors_ = true
 
@@ -237,10 +239,14 @@ libraries/ = SubResource("AnimationLibrary_jcf73")
 autoplay = &"Fade_out"
 
 [node name="BotonPausa" type="TextureButton" parent="HUD" unique_id=692679576]
-offset_left = 542.5
-offset_top = 11.0
-offset_right = 566.5
-offset_bottom = 33.5
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -50.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 50.0
+grow_horizontal = 0
 texture_normal = ExtResource("15_e1iy0")
 texture_pressed = ExtResource("16_jcf73")
 ignore_texture_size = true
