@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dckf1x4c1lkhj"
-path="res://.godot/imported/BarraRoja.png-aafd288dd7065250ba77e69d5aaf0a3c.ctex"
+uid="uid://ogvhcvv1jdn4"
+path="res://.godot/imported/Walk3.png-dd6ad93cddad4914c9603dd207b96922.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/UI/BarraRoja.png"
-dest_files=["res://.godot/imported/BarraRoja.png-aafd288dd7065250ba77e69d5aaf0a3c.ctex"]
+source_file="res://Assets/sprites/moustros/demon/Walk3.png"
+dest_files=["res://.godot/imported/Walk3.png-dd6ad93cddad4914c9603dd207b96922.ctex"]
 
 [params]
 

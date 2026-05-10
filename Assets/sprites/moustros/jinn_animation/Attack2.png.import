@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dckf1x4c1lkhj"
-path="res://.godot/imported/BarraRoja.png-aafd288dd7065250ba77e69d5aaf0a3c.ctex"
+uid="uid://c4iua151w7vnk"
+path="res://.godot/imported/Attack2.png-1ee755f02f23f9a6ad73bf9d6cd5f9a7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/UI/BarraRoja.png"
-dest_files=["res://.godot/imported/BarraRoja.png-aafd288dd7065250ba77e69d5aaf0a3c.ctex"]
+source_file="res://Assets/sprites/moustros/jinn_animation/Attack2.png"
+dest_files=["res://.godot/imported/Attack2.png-1ee755f02f23f9a6ad73bf9d6cd5f9a7.ctex"]
 
 [params]
 

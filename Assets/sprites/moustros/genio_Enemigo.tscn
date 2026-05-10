@@ -1,0 +1,198 @@
+[gd_scene format=3 uid="uid://bb0sarcr57bb5"]
+
+[ext_resource type="Texture2D" uid="uid://bta7rvnpbaok5" path="res://Assets/sprites/moustros/jinn_animation/Attack1.png" id="1_0ln3e"]
+[ext_resource type="Texture2D" uid="uid://c4iua151w7vnk" path="res://Assets/sprites/moustros/jinn_animation/Attack2.png" id="2_17mhq"]
+[ext_resource type="Texture2D" uid="uid://cfagduj31bblj" path="res://Assets/sprites/moustros/jinn_animation/Attack3.png" id="3_h2m4m"]
+[ext_resource type="Texture2D" uid="uid://b8l04kay0rw3k" path="res://Assets/sprites/moustros/jinn_animation/Attack4.png" id="4_2tu4p"]
+[ext_resource type="Texture2D" uid="uid://xb2co5nyaw1" path="res://Assets/sprites/moustros/jinn_animation/Death1.png" id="5_4uiap"]
+[ext_resource type="Texture2D" uid="uid://b3qj3umsr3uhp" path="res://Assets/sprites/moustros/jinn_animation/Death2.png" id="6_ebjf2"]
+[ext_resource type="Texture2D" uid="uid://co6wm5jl8oj2s" path="res://Assets/sprites/moustros/jinn_animation/Death3.png" id="7_actvn"]
+[ext_resource type="Texture2D" uid="uid://cmqqhu8pss6xu" path="res://Assets/sprites/moustros/jinn_animation/Death4.png" id="8_tp26k"]
+[ext_resource type="Texture2D" uid="uid://djphqusduwsww" path="res://Assets/sprites/moustros/jinn_animation/Death5.png" id="9_k1mts"]
+[ext_resource type="Texture2D" uid="uid://bmihyr2svo0rv" path="res://Assets/sprites/moustros/jinn_animation/Death6.png" id="10_kwl1u"]
+[ext_resource type="Texture2D" uid="uid://djft0swii67kk" path="res://Assets/sprites/moustros/jinn_animation/Flight1.png" id="11_gbnif"]
+[ext_resource type="Texture2D" uid="uid://b3dvxmlcg1nj2" path="res://Assets/sprites/moustros/jinn_animation/Flight2.png" id="12_j60u2"]
+[ext_resource type="Texture2D" uid="uid://dwvunygj5fcij" path="res://Assets/sprites/moustros/jinn_animation/Flight3.png" id="13_w28os"]
+[ext_resource type="Texture2D" uid="uid://bnqqdyaxwpvoj" path="res://Assets/sprites/moustros/jinn_animation/Flight4.png" id="14_k8uum"]
+[ext_resource type="Texture2D" uid="uid://bx620vec1vjut" path="res://Assets/sprites/moustros/jinn_animation/Hurt1.png" id="15_10w0w"]
+[ext_resource type="Texture2D" uid="uid://c1xpqp1ejpv1b" path="res://Assets/sprites/moustros/jinn_animation/Hurt2.png" id="16_ej6vf"]
+[ext_resource type="Texture2D" uid="uid://dw785fcrifn4c" path="res://Assets/sprites/moustros/jinn_animation/Idle1.png" id="17_8bgr2"]
+[ext_resource type="Texture2D" uid="uid://bqdg54gdlgcvx" path="res://Assets/sprites/moustros/jinn_animation/Idle2.png" id="18_jmxmi"]
+[ext_resource type="Texture2D" uid="uid://cgnxbc1v7bwf0" path="res://Assets/sprites/moustros/jinn_animation/Idle3.png" id="19_iwp24"]
+[ext_resource type="Texture2D" uid="uid://cvlbdmj6mnvii" path="res://Assets/sprites/moustros/jinn_animation/Magic_Attack1.png" id="20_nmiub"]
+[ext_resource type="Texture2D" uid="uid://c6ylr57p4p5m1" path="res://Assets/sprites/moustros/jinn_animation/Magic_Attack2.png" id="21_02v3b"]
+[ext_resource type="Texture2D" uid="uid://ccc6j5h4egs4g" path="res://Assets/sprites/moustros/jinn_animation/Magic_Attack3.png" id="22_koot7"]
+[ext_resource type="Texture2D" uid="uid://f0sxs60rsfb6" path="res://Assets/sprites/moustros/jinn_animation/Magic_Attack4.png" id="23_68ddg"]
+[ext_resource type="Texture2D" uid="uid://cqlvmgptmumqf" path="res://Assets/sprites/moustros/jinn_animation/Magic_Attack5.png" id="24_joqsj"]
+[ext_resource type="Texture2D" uid="uid://b7x43ca83v8ul" path="res://Assets/sprites/moustros/jinn_animation/Magic_Attack6.png" id="25_vcxup"]
+[ext_resource type="Texture2D" uid="uid://csu510h6tb5ar" path="res://Assets/sprites/moustros/jinn_animation/Magic_Attack7.png" id="26_5el88"]
+[ext_resource type="Texture2D" uid="uid://dh56bdovwcdw5" path="res://Assets/sprites/moustros/jinn_animation/Magic_Attack8.png" id="27_4dk74"]
+[ext_resource type="Texture2D" uid="uid://b10vx3adwqxvw" path="res://Assets/sprites/moustros/jinn_animation/Magic_Attack9.png" id="28_tbas1"]
+[ext_resource type="Texture2D" uid="uid://dja8yqyj26dab" path="res://Assets/sprites/moustros/jinn_animation/Magic_Attack10.png" id="29_gp1e7"]
+[ext_resource type="Texture2D" uid="uid://b20cnvqn6u71a" path="res://Assets/sprites/moustros/jinn_animation/Magic_Attack11.png" id="30_a2mef"]
+[ext_resource type="Texture2D" uid="uid://dkwf035ae3jdj" path="res://Assets/sprites/moustros/jinn_animation/Magic_Attack22.png" id="31_6bdau"]
+[ext_resource type="Texture2D" uid="uid://dxvqri1xsr1et" path="res://Assets/sprites/moustros/jinn_animation/Magic_Attack23.png" id="32_5bjv8"]
+[ext_resource type="Script" path="res://Scripts/Enemies/genio.gd" id="33_genio"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_13r4a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_0ln3e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_17mhq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_h2m4m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_2tu4p")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_4uiap")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ebjf2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_actvn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_tp26k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_k1mts")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_kwl1u")
+}],
+"loop": false,
+"name": &"death",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_gbnif")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_j60u2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_w28os")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_k8uum")
+}],
+"loop": true,
+"name": &"flight",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_10w0w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_ej6vf")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("16_ej6vf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_8bgr2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_jmxmi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_iwp24")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("20_nmiub")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_02v3b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_koot7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_68ddg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_joqsj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_vcxup")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_5el88")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_4dk74")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_tbas1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_gp1e7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_a2mef")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_6bdau")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_5bjv8")
+}],
+"loop": false,
+"name": &"magic_attack",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yenl5"]
+size = Vector2(47, 93)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0ln3e"]
+size = Vector2(65, 40)
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1275363202 groups=["enemigos"]]
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("33_genio")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=832115250]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_13r4a")
+animation = &"flight"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=170714654]
+position = Vector2(-13.5, 9.5)
+shape = SubResource("RectangleShape2D_yenl5")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=11658045]
+collision_layer = 0
+collision_mask = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=494442947]
+position = Vector2(-22.5, 10)
+shape = SubResource("RectangleShape2D_0ln3e")
+disabled = true
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
