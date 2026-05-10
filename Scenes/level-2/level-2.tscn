@@ -13874,7 +13874,7 @@ position = Vector2(4800, 80)
 [node name="Jefe" type="Node2D" parent="Enemigos" unique_id=743305157]
 
 [node name="JefeGenio" parent="Enemigos/Jefe" unique_id=1945408010 instance=ExtResource("18_jefe")]
-position = Vector2(7300, 280)
+position = Vector2(7479, 554)
 vida_max = 30
 dano_contacto = 35
 cooldown_disparo_normal = 1.4
@@ -13988,7 +13988,7 @@ visible = false
 stream = ExtResource("14_jotr5")
 volume_db = -10.0
 
-[node name="InterfazHUD" parent="." instance=ExtResource("19_basurahud")]
+[node name="InterfazHUD" parent="." unique_id=735525578 instance=ExtResource("19_basurahud")]
 
 [connection signal="body_entered" from="TriggerJefe" to="." method="_on_trigger_jefe_body_entered"]
 [connection signal="pressed" from="HUD/BotonPausa" to="." method="_on_boton_pausa_pressed"]
