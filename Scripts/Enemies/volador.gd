@@ -1,12 +1,14 @@
 extends CharacterBody2D
 
+ ## VOLADOR SECUAZ ###
 # --- CONFIGURACIÓN ---
 @export var velocidad_vuelo: float = 140.0
 @export var velocidad_patrulla: float = 60.0 # Velocidad tranquila al patrullar
 @export var velocidad_picado: float = 900.0 
-@export var vida: int = 3
+@export var vida: int = 30
 @export var tipos_de_basura: Array[PackedScene] = []
 @export var probabilidad_drop: float = 0.6
+
 
 # --- VARIABLES DE PATRULLA ---
 var tiempo_estado = 0.0
@@ -183,6 +185,14 @@ func morir():
 		anim.play("die")
 		await anim.animation_finished
 	
+	# --- ELIMINA ESTAS LÍNEAS QUE BLOQUEAN TODO ---
+	# if muerto:
+	#     return 
+
+	queue_free() # <--- Esto DEBE ejecutarse para que el jefe continúe
+
+
+
 	queue_free()
 
 # --- SEÑALES Y DROPS ---

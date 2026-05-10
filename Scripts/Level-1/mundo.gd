@@ -21,6 +21,9 @@ var evento_jefe_iniciado = false
 var posicion_camara_guardada
 
 func _ready():
+	var anim_player = find_child("AnimationPlayer", true, false)
+	if anim_player and anim_player.has_animation("Fade_out"):
+		anim_player.play("Fade_out")
 	# 🔒 Arena desactivada al inicio
 	$ArenaBoss/ParedIzquierda/CollisionShape2D.disabled = true
 	$ArenaBoss/ParedDerecha/CollisionShape2D.disabled = true
@@ -187,3 +190,5 @@ func desactivar_arena():
 	# 🎵 volver música normal
 	if musica_normal:
 		musica_normal.play()
+		
+		

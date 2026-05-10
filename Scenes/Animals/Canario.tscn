@@ -1,0 +1,120 @@
+[gd_scene format=3 uid="uid://c350k78d0b0re"]
+
+[ext_resource type="Script" path="res://Scripts/Animals/canario.gd" id="1_h5hmn"]
+[ext_resource type="Texture2D" uid="uid://5nlgjh3opdup" path="res://Assets/Animals/Garden Birds_Download/Spritesheets/spritesheet_wood_thrush.png" id="1_krr3g"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_17bm0"]
+atlas = ExtResource("1_krr3g")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vaqn4"]
+atlas = ExtResource("1_krr3g")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aci62"]
+atlas = ExtResource("1_krr3g")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uh1pw"]
+atlas = ExtResource("1_krr3g")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8sxs7"]
+atlas = ExtResource("1_krr3g")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uqxjd"]
+atlas = ExtResource("1_krr3g")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sta7j"]
+atlas = ExtResource("1_krr3g")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ictcy"]
+atlas = ExtResource("1_krr3g")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7hspb"]
+atlas = ExtResource("1_krr3g")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v7o8u"]
+atlas = ExtResource("1_krr3g")
+region = Rect2(16, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_srhb2"]
+atlas = ExtResource("1_krr3g")
+region = Rect2(32, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4gpvu"]
+atlas = ExtResource("1_krr3g")
+region = Rect2(48, 48, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_knl2u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_17bm0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vaqn4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aci62")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uh1pw")
+}],
+"loop": true,
+"name": &"Idle_Cantando",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8sxs7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uqxjd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sta7j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ictcy")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7hspb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v7o8u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_srhb2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4gpvu")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_avk4t"]
+radius = 4.0
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=325833723]
+script = ExtResource("1_h5hmn")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=191602396]
+sprite_frames = SubResource("SpriteFrames_knl2u")
+animation = &"Idle_Cantando"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1472967491]
+position = Vector2(-2, 0)
+shape = SubResource("CircleShape2D_avk4t")

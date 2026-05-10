@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://ccl6kbobl7mnw"]
+
+[ext_resource type="Texture2D" uid="uid://dqltjfx58vhq1" path="res://Assets/Buttons/Button/lift_button.png" id="1_bilpm"]
+[ext_resource type="Script" uid="uid://dydbmsi0vy4db" path="res://Scenes/Controles/controles.gd" id="1_lq8go"]
+[ext_resource type="Texture2D" uid="uid://drtfr8li2l107" path="res://Assets/Buttons/Button/right_button.png" id="2_lq8go"]
+[ext_resource type="Texture2D" uid="uid://c7jei672ie8jb" path="res://Assets/Buttons/Button/jump_button.png" id="3_aatkt"]
+[ext_resource type="Texture2D" uid="uid://cq6ig60ugafeb" path="res://Assets/Buttons/Button/sword_button.png" id="4_x1wgk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_aatkt"]
+radius = 43.48
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lq8go"]
+radius = 43.48
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x1wgk"]
+radius = 43.48
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7gp15"]
+radius = 43.48
+
+[node name="Controles" type="CanvasLayer" unique_id=1910283568]
+script = ExtResource("1_lq8go")
+
+[node name="Node2D" type="Control" parent="." unique_id=1905854405]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+grow_vertical = 0
+
+[node name="der" type="TouchScreenButton" parent="Node2D" unique_id=1346285580]
+position = Vector2(213, -215)
+scale = Vector2(1.6, 1.6)
+texture_normal = ExtResource("2_lq8go")
+shape = SubResource("CircleShape2D_aatkt")
+action = "ui_right"
+
+[node name="izq" type="TouchScreenButton" parent="Node2D" unique_id=1266795581]
+position = Vector2(23, -215)
+scale = Vector2(1.6, 1.6)
+texture_normal = ExtResource("1_bilpm")
+shape = SubResource("CircleShape2D_lq8go")
+action = "ui_left"
+
+[node name="Node2D2" type="Control" parent="." unique_id=2064029809]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="saltar" type="TouchScreenButton" parent="Node2D2" unique_id=1837115154]
+position = Vector2(-171, -215)
+scale = Vector2(1.6, 1.6)
+texture_normal = ExtResource("3_aatkt")
+shape = SubResource("CircleShape2D_x1wgk")
+action = "ui_accept"
+
+[node name="ataque" type="TouchScreenButton" parent="Node2D2" unique_id=346920183]
+position = Vector2(-342, -183)
+scale = Vector2(1.6, 1.6)
+texture_normal = ExtResource("4_x1wgk")
+shape = SubResource("CircleShape2D_7gp15")
+action = "atacar"
+
+[connection signal="pressed" from="Node2D/der" to="." method="_on_der_pressed"]
+[connection signal="released" from="Node2D/der" to="." method="_on_der_released"]
+[connection signal="pressed" from="Node2D/izq" to="." method="_on_izq_pressed"]
+[connection signal="released" from="Node2D/izq" to="." method="_on_izq_released"]
+[connection signal="pressed" from="Node2D2/saltar" to="." method="_on_saltar_pressed"]
+[connection signal="released" from="Node2D2/saltar" to="." method="_on_saltar_released"]
+[connection signal="pressed" from="Node2D2/ataque" to="." method="_on_ataque_pressed"]
+[connection signal="released" from="Node2D2/ataque" to="." method="_on_ataque_released"]

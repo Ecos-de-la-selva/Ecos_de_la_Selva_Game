@@ -63,17 +63,37 @@ func iniciar_fase():
 
 
 # -------- SPAWN --------
+# -------- SPAWN --------
 func spawn_lacayos(cantidad):
-	lacayos_vivos = cantidad
-	
-	for i in cantidad:
-		var mono = escena_lacayo.instantiate()
-		mono.global_position = global_position + Vector2(randf_range(-150,150), 0)
-		mono.scale = Vector2(4,4)
-		
-		get_parent().call_deferred("add_child", mono)
-		mono.connect("tree_exited", Callable(self, "_on_lacayo_muerto"))
 
+	lacayos_vivos = cantidad
+
+	# buscar jugador
+	var jugador = get_tree().get_first_node_in_group("jugador")
+
+	for i in cantidad:
+
+		var mono = escena_lacayo.instantiate()
+
+		mono.global_position = global_position + Vector2(
+			randf_range(-150,150),
+			0
+		)
+
+		# tamaño secuaces
+		mono.scale = Vector2(3,3)
+
+		get_parent().call_deferred("add_child", mono)
+
+		# conectar muerte
+		mono.connect(
+			"tree_exited",
+			Callable(self, "_on_lacayo_muerto")
+		)
+
+		# 👇 hacer que siga al jugador
+		if jugador:
+			mono.jugador = jugador
 
 # -------- MUERTE LACAYOS --------
 func _on_lacayo_muerto():
@@ -152,7 +172,8 @@ func morir():
 	# 🟢 DIÁLOGO FINAL
 	await mostrar_dialogo([
 		"Hemos triunfado...",
-		"Hemos recolectado la basura que afectaba a estos pobres animales.",
+		"Hemos recolectado la basura que afectaba",
+		"a estos animales.",
 		"La selva comienza a sanar..."
 	])
 

@@ -3,9 +3,10 @@ extends CharacterBody2D
 # --- CONFIGURACIÓN ---
 @export var velocidad_persecucion: float = 120.0
 @export var velocidad_patrulla: float = 50.0  # Más lento al patrullar
-@export var vida: int = 3
+@export var vida: int = 30
 @export var tipos_de_basura: Array[PackedScene] = [] 
 @export var probabilidad_drop: float = 0.8 
+@export var enemy_id = ""
 
 # --- NUEVAS VARIABLES DE PATRULLA ---
 var tiempo_estado = 0.0
@@ -24,6 +25,8 @@ var esta_retrocediendo = false
 func _ready():
 	add_to_group("enemigos")
 	anim.play("idle")
+
+
 	
 func _physics_process(delta):
 	if muerto:
@@ -156,6 +159,11 @@ func morir_con_estilo():
 	efecto.tween_property(anim, "scale", Vector2.ZERO, 0.4)
 	
 	await efecto.finished
+	if muerto:
+		return
+
+
+
 	queue_free()
 
 # --- FUNCIONES DE APOYO (ARREGLADAS) ---

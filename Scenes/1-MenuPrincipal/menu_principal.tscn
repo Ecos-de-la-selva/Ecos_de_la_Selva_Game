@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://cgaxqi1337uqm"]
 
 [ext_resource type="Texture2D" uid="uid://c46odxbkd6tck" path="res://Assets/Backgrounds/MenuPrincipal/Estatico.png" id="1_h3its"]
+[ext_resource type="Script" uid="uid://bngo6yymh6rqi" path="res://Scripts/1-MenuPrincipal/menu_principal.gd" id="1_qi12v"]
 [ext_resource type="Texture2D" uid="uid://bsjle7ednsghi" path="res://Assets/Backgrounds/MenuPrincipal/Hoja3.png" id="2_svbuc"]
 [ext_resource type="Texture2D" uid="uid://fco56uky8qwp" path="res://Assets/Backgrounds/MenuPrincipal/Hoja1.png" id="3_xbkbe"]
 [ext_resource type="Texture2D" uid="uid://d4jwfv8183fw2" path="res://Assets/Backgrounds/MenuPrincipal/Hoja2.png" id="4_0ygfx"]
@@ -21,6 +22,17 @@
 [ext_resource type="Script" uid="uid://c6dsi3wi7m1bi" path="res://Scripts/1-MenuPrincipal/texture_button_2.gd" id="20_svbuc"]
 [ext_resource type="Texture2D" uid="uid://b51svlyykax23" path="res://Assets/Backgrounds/MenuPrincipal/ColorNegro.png" id="20_xbkbe"]
 [ext_resource type="Script" uid="uid://c4rvwweptrlsg" path="res://Scripts/Transicion/transicion.gd" id="21_xbkbe"]
+[ext_resource type="Texture2D" uid="uid://b5lw4h5etgm3k" path="res://Assets/UI/BotonLevels.png" id="23_cp838"]
+[ext_resource type="Texture2D" uid="uid://dorhchvhlvg4d" path="res://Assets/UI/aat.png" id="24_wdgxr"]
+[ext_resource type="Texture2D" uid="uid://bldte4jdlyb6e" path="res://Assets/UI/Toon UI Pack/Buttons/Orange/Icon/Back.png" id="25_5gils"]
+[ext_resource type="Texture2D" uid="uid://c5vtq5e445ks3" path="res://Assets/UI/Casilla.png" id="25_njqa7"]
+[ext_resource type="Texture2D" uid="uid://dkylandkvl5ms" path="res://Assets/UI/Casilla2.png" id="25_wdgxr"]
+[ext_resource type="FontFile" uid="uid://bnqt3rj6aetmc" path="res://Assets/Fuentes/Super Mindset.ttf" id="26_5gils"]
+[ext_resource type="Texture2D" uid="uid://dkr6mbvw7mjmn" path="res://Assets/UI/Toon UI Pack/Buttons/Blue/Icon/Back.png" id="26_njqa7"]
+[ext_resource type="Texture2D" uid="uid://d0c8jske3b34r" path="res://Assets/UI/BotonPlayestatico.png" id="27_4jgve"]
+[ext_resource type="Texture2D" uid="uid://ceevcebd5nf0s" path="res://Assets/UI/PlatAplastado.png" id="28_5gils"]
+[ext_resource type="Texture2D" uid="uid://cyyrgsvts6553" path="res://Assets/UI/Toon UI Pack/Buttons/Orange/Icon/Rate-Us.png" id="32_6esei"]
+[ext_resource type="Texture2D" uid="uid://cfdsav13air2n" path="res://Assets/UI/Toon UI Pack/Buttons/Blue/Icon/Rate-Us.png" id="33_1kwyx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mgmvr"]
 atlas = ExtResource("2_svbuc")
@@ -541,7 +553,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="Animation" id="Animation_0ygfx"]
+[sub_resource type="Animation" id="Animation_h4pm5"]
 resource_name = "Fade_out"
 length = 2.6666667
 tracks/0/type = "value"
@@ -557,7 +569,7 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_phd7o"]
+[sub_resource type="Animation" id="Animation_0n4j3"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -572,7 +584,7 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_fuuaj"]
+[sub_resource type="Animation" id="Animation_dko3h"]
 resource_name = "appear"
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -589,10 +601,14 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xbkbe"]
 _data = {
-&"Fade_out": SubResource("Animation_0ygfx"),
-&"RESET": SubResource("Animation_phd7o"),
-&"appear": SubResource("Animation_fuuaj")
+&"Fade_out": SubResource("Animation_h4pm5"),
+&"RESET": SubResource("Animation_0n4j3"),
+&"appear": SubResource("Animation_dko3h")
 }
+
+[sub_resource type="Theme" id="Theme_njqa7"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_njqa7"]
 
 [node name="MenuPrincipal" type="Control" unique_id=23267290]
 texture_filter = 1
@@ -603,8 +619,17 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_qi12v")
 
-[node name="Fondo" type="TextureRect" parent="." unique_id=260763076]
+[node name="Control" type="Control" parent="." unique_id=1520496967]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Fondo" type="TextureRect" parent="Control" unique_id=1855486189]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -615,29 +640,29 @@ grow_vertical = 2
 texture = ExtResource("1_h3its")
 expand_mode = 1
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=515461723]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Control" unique_id=1437288515]
 texture_filter = 1
-position = Vector2(576.24994, 324.24994)
-scale = Vector2(4.2648144, 3.7427745)
+position = Vector2(640.25, 360.25)
+scale = Vector2(4.7388887, 4.1589603)
 sprite_frames = SubResource("SpriteFrames_cujwk")
 animation = &"hojas_cayendo"
 autoplay = "hojas_cayendo"
 frame_progress = 0.13280885
 
-[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="." unique_id=2056184954]
-position = Vector2(576, 324)
-scale = Vector2(4.266667, 3.7456646)
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Control" unique_id=425650443]
+position = Vector2(640, 360)
+scale = Vector2(4.7407413, 4.16185)
 sprite_frames = SubResource("SpriteFrames_lou7l")
 animation = &"brillos"
 autoplay = "brillos"
 frame_progress = 0.7725751
 
 [node name="TileMapLayer" parent="." unique_id=1633565844 instance=ExtResource("10_wdgxr")]
-tile_map_data = PackedByteArray("AAD//xMAAQAGAAcAAAD//xQAAQAGAAcAAAAAABQAAQAHAAcAAAABABQAAQAIAAcAAAACABQAAQAJAAcAAAADABQAAQAGAAcAAAAEABQAAQAHAAcAAAAFABQAAQAIAAcAAAAGABQAAQAJAAcAAAAHABQAAQAGAAcAAAAIABQAAQAHAAcAAAAJABQAAQAIAAcAAAAKABQAAQAJAAcAAAALABQAAQAGAAcAAAAMABQAAQAHAAcAAAANABQAAQAIAAcAAAAOABQAAQAJAAcAAAAPABQAAQAGAAcAAAAQABQAAQAHAAcAAAARABQAAQAIAAcAAAASABQAAQAJAAcAAAATABQAAQAGAAcAAAAUABQAAQAGAAcAAAAVABQAAQAHAAcAAAAWABQAAQAIAAcAAAAXABQAAQAJAAcAAAAYABQAAQAGAAcAAAAZABQAAQAHAAcAAAAaABQAAQAIAAcAAAAbABQAAQAJAAcAAAAcABQAAQAGAAcAAAAdABQAAQAHAAcAAAAeABQAAQAIAAcAAAAfABQAAQAJAAcAAAAgABQAAQAGAAcAAAAhABQAAQAHAAcAAAAiABQAAQAIAAcAAAAjABQAAQAJAAcAAAAkABQAAQAGAAcAAAAlABQAAQAHAAcAAAAmABQAAQAIAAcAAAAnABQAAQAJAAcAAAAoABMAAQAGAAcAAAAoABQAAQAHAAcAAAD//xEAAQAGAAUAAAD//xIAAQAGAAYAAAAAABIAAQAHAAUAAAAAABMAAQAHAAYAAAABABIAAQAIAAUAAAABABMAAQAIAAYAAAACABIAAQAJAAUAAAACABMAAQAJAAYAAAADABIAAQAGAAUAAAADABMAAQAGAAYAAAAEABIAAQAHAAUAAAAEABMAAQAHAAYAAAAFABIAAQAIAAUAAAAFABMAAQAIAAYAAAAGABIAAQAJAAUAAAAGABMAAQAJAAYAAAAHABIAAQAGAAUAAAAHABMAAQAGAAYAAAAIABIAAQAHAAUAAAAIABMAAQAHAAYAAAAJABIAAQAIAAUAAAAJABMAAQAIAAYAAAAKABIAAQAJAAUAAAAKABMAAQAJAAYAAAALABIAAQAGAAUAAAALABMAAQAGAAYAAAAMABIAAQAHAAUAAAAMABMAAQAHAAYAAAANABIAAQAIAAUAAAANABMAAQAIAAYAAAAOABIAAQAJAAUAAAAOABMAAQAJAAYAAAAPABIAAQAGAAUAAAAPABMAAQAGAAYAAAAQABIAAQAHAAUAAAAQABMAAQAHAAYAAAARABIAAQAIAAUAAAARABMAAQAIAAYAAAASABIAAQAJAAUAAAASABMAAQAJAAYAAAATABIAAQAGAAUAAAATABMAAQAGAAYAAAAUABIAAQAGAAUAAAAUABMAAQAGAAYAAAAVABIAAQAHAAUAAAAVABMAAQAHAAYAAAAWABIAAQAIAAUAAAAWABMAAQAIAAYAAAAXABIAAQAJAAUAAAAXABMAAQAJAAYAAAAYABIAAQAGAAUAAAAYABMAAQAGAAYAAAAZABIAAQAHAAUAAAAZABMAAQAHAAYAAAAaABIAAQAIAAUAAAAaABMAAQAIAAYAAAAbABIAAQAJAAUAAAAbABMAAQAJAAYAAAAcABIAAQAGAAUAAAAcABMAAQAGAAYAAAAdABIAAQAHAAUAAAAdABMAAQAHAAYAAAAeABIAAQAIAAUAAAAeABMAAQAIAAYAAAAfABIAAQAJAAUAAAAfABMAAQAJAAYAAAAgABIAAQAGAAUAAAAgABMAAQAGAAYAAAAhABIAAQAHAAUAAAAhABMAAQAHAAYAAAAiABIAAQAIAAUAAAAiABMAAQAIAAYAAAAjABIAAQAJAAUAAAAjABMAAQAJAAYAAAAkABIAAQAGAAUAAAAkABMAAQAGAAYAAAAlABIAAQAHAAUAAAAlABMAAQAHAAYAAAAmABIAAQAIAAUAAAAmABMAAQAIAAYAAAAnABIAAQAJAAUAAAAnABMAAQAJAAYAAAAoABEAAQAGAAUAAAAoABIAAQAGAAYAAAA=")
+tile_map_data = PackedByteArray("AAAAABQAAQAHAAUAAAAAABUAAQAHAAYAAAAAABYAAQAHAAcAAAAAABcAAQAHAAcAAAABABQAAQAIAAUAAAABABUAAQAIAAYAAAABABYAAQAIAAcAAAABABcAAQAIAAcAAAACABQAAQAJAAUAAAACABUAAQAJAAYAAAACABYAAQAJAAcAAAACABcAAQAJAAcAAAADABQAAQAGAAUAAAADABUAAQAGAAYAAAADABYAAQAGAAcAAAADABcAAQAGAAcAAAAEABQAAQAHAAUAAAAEABUAAQAHAAYAAAAEABYAAQAHAAcAAAAEABcAAQAHAAcAAAAFABQAAQAIAAUAAAAFABUAAQAIAAYAAAAFABYAAQAIAAcAAAAFABcAAQAIAAcAAAAGABQAAQAJAAUAAAAGABUAAQAJAAYAAAAGABYAAQAJAAcAAAAGABcAAQAJAAcAAAAHABQAAQAGAAUAAAAHABUAAQAGAAYAAAAHABYAAQAGAAcAAAAHABcAAQAGAAcAAAAIABQAAQAHAAUAAAAIABUAAQAHAAYAAAAIABYAAQAHAAcAAAAIABcAAQAHAAcAAAAJABQAAQAIAAUAAAAJABUAAQAIAAYAAAAJABYAAQAIAAcAAAAJABcAAQAIAAcAAAAKABQAAQAJAAUAAAAKABUAAQAJAAYAAAAKABYAAQAJAAcAAAAKABcAAQAJAAcAAAALABQAAQAGAAUAAAALABUAAQAGAAYAAAALABYAAQAGAAcAAAALABcAAQAGAAcAAAAMABQAAQAHAAUAAAAMABUAAQAHAAYAAAAMABYAAQAHAAcAAAAMABcAAQAHAAcAAAANABQAAQAIAAUAAAANABUAAQAIAAYAAAANABYAAQAIAAcAAAANABcAAQAIAAcAAAAOABQAAQAJAAUAAAAOABUAAQAJAAYAAAAOABYAAQAJAAcAAAAOABcAAQAJAAcAAAAPABQAAQAGAAUAAAAPABUAAQAGAAYAAAAPABYAAQAGAAcAAAAPABcAAQAGAAcAAAAQABQAAQAHAAUAAAAQABUAAQAHAAYAAAAQABYAAQAHAAcAAAAQABcAAQAHAAcAAAARABQAAQAIAAUAAAARABUAAQAIAAYAAAARABYAAQAIAAcAAAARABcAAQAIAAcAAAASABQAAQAJAAUAAAASABUAAQAJAAYAAAASABYAAQAJAAcAAAASABcAAQAJAAcAAAATABQAAQAGAAUAAAATABUAAQAGAAYAAAATABYAAQAGAAcAAAATABcAAQAGAAcAAAAUABQAAQAGAAUAAAAUABUAAQAGAAYAAAAUABYAAQAGAAcAAAAUABcAAQAGAAcAAAAVABQAAQAHAAUAAAAVABUAAQAHAAYAAAAVABYAAQAHAAcAAAAVABcAAQAHAAcAAAAWABQAAQAIAAUAAAAWABUAAQAIAAYAAAAWABYAAQAIAAcAAAAWABcAAQAIAAcAAAAXABQAAQAJAAUAAAAXABUAAQAJAAYAAAAXABYAAQAJAAcAAAAXABcAAQAJAAcAAAAYABQAAQAGAAUAAAAYABUAAQAGAAYAAAAYABYAAQAGAAcAAAAYABcAAQAGAAcAAAAZABQAAQAHAAUAAAAZABUAAQAHAAYAAAAZABYAAQAHAAcAAAAZABcAAQAHAAcAAAAaABQAAQAIAAUAAAAaABUAAQAIAAYAAAAaABYAAQAIAAcAAAAaABcAAQAIAAcAAAAbABQAAQAJAAUAAAAbABUAAQAJAAYAAAAbABYAAQAJAAcAAAAbABcAAQAJAAcAAAAcABQAAQAGAAUAAAAcABUAAQAGAAYAAAAcABYAAQAGAAcAAAAcABcAAQAGAAcAAAAdABQAAQAHAAUAAAAdABUAAQAHAAYAAAAdABYAAQAHAAcAAAAdABcAAQAHAAcAAAAeABQAAQAIAAUAAAAeABUAAQAIAAYAAAAeABYAAQAIAAcAAAAeABcAAQAIAAcAAAAfABQAAQAJAAUAAAAfABUAAQAJAAYAAAAfABYAAQAJAAcAAAAfABcAAQAJAAcAAAAgABQAAQAGAAUAAAAgABUAAQAGAAYAAAAgABYAAQAGAAcAAAAgABcAAQAGAAcAAAAhABQAAQAHAAUAAAAhABUAAQAHAAYAAAAhABYAAQAHAAcAAAAhABcAAQAHAAcAAAAiABQAAQAIAAUAAAAiABUAAQAIAAYAAAAiABYAAQAIAAcAAAAiABcAAQAIAAcAAAAjABQAAQAJAAUAAAAjABUAAQAJAAYAAAAjABYAAQAJAAcAAAAjABcAAQAJAAcAAAAkABQAAQAGAAUAAAAkABUAAQAGAAYAAAAkABYAAQAGAAcAAAAkABcAAQAGAAcAAAAlABQAAQAHAAUAAAAlABUAAQAHAAYAAAAlABYAAQAHAAcAAAAlABcAAQAHAAcAAAAmABQAAQAIAAUAAAAmABUAAQAIAAYAAAAmABYAAQAIAAcAAAAmABcAAQAIAAcAAAAnABQAAQAJAAUAAAAnABUAAQAJAAYAAAAnABYAAQAJAAcAAAAnABcAAQAJAAcAAAAoABQAAQAJAAUAAAAoABUAAQAJAAYAAAAoABYAAQAJAAcAAAAoABcAAQAJAAcAAAApABQAAQAGAAUAAAApABUAAQAGAAYAAAApABYAAQAGAAcAAAApABcAAQAGAAcAAAAqABQAAQAHAAUAAAAqABUAAQAHAAYAAAAqABYAAQAHAAcAAAAqABcAAQAHAAcAAAArABQAAQAIAAUAAAArABUAAQAIAAYAAAArABYAAQAIAAcAAAArABcAAQAIAAcAAAAsABQAAQAJAAUAAAAsABUAAQAJAAYAAAAsABYAAQAJAAcAAAAsABcAAQAJAAcAAAAtABQAAQAJAAUAAAAtABUAAQAJAAYAAAAtABYAAQAJAAcAAAAtABcAAQAJAAcAAAAuABQAAQAGAAUAAAAuABUAAQAGAAYAAAAuABYAAQAGAAcAAAAuABcAAQAGAAcAAAAvABQAAQAHAAUAAAAvABUAAQAHAAYAAAAvABYAAQAHAAcAAAAvABcAAQAHAAcAAAAwABQAAQAIAAUAAAAwABUAAQAIAAYAAAAwABYAAQAIAAcAAAAwABcAAQAIAAcAAAAxABQAAQAJAAUAAAAxABUAAQAJAAYAAAAxABYAAQAJAAcAAAAxABcAAQAJAAcAAAAAABgAAQAHAAcAAAAAABkAAQAHAAcAAAABABgAAQAIAAcAAAABABkAAQAIAAcAAAACABgAAQAJAAcAAAACABkAAQAJAAcAAAADABgAAQAGAAcAAAADABkAAQAGAAcAAAAEABgAAQAHAAcAAAAEABkAAQAHAAcAAAAFABgAAQAIAAcAAAAFABkAAQAIAAcAAAAGABgAAQAJAAcAAAAGABkAAQAJAAcAAAAHABgAAQAGAAcAAAAHABkAAQAGAAcAAAAIABgAAQAHAAcAAAAIABkAAQAHAAcAAAAJABgAAQAIAAcAAAAJABkAAQAIAAcAAAAKABgAAQAJAAcAAAAKABkAAQAJAAcAAAALABgAAQAGAAcAAAALABkAAQAGAAcAAAAMABgAAQAHAAcAAAAMABkAAQAHAAcAAAANABgAAQAIAAcAAAANABkAAQAIAAcAAAAOABgAAQAJAAcAAAAOABkAAQAJAAcAAAAPABgAAQAGAAcAAAAPABkAAQAGAAcAAAAQABgAAQAHAAcAAAAQABkAAQAHAAcAAAARABgAAQAIAAcAAAARABkAAQAIAAcAAAASABgAAQAJAAcAAAASABkAAQAJAAcAAAATABgAAQAGAAcAAAATABkAAQAGAAcAAAAUABgAAQAGAAcAAAAUABkAAQAGAAcAAAAVABgAAQAHAAcAAAAVABkAAQAHAAcAAAAWABgAAQAIAAcAAAAWABkAAQAIAAcAAAAXABgAAQAJAAcAAAAXABkAAQAJAAcAAAAYABgAAQAGAAcAAAAYABkAAQAGAAcAAAAZABgAAQAHAAcAAAAZABkAAQAHAAcAAAAaABgAAQAIAAcAAAAaABkAAQAIAAcAAAAbABgAAQAJAAcAAAAbABkAAQAJAAcAAAAcABgAAQAGAAcAAAAcABkAAQAGAAcAAAAdABgAAQAHAAcAAAAdABkAAQAHAAcAAAAeABgAAQAIAAcAAAAeABkAAQAIAAcAAAAfABgAAQAJAAcAAAAfABkAAQAJAAcAAAAgABgAAQAGAAcAAAAgABkAAQAGAAcAAAAhABgAAQAHAAcAAAAhABkAAQAHAAcAAAAiABgAAQAIAAcAAAAiABkAAQAIAAcAAAAjABgAAQAJAAcAAAAjABkAAQAJAAcAAAAkABgAAQAGAAcAAAAkABkAAQAGAAcAAAAlABgAAQAHAAcAAAAlABkAAQAHAAcAAAAmABgAAQAIAAcAAAAmABkAAQAIAAcAAAAnABgAAQAJAAcAAAAnABkAAQAJAAcAAAAoABgAAQAHAAcAAAAoABkAAQAHAAcAAAApABgAAQAGAAcAAAApABkAAQAGAAcAAAAqABgAAQAHAAcAAAAqABkAAQAHAAcAAAArABgAAQAIAAcAAAArABkAAQAIAAcAAAAsABgAAQAJAAcAAAAsABkAAQAJAAcAAAAtABgAAQAGAAcAAAAtABkAAQAGAAcAAAAuABgAAQAHAAcAAAAuABkAAQAHAAcAAAAvABgAAQAIAAcAAAAvABkAAQAIAAcAAAAwABgAAQAJAAcAAAAwABkAAQAJAAcAAAAxABgAAQAHAAcAAAAxABkAAQAHAAcAAAA=")
 
 [node name="PersonajeMenu" type="AnimatedSprite2D" parent="." unique_id=609763177]
 texture_filter = 1
-position = Vector2(252, 551)
+position = Vector2(252, 609)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_m0mbi")
 animation = &"walk"
@@ -645,7 +670,7 @@ frame_progress = 0.251866
 script = ExtResource("15_6esei")
 
 [node name="Personaje2Menu" type="AnimatedSprite2D" parent="." unique_id=1795035588]
-position = Vector2(921, 552)
+position = Vector2(923, 609)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_wi5uj")
 animation = &"walk"
@@ -693,6 +718,7 @@ frame_progress = 0.9588519
 stream = ExtResource("9_cp838")
 
 [node name="Transicion" type="Sprite2D" parent="." unique_id=1140837007]
+visible = false
 position = Vector2(591.18744, 334)
 scale = Vector2(4.652567, 3.5520833)
 texture = ExtResource("20_xbkbe")
@@ -702,4 +728,254 @@ script = ExtResource("21_xbkbe")
 libraries/ = SubResource("AnimationLibrary_xbkbe")
 autoplay = &"Fade_out"
 
+[node name="BotonNiveles" type="TextureButton" parent="." unique_id=1480064397]
+custom_minimum_size = Vector2(0.2, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.69071877
+anchor_top = 0.69400007
+anchor_right = 0.69071877
+anchor_bottom = 0.69400007
+offset_left = -64.120056
+offset_top = -27.680054
+offset_right = 180.87994
+offset_bottom = 52.319946
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("23_cp838")
+texture_pressed = ExtResource("24_wdgxr")
+ignore_texture_size = true
+stretch_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="Node2D" type="Node2D" parent="." unique_id=1819343256]
+visible = false
+
+[node name="TextureRect" type="TextureRect" parent="Node2D" unique_id=1063484804]
+offset_left = 90.0
+offset_top = -26.0
+offset_right = 1216.0
+offset_bottom = 739.0
+texture = ExtResource("25_njqa7")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Node2D" unique_id=1644112234]
+offset_left = 214.0
+offset_top = 50.0
+offset_right = 1142.0
+offset_bottom = 596.0
+horizontal_scroll_mode = 0
+
+[node name="PanelNiveles" type="VBoxContainer" parent="Node2D/ScrollContainer" unique_id=662343820]
+layout_mode = 2
+
+[node name="Nivel1" type="TextureRect" parent="Node2D/ScrollContainer/PanelNiveles" unique_id=34669545]
+custom_minimum_size = Vector2(0.7, 0)
+layout_mode = 2
+texture = ExtResource("25_wdgxr")
+
+[node name="Label" type="Label" parent="Node2D/ScrollContainer/PanelNiveles/Nivel1" unique_id=1611939389]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.080434784
+anchor_top = -0.14760147
+anchor_right = 0.21304348
+anchor_bottom = -0.08856089
+offset_left = 83.0
+offset_top = 151.0
+offset_right = 372.0
+offset_bottom = 190.0
+theme = SubResource("Theme_njqa7")
+theme_override_colors/font_color = Color(0, 0.67058825, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.0035657715, 0.004754657, 0, 0)
+theme_override_colors/font_outline_color = Color(0.30190146, 0.17254588, 0.004377131, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("26_5gils")
+theme_override_font_sizes/font_size = 54
+theme_override_styles/normal = SubResource("StyleBoxTexture_njqa7")
+text = "Level 1 - La Jungla"
+metadata/_edit_use_anchors_ = true
+
+[node name="Nivel1" type="TextureButton" parent="Node2D/ScrollContainer/PanelNiveles/Nivel1" unique_id=1653331559]
+layout_mode = 0
+offset_left = 640.0
+offset_top = 73.0
+offset_right = 755.0
+offset_bottom = 181.0
+texture_normal = ExtResource("27_4jgve")
+texture_pressed = ExtResource("28_5gils")
+stretch_mode = 0
+
+[node name="Nivel 2" type="TextureRect" parent="Node2D/ScrollContainer/PanelNiveles" unique_id=581739565]
+custom_minimum_size = Vector2(0.7, 0)
+layout_mode = 2
+texture = ExtResource("25_wdgxr")
+
+[node name="Label" type="Label" parent="Node2D/ScrollContainer/PanelNiveles/Nivel 2" unique_id=1843723797]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.080434784
+anchor_top = -0.14760147
+anchor_right = 0.21304348
+anchor_bottom = -0.08856089
+offset_left = 83.0
+offset_top = 151.0
+offset_right = 372.0
+offset_bottom = 190.0
+theme = SubResource("Theme_njqa7")
+theme_override_colors/font_color = Color(0, 0.67058825, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.0035657715, 0.004754657, 0, 0)
+theme_override_colors/font_outline_color = Color(0.30190146, 0.17254588, 0.004377131, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("26_5gils")
+theme_override_font_sizes/font_size = 54
+theme_override_styles/normal = SubResource("StyleBoxTexture_njqa7")
+text = "Level 2 - Cielo Azul"
+metadata/_edit_use_anchors_ = true
+
+[node name="Nivel2" type="TextureButton" parent="Node2D/ScrollContainer/PanelNiveles/Nivel 2" unique_id=1162987228]
+layout_mode = 0
+offset_left = 640.0
+offset_top = 73.0
+offset_right = 755.0
+offset_bottom = 181.0
+texture_normal = ExtResource("27_4jgve")
+texture_pressed = ExtResource("28_5gils")
+stretch_mode = 0
+
+[node name="Nivel 3" type="TextureRect" parent="Node2D/ScrollContainer/PanelNiveles" unique_id=1336790038]
+custom_minimum_size = Vector2(0.7, 0)
+layout_mode = 2
+texture = ExtResource("25_wdgxr")
+
+[node name="Label" type="Label" parent="Node2D/ScrollContainer/PanelNiveles/Nivel 3" unique_id=1048882187]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.080434784
+anchor_top = -0.14760147
+anchor_right = 0.21304348
+anchor_bottom = -0.08856089
+offset_left = 83.0
+offset_top = 151.0
+offset_right = 372.0
+offset_bottom = 190.0
+theme = SubResource("Theme_njqa7")
+theme_override_colors/font_color = Color(0, 0.67058825, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.0035657715, 0.004754657, 0, 0)
+theme_override_colors/font_outline_color = Color(0.30190146, 0.17254588, 0.004377131, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("26_5gils")
+theme_override_font_sizes/font_size = 54
+theme_override_styles/normal = SubResource("StyleBoxTexture_njqa7")
+text = "Level 3 - El Salvador"
+metadata/_edit_use_anchors_ = true
+
+[node name="Nivel3" type="TextureButton" parent="Node2D/ScrollContainer/PanelNiveles/Nivel 3" unique_id=1827736740]
+layout_mode = 0
+offset_left = 640.0
+offset_top = 73.0
+offset_right = 755.0
+offset_bottom = 181.0
+texture_normal = ExtResource("27_4jgve")
+texture_pressed = ExtResource("28_5gils")
+stretch_mode = 0
+
+[node name="Nivel 4" type="TextureRect" parent="Node2D/ScrollContainer/PanelNiveles" unique_id=2138993922]
+custom_minimum_size = Vector2(0.7, 0)
+layout_mode = 2
+texture = ExtResource("25_wdgxr")
+
+[node name="Label" type="Label" parent="Node2D/ScrollContainer/PanelNiveles/Nivel 4" unique_id=875900704]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.080434784
+anchor_top = -0.14760147
+anchor_right = 0.21304348
+anchor_bottom = -0.08856089
+offset_left = 83.0
+offset_top = 151.0
+offset_right = 372.0
+offset_bottom = 190.0
+theme = SubResource("Theme_njqa7")
+theme_override_colors/font_color = Color(0, 0.67058825, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.0035657715, 0.004754657, 0, 0)
+theme_override_colors/font_outline_color = Color(0.30190146, 0.17254588, 0.004377131, 1)
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("26_5gils")
+theme_override_font_sizes/font_size = 54
+theme_override_styles/normal = SubResource("StyleBoxTexture_njqa7")
+text = "Level 4 - La Venganza"
+metadata/_edit_use_anchors_ = true
+
+[node name="Nivel4" type="TextureButton" parent="Node2D/ScrollContainer/PanelNiveles/Nivel 4" unique_id=1498939980]
+layout_mode = 0
+offset_left = 640.0
+offset_top = 73.0
+offset_right = 755.0
+offset_bottom = 181.0
+texture_normal = ExtResource("27_4jgve")
+texture_pressed = ExtResource("28_5gils")
+stretch_mode = 0
+
+[node name="BotonCerrar" type="TextureButton" parent="Node2D" unique_id=1547993461]
+offset_left = 127.0
+offset_top = 50.0
+offset_right = 216.0
+offset_bottom = 130.0
+texture_normal = ExtResource("25_5gils")
+texture_pressed = ExtResource("26_njqa7")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Node2D2" type="Node2D" parent="." unique_id=909876765]
+
+[node name="BotonRanking" type="TextureButton" parent="Node2D2" unique_id=932110238]
+offset_left = 466.0
+offset_top = 491.0
+offset_right = 529.0
+offset_bottom = 554.0
+texture_normal = ExtResource("32_6esei")
+texture_pressed = ExtResource("33_1kwyx")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="PanelRanking" type="NinePatchRect" parent="Node2D2/BotonRanking" unique_id=1435736444]
+visible = false
+layout_mode = 0
+offset_left = -323.0
+offset_top = -361.0
+offset_right = 612.0
+offset_bottom = 137.0
+texture = ExtResource("25_wdgxr")
+
+[node name="LabelDatos" type="Label" parent="Node2D2/BotonRanking/PanelRanking" unique_id=2138159558]
+layout_mode = 0
+offset_left = 142.0
+offset_top = 87.0
+offset_right = 552.0
+offset_bottom = 168.0
+theme_override_colors/font_color = Color(0.10980392, 0.60784316, 0.10980392, 1)
+theme_override_colors/font_shadow_color = Color(0.4045111, 0.40451115, 0.4045111, 0)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("26_5gils")
+theme_override_font_sizes/font_size = 32
+
+[node name="TextureButton" type="TextureButton" parent="Node2D2/BotonRanking/PanelRanking" unique_id=1581264484]
+layout_mode = 0
+offset_left = 36.0
+offset_top = 49.0
+offset_right = 101.0
+offset_bottom = 107.0
+texture_normal = ExtResource("25_5gils")
+texture_pressed = ExtResource("26_njqa7")
+ignore_texture_size = true
+stretch_mode = 0
+
 [connection signal="pressed" from="TextureButton2" to="TextureButton2" method="_on_pressed"]
+[connection signal="pressed" from="BotonNiveles" to="." method="_on_boton_niveles_pressed"]
+[connection signal="pressed" from="Node2D/ScrollContainer/PanelNiveles/Nivel1/Nivel1" to="." method="_on_nivel_1_pressed"]
+[connection signal="pressed" from="Node2D/ScrollContainer/PanelNiveles/Nivel 2/Nivel2" to="." method="_on_nivel_2_pressed"]
+[connection signal="pressed" from="Node2D/ScrollContainer/PanelNiveles/Nivel 3/Nivel3" to="." method="_on_nivel_3_pressed"]
+[connection signal="pressed" from="Node2D/ScrollContainer/PanelNiveles/Nivel 4/Nivel4" to="." method="_on_nivel_4_pressed"]
+[connection signal="pressed" from="Node2D/BotonCerrar" to="." method="_on_boton_cerrar_pressed"]
+[connection signal="pressed" from="Node2D2/BotonRanking" to="." method="_on_boton_ranking_pressed"]
+[connection signal="pressed" from="Node2D2/BotonRanking/PanelRanking/TextureButton" to="." method="_on_texture_button_pressed"]

@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://dr5vc7jla0sqa"]
+
+[ext_resource type="Script" uid="uid://t5ausv27qli1" path="res://Scripts/Fruit/chontaduro.gd" id="1_0pppq"]
+[ext_resource type="Texture2D" uid="uid://bcaeiqdq7aorv" path="res://Assets/Fruit/Chontaduro.png" id="1_r0en2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0pppq"]
+radius = 16.0
+
+[node name="Chontaduro" type="Area2D" unique_id=177947483]
+collision_layer = 0
+script = ExtResource("1_0pppq")
+
+[node name="Chontaduro" type="Sprite2D" parent="." unique_id=305350986]
+position = Vector2(33.000015, 29.999985)
+scale = Vector2(0.11111108, 0.108414225)
+texture = ExtResource("1_r0en2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2128081684]
+visible = false
+position = Vector2(32, 31)
+shape = SubResource("CircleShape2D_0pppq")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
