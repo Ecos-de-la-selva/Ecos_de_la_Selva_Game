@@ -171,7 +171,8 @@ func morir():
 		audio_boss.stop()
 		audio_boss.pitch_scale = 0.5 
 		audio_boss.play()
-	if hud: hud.ocultar_barra_jefe()
+	if hud: 
+		hud.ocultar_barra_jefe()
 	
 	set_deferred("collision_layer", 0)
 	set_deferred("collision_mask", 0)
@@ -182,7 +183,6 @@ func morir():
 		"Las aguas del pantano vuelven a ser claras."
 	])
 	
-	
 	# Efecto de desaparición del sapo
 	var tween = create_tween()
 	for i in range(6):
@@ -191,38 +191,42 @@ func morir():
 	tween.tween_property(anim, "modulate:a", 0.0, 0.5)
 	await tween.finished
 	
+	# =========================================================
+	# 🏆 GUARDAR PUNTOS DEL NIVEL 3
+	# =========================================================
+	if has_node("/root/Global"):
+		Global.confirmar_limpieza_nivel()
+		Global.guardar_puntuacion_local()
+		print("Basura del pantano asegurada.")
+
 	if get_tree().current_scene.has_method("desactivar_arena"):
 		get_tree().current_scene.desactivar_arena()
 
 	# =========================================================
-	# 🎬 ACTIVAR TRANSICIÓN (INTENTO ROBUSTO)
+	# 🎬 ACTIVAR TRANSICIÓN
 	# =========================================================
-	# Buscamos el AnimationPlayer en la raíz de la escena actual
 	var escena_actual = get_tree().current_scene
 	var anim_player = escena_actual.find_child("AnimationPlayer", true, false)
 	
 	if anim_player:
-		# IMPORTANTE: Asegúrate de que el nombre de la animación sea el correcto
-		# Si tu animación se llama "Transicion", cambia "fade_out" por "Transicion"
 		if anim_player.has_animation("Fade_out"):
 			anim_player.play("Fade_out")
 			await anim_player.animation_finished
 		else:
-			# Si no encuentra la animación por nombre, intenta reproducir la primera que encuentre
-			print("Advertencia: No existe 'fade_out', intentando la primera animación disponible.")
 			anim_player.play(anim_player.get_animation_list()[0])
 			await anim_player.animation_finished
 	else:
-		print("ERROR: No se encontró ningún AnimationPlayer en la escena.")
+		print("ERROR: No se encontró ningún AnimationPlayer.")
 
 	# =========================================================
-	# 🚀 CAMBIO DE NIVEL
+	# 🚀 CAMBIO AL NIVEL 4 (O SIGUIENTE)
 	# =========================================================
 	var nombre_actual = escena_actual.name
 	if has_node("/root/Escenas"):
 		Escenas.siguiente_nivel(nombre_actual)
 	else:
-		print("Error: Autoload 'Escenas' no configurado.")
+		# Plan B por si el Autoload falla
+		get_tree().change_scene_to_file("res://Scenes/Level-4/mundo4.tscn")
 	
 	queue_free()
 

@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://dcqrpdq5deger"]
+[gd_scene format=3 uid="uid://dx6h87lr3raja"]
 
-[ext_resource type="Script" uid="uid://b8pgjwikc7n75" path="res://Scripts/Characters/personaje_2_montado.gd" id="1_isaoo"]
+[ext_resource type="Script" path="res://Scripts/Characters/personaje_2_montado.gd" id="1_isaoo"]
 [ext_resource type="Texture2D" uid="uid://bsjdtb3wqjh2h" path="res://Assets/Characters/Personaje 2/Jaguar/attackCharacterWoman.png" id="2_isaoo"]
 [ext_resource type="Texture2D" uid="uid://082fv8d4lq4t" path="res://Assets/Characters/Personaje 2/Jaguar/IdleCharacterWoman.png" id="3_g81ly"]
 [ext_resource type="Texture2D" uid="uid://dq2bpupgskltl" path="res://Assets/Characters/Personaje 2/Jaguar/jumpCharacterWoman.png" id="4_6558f"]
@@ -154,7 +154,7 @@ animations = [{
 size = Vector2(28.75, 40.75)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_60cyf"]
-size = Vector2(74.5, 37.5)
+size = Vector2(74.5, 46.583336)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7scsv"]
 size = Vector2(60.333336, 43)
@@ -177,11 +177,10 @@ shape = SubResource("RectangleShape2D_6vbps")
 position = Vector2(0, -11)
 
 [node name="AttackArea" type="Area2D" parent="." unique_id=981912668]
-visible = false
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" unique_id=583774327]
-position = Vector2(-4.5, 2.5)
+position = Vector2(-4.5, -2.041667)
 shape = SubResource("RectangleShape2D_60cyf")
 
 [node name="HurtBox" type="Area2D" parent="." unique_id=1902640852]

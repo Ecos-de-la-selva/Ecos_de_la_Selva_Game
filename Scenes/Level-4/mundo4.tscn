@@ -23,7 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://b7vvwlrgc6toi" path="res://Scenes/Enemigos/Volador.tscn" id="23_4d1qb"]
 [ext_resource type="PackedScene" uid="uid://dn21rnnh5e6ec" path="res://Scenes/Enemigos/Hongo.tscn" id="24_cauy0"]
 [ext_resource type="PackedScene" uid="uid://vy46ny003hmt" path="res://Scenes/Enemigos/murcielago.tscn" id="25_7rwq8"]
-[ext_resource type="Script" path="res://Scripts/Enemies/rey_mono2.gd" id="26_6iwq4"]
+[ext_resource type="Script" uid="uid://ct2n5dx1iwgh4" path="res://Scripts/Enemies/rey_mono2.gd" id="26_6iwq4"]
 [ext_resource type="PackedScene" uid="uid://bvgh7ilwgn3e" path="res://Scenes/Enemigos/rey_mono.tscn" id="26_ghip1"]
 [ext_resource type="AudioStream" uid="uid://cx2jn56m7n2l5" path="res://Assets/Sounds/Boss/flutie8211-gorilla-roar-523007.mp3" id="28_odcn4"]
 [ext_resource type="AudioStream" uid="uid://6pj6repvvjvx" path="res://Assets/Sounds/Boss/theeoffender1-final-fight-320156.mp3" id="29_e3i5q"]

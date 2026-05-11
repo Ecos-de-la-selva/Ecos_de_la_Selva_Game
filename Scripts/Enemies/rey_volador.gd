@@ -72,31 +72,36 @@ func iniciar_pelea(hud_ref):
 # =========================================================
 # CONTROL DE FASES (AQUÍ SE REPITE EL CICLO)
 # =========================================================
+# =========================================================
+# CONTROL DE FASES (REVISADO)
+# =========================================================
 func iniciar_fase():
 	if muerto: return
 	vulnerable = false
 	atacando = false
 	
-	# FASE IMPAR -> ATAQUE
+	# FASE IMPAR (1, 3, 5...) -> ATAQUE
 	if fase % 2 != 0:
 		bloqueado = true
 		await mostrar_dialogo(["¡Va a lanzarse!"])
 		bloqueado = false
 		iniciar_picado()
 
-	# FASE PAR -> INVOCAR
+	# FASE PAR (2, 4, 6...) -> INVOCAR
 	else:
 		bloqueado = true
 		await mostrar_dialogo(["Está invocando criaturas..."])
+		
+		# Cambiamos a animación de idle/invocar
 		anim.play("idle")
 		
-		spawn_lacayos(2 + fase) 
+		# Llamamos al spawn (Asegúrate de que la función spawn_lacayos esté abajo)
+		var cantidad = 2 + (fase / 2) 
+		spawn_lacayos(cantidad)
 		
-		# IMPORTANTE: No ponemos código después de aquí. 
-		# El jefe se quedará en IDLE (flotando) porque bloqueado = true.
-		# El ciclo continuará SOLO cuando el último lacayo muera 
-		# y ejecute la señal que llama a 'mostrar_debilidad()'.
-		print("Jefe esperando a que mueran los lacayos...")
+		print("Jefe esperando a que mueran los ", cantidad, " lacayos...")
+		# El código se detiene aquí porque bloqueado = true. 
+		# Seguirá en _on_lacayo_muerto() cuando lacayos_vivos == 0.
 		
 		
 		# Después de los lacayos, se vuelve vulnerable
@@ -188,6 +193,7 @@ func mostrar_debilidad():
 # RECIBIR DAÑO Y CAMBIO DE FASE
 # =========================================================
 func recibir_danio(dmg: int, posicion_atacante: Vector2):
+	# Si ya está muerto, no procesar nada (evita llamadas fantasmales)
 	if muerto or not vulnerable: return
 
 	vida -= dmg
@@ -195,64 +201,69 @@ func recibir_danio(dmg: int, posicion_atacante: Vector2):
 	
 	vulnerable = false
 	recibiendo_golpe = true
-
-	audio_boss.pitch_scale = 0.8 # Un tono más grave para que suene imponente
 	audio_boss.play()
-	# Retroceso
-	velocity = (global_position - posicion_atacante).normalized() * 350
-	
-	# Flash
+
 	var tw = create_tween()
 	tw.tween_property(anim, "modulate", Color(10,10,10), 0.05)
 	tw.tween_property(anim, "modulate", Color(1,1,1), 0.05)
 
-	await get_tree().create_timer(0.4).timeout
-	recibiendo_golpe = false
-
 	if vida <= 0:
-		morir()
+		# Llamada segura
+		call_deferred("morir")
 		return
 
-	# Pausa para cambiar de fase
-	bloqueado = true
-	await mostrar_dialogo(["¡Argh!", "¡No me vencerás tan fácil!"])
-	await get_tree().create_timer(1.0).timeout
+	await get_tree().create_timer(0.4).timeout
+	if not is_inside_tree() or muerto: return # Candado tras timer
 	
-	fase += 1 # Aquí cambiamos a la siguiente fase (si era 1 pasa a 2, etc.)
+	recibiendo_golpe = false
+	fase += 1
 	iniciar_fase()
-
 # =========================================================
 # LACAYOS
 # =========================================================
+# =========================================================
+# LACAYOS (REVISADO Y CORREGIDO)
+# =========================================================
+# =========================================================
+# LACAYOS (APARICIÓN CONCENTRADA)
+# =========================================================
 func spawn_lacayos(cantidad):
 	lacayos_vivos = cantidad
+	print("Invocando ", cantidad, " lacayos sobre el jefe...")
 
 	for i in range(cantidad):
 		var enemigo = escena_lacayo.instantiate()
-		enemigo.global_position = global_position + Vector2(
-			randf_range(-250,250),
-			randf_range(-120,120)
-		)
+		
+		# 🟢 POSICIÓN: Justo en el jefe con un pequeño margen de 50 píxeles
+		# Esto evita que aparezcan dispersos por todo el mapa
+		var variacion_minima = Vector2(randf_range(-50, 50), randf_range(-50, 50))
+		enemigo.global_position = global_position + variacion_minima
+		
+		# Escala 2x para que se vean como esbirros del jefe
+		enemigo.scale = Vector2(2, 2)
+		
+		# IMPORTANTE: Añadir al padre (la escena de nivel)
+		get_parent().add_child(enemigo) 
 
-		enemigo.scale = Vector2(2,2)
-		get_parent().add_child(enemigo) # Añadir al padre (la escena)
-
+		# Pasar la referencia del jugador para que el volador empiece a perseguirlo
 		enemigo.jugador = jugador
 		
-		# Conectar la señal de cuando el lacayo sale de la escena (muere)
+		# Conectar la señal de muerte para que el jefe sepa cuándo debilitarse
 		if not enemigo.is_connected("tree_exited", _on_lacayo_muerto):
 			enemigo.tree_exited.connect(_on_lacayo_muerto)
+			
+		print("Lacayo ", i, " invocado en posición: ", enemigo.global_position)
 
 func _on_lacayo_muerto():
+	# Si el jefe ya murió o no está en el mapa, ignorar la señal
+	if muerto or not is_inside_tree(): 
+		return
+		
 	lacayos_vivos -= 1
-	print("Lacayo eliminado. Quedan: ", lacayos_vivos)
-	
-	# Si ya no quedan lacayos y estábamos en la fase de espera
 	if lacayos_vivos <= 0:
-		print("¡Todos los lacayos han muerto! El jefe se debilita.")
-		# Llamamos directamente a mostrar_debilidad para continuar el ciclo
-		mostrar_debilidad()
-
+		# call_deferred ejecuta la función en el siguiente frame libre
+		call_deferred("mostrar_debilidad")
+		
 func esperar_lacayos():
 	# Ya no necesitamos el bucle while. 
 	# Esta función solo servirá para imprimir un mensaje o esperar un segundo inicial
@@ -268,29 +279,35 @@ func mostrar_dialogo(textos: Array):
 	d.iniciar_dialogo(textos)
 	await d.dialogo_terminado
 
+# =========================================================
+# DIÁLOGOS Y MUERTE (MODIFICADO PARA PUNTUACIÓN)
+# =========================================================
 func morir():
-	if muerto: return # Seguridad para no ejecutar dos veces
+	if muerto: return 
 	muerto = true
 	bloqueado = true
 	
-	# 1. Detener sonidos y ocultar interfaz
-	if audio_boss:
-		audio_boss.stop()
-	if hud: 
-		hud.ocultar_barra_jefe()
+	# CANDADO 1: Detener procesos de Godot para este nodo
+	set_physics_process(false)
+	set_process(false)
 
-	# 2. Reproducir animación de muerte
+	if audio_boss: audio_boss.stop()
+	if hud: hud.ocultar_barra_jefe()
+
 	if anim.sprite_frames.has_animation("die"):
 		anim.play("die")
 	
-	# 3. Mostrar el mensaje final de victoria
-	await mostrar_dialogo([
-		"El Rey Peste ha caído...",
-		"El cielo vuelve a respirar...",
-		"La selva está sanando..."
-	])
+	# CANDADO 2: Referencia segura antes de los diálogos
+	if is_inside_tree():
+		await mostrar_dialogo([
+			"El Rey Peste ha caído...",
+			"El cielo vuelve a respirar...",
+			"La selva está sanando..."
+		])
 
-	# 4. Efecto de desvanecimiento (Tween)
+	# CANDADO 3: Verificar si el jefe sigue vivo en memoria tras el diálogo
+	if not is_inside_tree(): return
+
 	var tw = create_tween()
 	tw.set_parallel(true)
 	tw.tween_property(anim, "modulate:a", 0.0, 1.5) 
@@ -298,30 +315,27 @@ func morir():
 	
 	await tw.finished
 
-	# 5. TRANSICIÓN Y CAMBIO AL NIVEL 3
-	# Buscamos el AnimationPlayer del nivel para el efecto visual
+	# PUNTOS
+	if has_node("/root/Global"):
+		Global.confirmar_limpieza_nivel()
+		Global.guardar_puntuacion_local()
+
+	# TRANSICIÓN
 	var escena_actual = get_tree().current_scene
 	var anim_player = escena_actual.find_child("AnimationPlayer", true, false)
 	
 	if anim_player and anim_player.has_animation("Fade_out"):
 		anim_player.play("Fade_out")
 		await anim_player.animation_finished
-	else:
-		# Si no hay animación, esperamos un segundo para que no sea brusco
-		await get_tree().create_timer(1.0).timeout
-
-	# 6. CARGAR MUNDO 3
-	# Revisa que esta ruta sea EXACTAMENTE igual a la de tus archivos
-	var ruta_nivel_3 = "res://Scenes/Level-3/mundo3.tscn"
 	
+	# CAMBIO DE ESCENA
+	var ruta_nivel_3 = "res://Scenes/Level-3/mundo3.tscn"
 	var error = get_tree().change_scene_to_file(ruta_nivel_3)
 	
 	if error != OK:
-		print("Error al cargar Nivel 3. Verificando ruta...")
-		# Si falla por la ruta, intentamos volver al menú principal
 		get_tree().change_scene_to_file("res://Scenes/Menus/MenuPrincipal.tscn")
 	
-	# 7. Eliminar al jefe de la escena
+	# Solo liberamos memoria al final de TODO
 	queue_free()
 	
 func _on_area_ataque_body_entered(body):

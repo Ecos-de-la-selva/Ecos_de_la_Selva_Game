@@ -108,30 +108,33 @@ func recibir_danio(dmg: int, posicion_atacante: Vector2 = Vector2.ZERO):
 	
 	if vida <= 0: 
 		morir()
-
+		
 func morir():
 	if muerto: return
 	muerto = true
 	velocity = Vector2.ZERO
 	
-	# CAMBIO AQUÍ: Llamada segura
+	# 🟢 SOLTAR BASURA (FÍSICA)
+	# Eliminamos Global.sumar_basura(10). 
+	# Ahora el punto (+1) lo dará el objeto al ser recogido.
 	_instanciar_basura()
 	
+	# Desactivar colisiones y áreas de daño
 	set_deferred("collision_layer", 0)
 	set_deferred("collision_mask", 0)
 	_apagar_areas()
 	
+	# Animación de muerte
 	anim.play("die")
+	
+	# Efecto de desvanecimiento
 	var tw = create_tween()
 	tw.tween_property(anim, "modulate:a", 0, 1.0).set_delay(0.5)
+	
 	await tw.finished
-	if muerto:
-		return
-
-
-
+	
+	# Eliminar al enemigo
 	queue_free()
-
 # --- EL ARREGLO PARA LA BASURA ---
 
 func _instanciar_basura():

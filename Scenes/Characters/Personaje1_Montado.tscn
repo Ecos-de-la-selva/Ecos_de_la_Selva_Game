@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://chd4k7nnfhgxt"]
 
-[ext_resource type="Script" uid="uid://b10klq73y31r4" path="res://Scripts/Characters/personaje_1_montado.gd" id="1_7scsv"]
+[ext_resource type="Script" path="res://Scripts/Characters/personaje_1_montado.gd" id="1_7scsv"]
 [ext_resource type="Texture2D" uid="uid://dwkqyk8j4hb0x" path="res://Assets/Characters/Personaje 1/Jaguar/attackCharacter.png" id="1_60cyf"]
 [ext_resource type="Texture2D" uid="uid://l63fv26x1g4c" path="res://Assets/Characters/Personaje 1/Jaguar/IdleCharacter.png" id="2_7scsv"]
 [ext_resource type="Texture2D" uid="uid://cfuegrx60mq12" path="res://Assets/Characters/Personaje 1/Jaguar/jumpCharacter.png" id="3_c7bf5"]
@@ -154,7 +154,7 @@ animations = [{
 size = Vector2(28.75, 40.75)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_60cyf"]
-size = Vector2(74.5, 37.5)
+size = Vector2(74.5, 45.916668)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7scsv"]
 size = Vector2(60.333336, 43)
@@ -177,11 +177,10 @@ shape = SubResource("RectangleShape2D_6vbps")
 position = Vector2(0, -11)
 
 [node name="AttackArea" type="Area2D" parent="." unique_id=981912668]
-visible = false
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" unique_id=583774327]
-position = Vector2(-4.5, 2.5)
+position = Vector2(-4.5, -1.708334)
 shape = SubResource("RectangleShape2D_60cyf")
 
 [node name="HurtBox" type="Area2D" parent="." unique_id=1902640852]

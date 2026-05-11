@@ -4,12 +4,15 @@ extends CanvasLayer
 
 func _ready():
 	add_to_group("interfaz")
-	actualizar_visual() # Para que aparezca 0 al empezar
+	actualizar_visual()
 
-# Esta función SIEMPRE debe estar en el HUD
+# Usamos _process para que el número cambie al instante cuando recojas algo
+func _process(_delta):
+	actualizar_visual()
+
+# Dentro del script del HUD
 func actualizar_visual():
 	if Global:
-		# Lee la variable 'basura_total' del Global
-		label.text = "Basura: " + str(Global.basura_total) 
-	else:
-		label.text = "Basura: Error"
+		# Mostramos: Puntos de niveles pasados + Puntos de este nivel
+		var total_pantalla = Global.basura_total + Global.basura_nivel
+		label.text = "Basura: " + str(total_pantalla) + " kg"

@@ -176,25 +176,24 @@ func morir():
 	if muerto: return
 	muerto = true
 	velocity = Vector2.ZERO
+	
+	# 🟢 SOLTAR BASURA (FÍSICA)
+	# Se ha eliminado Global.sumar_basura(10) para que solo sume 1 
+	# cuando el jugador recoja el objeto del suelo.
 	_soltar_basura()
 	
+	# Desactivar físicas
 	set_deferred("collision_layer", 0)
 	set_deferred("collision_mask", 0)
 	
+	# Animación de muerte
 	if anim.sprite_frames.has_animation("die"):
 		anim.play("die")
 		await anim.animation_finished
 	
-	# --- ELIMINA ESTAS LÍNEAS QUE BLOQUEAN TODO ---
-	# if muerto:
-	#     return 
-
-	queue_free() # <--- Esto DEBE ejecutarse para que el jefe continúe
-
-
-
+	# Eliminar el nodo de la escena
 	queue_free()
-
+	
 # --- SEÑALES Y DROPS ---
 
 func _on_area_ataque_body_entered(body):

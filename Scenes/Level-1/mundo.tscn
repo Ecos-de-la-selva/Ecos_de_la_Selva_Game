@@ -28,6 +28,7 @@
 [ext_resource type="Script" uid="uid://u55xdjvv3h02" path="res://Scripts/Enemies/rey_mono.gd" id="26_hb7nd"]
 [ext_resource type="AudioStream" uid="uid://cx2jn56m7n2l5" path="res://Assets/Sounds/Boss/flutie8211-gorilla-roar-523007.mp3" id="28_rn7yk"]
 [ext_resource type="AudioStream" uid="uid://6pj6repvvjvx" path="res://Assets/Sounds/Boss/theeoffender1-final-fight-320156.mp3" id="29_10u1e"]
+[ext_resource type="PackedScene" uid="uid://dr5vc7jla0sqa" path="res://Scenes/Fruit/chontaduro.tscn" id="30_10u1e"]
 [ext_resource type="PackedScene" uid="uid://ccl6kbobl7mnw" path="res://Scenes/Controles/Controles.tscn" id="30_touch"]
 [ext_resource type="PackedScene" uid="uid://6ueytw10lrl8" path="res://Scenes/ZonaMuerte/zona_muerte.tscn" id="31_zmuerte"]
 
@@ -395,6 +396,25 @@ stream = ExtResource("29_10u1e")
 
 [node name="ZonaMuerte" parent="." unique_id=982742906 instance=ExtResource("31_zmuerte")]
 position = Vector2(55, 720)
+
+[node name="Consumibles" type="Node2D" parent="." unique_id=1840186558]
+position = Vector2(6990, 296)
+
+[node name="Chontaduro" parent="Consumibles" unique_id=177947483 instance=ExtResource("30_10u1e")]
+position = Vector2(641, -101)
+scale = Vector2(2, 2)
+
+[node name="Chontaduro2" parent="Consumibles" unique_id=118063711 instance=ExtResource("30_10u1e")]
+position = Vector2(-4817, -165)
+scale = Vector2(2, 2)
+
+[node name="Chontaduro3" parent="Consumibles" unique_id=1406664934 instance=ExtResource("30_10u1e")]
+position = Vector2(2640, -67)
+scale = Vector2(2, 2)
+
+[node name="Chontaduro4" parent="Consumibles" unique_id=1053605859 instance=ExtResource("30_10u1e")]
+position = Vector2(5469, -276)
+scale = Vector2(2, 2)
 
 [connection signal="pressed" from="HUDBotones/BotonPausa" to="." method="_on_boton_pausa_pressed"]
 [connection signal="body_entered" from="TriggerJefe" to="." method="_on_trigger_jefe_body_entered"]

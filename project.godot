@@ -18,12 +18,12 @@ config/name="Ecos_de_la_Selva"
 run/main_scene="res://Scenes/1-MenuPrincipal/menu_principal.tscn"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="uid://c8ieerju581ab"
+"<<<<<<<HEAD[autoload]Global"="*uid://c5f26nbfcg8gx"
 
 [autoload]
 
 Global="*uid://xyefcd4n8y87"
 MusicaGlobal="*uid://dfoe606u4js7i"
-GameManager="*uid://d1rt2l8cd7quo"
 Escenas="*uid://cywg8ygh6arww"
 
 [display]

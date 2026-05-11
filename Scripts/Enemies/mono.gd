@@ -297,23 +297,26 @@ func recibir_danio(
 # =========================================================
 # MUERTE
 # =========================================================
+# =========================================================
+# MUERTE
+# =========================================================
 func morir_con_estilo():
-
 	if muerto:
 		return
 
 	muerto = true
-
 	velocity = Vector2.ZERO
 
-	# 🔥 soltar basura
+	# 🔥 SOLTAR BASURA (FÍSICA)
+	# Solo soltamos el objeto. La basura misma sumará el punto al ser recogida.
 	_soltar_basura()
 
+	# Desactivar colisiones para que el jugador no choque con el fantasma del enemigo
 	set_deferred("collision_layer", 0)
 	set_deferred("collision_mask", 0)
 
+	# Efecto visual de desaparición
 	var efecto = create_tween()
-
 	efecto.tween_property(
 		anim,
 		"modulate:a",
@@ -322,7 +325,6 @@ func morir_con_estilo():
 	)
 
 	await efecto.finished
-
 	queue_free()
 
 # =========================================================

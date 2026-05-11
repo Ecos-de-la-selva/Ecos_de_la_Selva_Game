@@ -119,7 +119,6 @@ func recibir_danio(dmg: int, posicion_atacante: Vector2):
 		recibiendo_golpe = false
 
 # --- MUERTE Y SOLTAR BASURA ---
-
 func morir():
 	if muerto: return
 	muerto = true
@@ -128,18 +127,22 @@ func morir():
 	set_deferred("collision_layer", 0)
 	set_deferred("collision_mask", 0)
 	
-	anim.play("die")
+	# Reproducir animación de muerte si existe
+	if anim.sprite_frames.has_animation("die"):
+		anim.play("die")
 	
-	# Soltar basura (Lógica heredada del Mono)
+	# 🟢 SOLTAR BASURA (FÍSICA)
+	# Eliminamos la suma automática para que solo cuente cuando el jugador la recoja.
 	_soltar_basura()
 	
-	# Efecto de desaparición suave
+	# Efecto de desaparición suave (Parpadeo)
 	var tween = create_tween()
 	for i in range(5):
 		tween.tween_property(anim, "modulate:a", 0.2, 0.1)
 		tween.tween_property(anim, "modulate:a", 1.0, 0.1)
 	
 	tween.tween_property(anim, "modulate:a", 0.0, 0.3)
+	
 	await tween.finished
 	queue_free()
 

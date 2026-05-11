@@ -147,23 +147,24 @@ func morir_con_estilo():
 	velocity = Vector2.ZERO
 	atacando = false 
 	
+	# 🟢 SOLTAR BASURA FÍSICA
+	# Hemos quitado Global.sumar_basura(10) para que solo sume 1 kilo 
+	# cuando el jugador recoja el objeto del suelo.
 	_soltar_basura_segura()
 	
+	# Desactivar colisiones y áreas
 	set_deferred("collision_layer", 0)
 	set_deferred("collision_mask", 0)
 	_desactivar_nodo_fisico("AreaAtaque")
 	_desactivar_nodo_fisico("ZonaDeteccion")
 
+	# Efecto visual de muerte
 	var efecto = create_tween().set_parallel(true)
 	efecto.tween_property(anim, "modulate:a", 0.0, 0.4)
 	efecto.tween_property(anim, "scale", Vector2.ZERO, 0.4)
 	
 	await efecto.finished
-	if muerto:
-		return
-
-
-
+	
 	queue_free()
 
 # --- FUNCIONES DE APOYO (ARREGLADAS) ---

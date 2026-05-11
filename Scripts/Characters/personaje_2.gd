@@ -131,32 +131,55 @@ func actualizar_interfaz_vida():
 func morir():
 	if esta_muerto: return
 	esta_muerto = true
-	velocity = Vector2.ZERO
 	
-	# Desactivamos colisiones para que no nos sigan pegando
+	# 1. Resetear puntos
+	if has_node("/root/Global"):
+		Global.reiniciar_basura_nivel()
+	
+	# 2. Físicas
+	velocity = Vector2.ZERO
 	set_deferred("collision_layer", 0)
 	set_deferred("collision_mask", 0)
 	
+	# 3. Animación de muerte
 	if anim.sprite_frames.has_animation("die"):
 		anim.play("die")
-		# Esperamos un tiempo máximo por si la animación falla
-		await get_tree().create_timer(1.0).timeout 
+		# Esperamos a que la animación se vea
+		await get_tree().create_timer(1.2).timeout 
+
+	# 4. BUSCAR EL GAMEOVER (Forma correcta y robusta)
+	# Buscamos primero en la escena donde estamos jugando
+	var canvas_gameover = get_tree().current_scene.find_child("Gameover", true, false)
 	
-	# BUSCAR EL GAMEOVER (Ajustado para ser más flexible)
-	var canvas_gameover = get_tree().root.find_child("Gameover", true, false)
+	# Si no lo encuentra, lo buscamos en toda la raíz
+	if not canvas_gameover:
+		canvas_gameover = get_tree().root.find_child("Gameover", true, false)
 	
+	# 5. MOSTRARLO
 	if canvas_gameover:
-		canvas_gameover.show() # Mostramos el CanvasLayer
-		# Si dentro tiene un script con la función aparecer()
+		print("¡Gameover encontrado!")
+		canvas_gameover.visible = true
+		if canvas_gameover is CanvasLayer:
+			canvas_gameover.show()
+		
+		# Forzar que los hijos se vean (por si el panel interno estaba oculto)
+		for hijo in canvas_gameover.get_children():
+			if hijo is Control:
+				hijo.visible = true
+
+		# Ejecutar función aparecer
 		if canvas_gameover.has_method("aparecer"):
 			canvas_gameover.aparecer()
 		elif canvas_gameover.get_child_count() > 0:
-			var hijo = canvas_gameover.get_child(0)
-			if hijo.has_method("aparecer"):
-				hijo.aparecer()
+			var primer_hijo = canvas_gameover.get_child(0)
+			if primer_hijo.has_method("aparecer"):
+				primer_hijo.aparecer()
 	else:
-		print("Error: No se encontró el nodo Gameover en la escena")
-
+		print("ERROR: El nodo 'Gameover' no existe en esta escena. Revisa el nombre.")
+		# Plan B: Reiniciar si no hay menú
+		await get_tree().create_timer(1.0).timeout
+		get_tree().reload_current_scene()
+		
 func decide_animation():
 	if esta_muerto or is_attacking: return
 	if anim.animation == "damage" and anim.is_playing(): return

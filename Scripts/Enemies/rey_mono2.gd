@@ -145,9 +145,11 @@ func recibir_danio(dmg: int, _posicion: Vector2):
 
 # -------- MUERTE FINAL --------
 func morir():
-	audio_boss.stop()
-	audio_boss.pitch_scale = 0.7  # más grave aún
-	audio_boss.play()
+	# 1. AUDIO Y ESTADO INICIAL
+	if audio_boss:
+		audio_boss.stop()
+		audio_boss.pitch_scale = 0.7  # Tono épico de derrota
+		audio_boss.play()
 	
 	if muerto:
 		return
@@ -159,7 +161,7 @@ func morir():
 
 	velocity = Vector2.ZERO
 
-	# ❌ Desactivar colisiones
+	# ❌ Desactivar colisiones y áreas de peligro
 	set_deferred("collision_layer", 0)
 	set_deferred("collision_mask", 0)
 
@@ -170,7 +172,7 @@ func morir():
 
 	anim.play("idle")
 
-	# 🟢 DIÁLOGO FINAL
+	# 🟢 DIÁLOGO FINAL DE LA AVENTURA
 	await mostrar_dialogo([
 		"Hemos triunfado...",
 		"Hemos recolectado la basura que afectaba",
@@ -178,37 +180,54 @@ func morir():
 		"Putumayo está sanando"
 	])
 	
-	# 💾 GUARDADO DEL RÉCORD ACUMULADO
-	Global.guardar_puntuacion_local()
+	# =========================================================
+	# 🏆 PASO CLAVE: CIERRE DEL PROGRESO TOTAL
+	# =========================================================
+	if has_node("/root/Global"):
+		Global.confirmar_limpieza_nivel() # Aseguramos los puntos del último nivel
+		Global.guardar_puntuacion_local()  # Grabamos el récord histórico final
+		print("¡Aventura terminada! Récord final guardado.")
 
-	# ⚡ PARPADEO
+	# ⚡ EFECTO VISUAL DE DESPEDIDA (PARPADEO)
 	var tween = create_tween()
 	for i in range(6):
 		tween.tween_property(anim, "modulate:a", 0.2, 0.1)
 		tween.tween_property(anim, "modulate:a", 1.0, 0.1)
 
-	# 🌫️ DESAPARECER EL JEFE
+	# 🌫️ DESAPARECER EL JEFE FINAL
 	tween.tween_property(anim, "modulate:a", 0.0, 0.5)
 	await tween.finished
 
 	# =========================================================
-	# 🎬 TRANSICIÓN A PANTALLA DE INICIO (MENÚ PRINCIPAL)
+	# 🎬 TRANSICIÓN FINAL AL MENÚ
 	# =========================================================
-	# Buscamos tu AnimationPlayer de transición
-	var anim_transicion = get_tree().current_scene.find_child("AnimationPlayer", true, false)
+	var escena_actual = get_tree().current_scene
+	var anim_transicion = escena_actual.find_child("AnimationPlayer", true, false)
 	
 	if anim_transicion:
-		# Aquí usamos la animación que pone la pantalla negra (Cerrar o Fade_in)
-		# Suponiendo que se llama "Cerrar" por lo que hablamos antes
-		anim_transicion.play("Fade_out") 
-		await anim_transicion.animation_finished
+		if anim_transicion.has_animation("Fade_out"):
+			anim_transicion.play("Fade_out")
+			await anim_transicion.animation_finished
+		else:
+			# Si no existe Fade_out, usa la primera para que no se trabe
+			anim_transicion.play(anim_transicion.get_animation_list()[0])
+			await anim_transicion.animation_finished
+	else:
+		# Si no hay AnimationPlayer, esperamos un segundo de cortesía
+		await get_tree().create_timer(1.0).timeout
 
-	# Cambiamos a la escena del Menú Principal
-	# Asegúrate de que la ruta sea la correcta en tu proyecto
-	get_tree().change_scene_to_file("res://Scenes/1-MenuPrincipal/menu_principal.tscn")
+	# 🚀 REGRESO AL MENÚ PRINCIPAL
+	# Verifica que esta ruta coincida con tu carpeta 1-MenuPrincipal
+	var ruta_menu = "res://Scenes/1-MenuPrincipal/menu_principal.tscn"
+	
+	var error = get_tree().change_scene_to_file(ruta_menu)
+	
+	if error != OK:
+		# Si falla la ruta específica, intentamos cargar por nombre común
+		print("Error en ruta final. Intentando ruta genérica...")
+		get_tree().change_scene_to_file("res://Scenes/Menus/MenuPrincipal.tscn")
 	
 	queue_free()
-
 
 # -------- DIÁLOGO --------
 func mostrar_dialogo(textos: Array):
