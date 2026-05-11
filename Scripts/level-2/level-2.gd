@@ -165,10 +165,7 @@ func iniciar_cinematica_jefe():
 
 # -------- DIÁLOGO --------
 func mostrar_dialogo_y_esperar(textos: Array) -> void:
-	var d = preload("res://Scenes/Dialogos/Dialogo1/interfaz_dialogo.tscn").instantiate()
-	add_child(d)
-	d.iniciar_dialogo(textos)
-	await d.dialogo_terminado
+	await Global.mostrar_dialogo_modal(textos)
 
 
 # -------- CÁMARA --------
