@@ -264,7 +264,7 @@ func esperar_lacayos():
 # =========================================================
 func mostrar_dialogo(textos: Array):
 	var d = preload("res://Scenes/Dialogos/Dialogo1/interfaz_dialogo.tscn").instantiate()
-	get_tree().current_scene.add_child(d)
+		get_tree().current_scene.add_child(d)
 	d.iniciar_dialogo(textos)
 	await d.dialogo_terminado
 

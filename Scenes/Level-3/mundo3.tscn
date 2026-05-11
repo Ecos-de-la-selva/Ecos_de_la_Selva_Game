@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://4akjujlrfli2" path="res://Assets/Backgrounds/Atardecer/4.png" id="6_0n4j3"]
 [ext_resource type="Script" uid="uid://5bw5l4ypcbif" path="res://Scripts/HUD/hud.gd" id="7_5osnh"]
 [ext_resource type="Texture2D" uid="uid://drjg05nehki7g" path="res://Assets/UI/BarraFondoVacia.png" id="8_p046d"]
-[ext_resource type="Texture2D" uid="uid://dckf1x4c1lkhj" path="res://Assets/UI/barraroja.png" id="9_3n6q3"]
+[ext_resource type="Texture2D" uid="uid://dckf1x4c1lkhj" path="res://Assets/UI/BarraRoja.png" id="9_3n6q3"]
 [ext_resource type="Texture2D" uid="uid://dotcmvdb0oyk8" path="res://Assets/UI/cara_hombre.png" id="10_m4c2l"]
 [ext_resource type="Texture2D" uid="uid://bdic1f1qt88b2" path="res://Assets/UI/MarcoJefe.png" id="11_hw44j"]
 [ext_resource type="Texture2D" uid="uid://b51svlyykax23" path="res://Assets/Backgrounds/MenuPrincipal/ColorNegro.png" id="12_8tiid"]
@@ -18,7 +18,6 @@
 [ext_resource type="PackedScene" uid="uid://bnyt1jvjd1sv8" path="res://Scenes/Menu/MenuPause/MenuPause.tscn" id="16_sokkb"]
 [ext_resource type="PackedScene" uid="uid://c6k7e4swskhh2" path="res://Scenes/Menu/GameOver/gameover.tscn" id="17_bt641"]
 [ext_resource type="AudioStream" uid="uid://cvxr2f3rcikrl" path="res://Assets/Sounds/SonidoLevel1/hitslab-ethnic-tribal-jungle-music-457833.mp3" id="18_5sqma"]
-[ext_resource type="PackedScene" uid="uid://ctkmjfy253wt6" path="res://Scenes/Dialogos/Dialogo1/interfaz_dialogo.tscn" id="19_epas4"]
 [ext_resource type="PackedScene" uid="uid://b2pffrr0nfnkh" path="res://Scenes/Score/interfaz_hud.tscn" id="20_8003w"]
 [ext_resource type="PackedScene" uid="uid://b7vvwlrgc6toi" path="res://Scenes/Enemigos/Volador.tscn" id="22_wgvrn"]
 [ext_resource type="PackedScene" uid="uid://dn21rnnh5e6ec" path="res://Scenes/Enemigos/Hongo.tscn" id="23_0sy3e"]
@@ -275,35 +274,6 @@ nine_patch_stretch = true
 texture_progress = ExtResource("9_3n6q3")
 texture_progress_offset = Vector2(-1.905, 2.01)
 
-[node name="Control2" type="Control" parent="HUD/Control" unique_id=1234611727]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = 265.5
-offset_top = 4.25
-offset_right = 289.25
-offset_bottom = 25.25
-grow_horizontal = 2
-
-[node name="BotonPausa" type="TextureButton" parent="HUD/Control/Control2" unique_id=1464750947]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.632
-anchor_top = 0.52400005
-anchor_right = 0.632
-anchor_bottom = 0.52400005
-offset_left = -9.509993
-offset_top = -8.754001
-offset_right = 8.990007
-offset_bottom = 8.745997
-grow_horizontal = 2
-grow_vertical = 2
-texture_normal = ExtResource("14_rv7wx")
-texture_pressed = ExtResource("15_mgnwi")
-ignore_texture_size = true
-stretch_mode = 0
-
 [node name="Transicion" type="Sprite2D" parent="HUD" unique_id=1360975346]
 visible = false
 position = Vector2(591.187, 191.87)
@@ -332,8 +302,6 @@ visible = false
 [node name="MusicaAmbiente" type="AudioStreamPlayer" parent="." unique_id=1970783696]
 stream = ExtResource("18_5sqma")
 volume_db = -10.0
-
-[node name="InterfazDialogo" parent="." unique_id=498964823 instance=ExtResource("19_epas4")]
 
 [node name="InterfazHUD" parent="." unique_id=1805701083 instance=ExtResource("20_8003w")]
 
@@ -549,5 +517,22 @@ libraries/ = SubResource("AnimationLibrary_5jlyf")
 [node name="ZonaMuerte" parent="." unique_id=682039928 instance=ExtResource("35_dko3h")]
 position = Vector2(55, 720)
 
-[connection signal="pressed" from="HUD/Control/Control2/BotonPausa" to="." method="_on_boton_pausa_pressed"]
+[node name="HUDBotones" type="CanvasLayer" parent="."]
+layer = 11
+
+[node name="BotonPausa" type="TextureButton" parent="HUDBotones"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -70.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 70.0
+grow_horizontal = 0
+texture_normal = ExtResource("14_rv7wx")
+texture_pressed = ExtResource("15_mgnwi")
+ignore_texture_size = true
+stretch_mode = 0
+
+[connection signal="pressed" from="HUDBotones/BotonPausa" to="." method="_on_boton_pausa_pressed"]
 [connection signal="body_entered" from="TriggerJefe" to="." method="_on_trigger_jefe_body_entered"]

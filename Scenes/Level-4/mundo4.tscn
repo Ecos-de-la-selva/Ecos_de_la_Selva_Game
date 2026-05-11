@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://rtmy5geka8pd" path="res://Assets/Backgrounds/Nigth/4.png" id="6_yytum"]
 [ext_resource type="Script" uid="uid://5bw5l4ypcbif" path="res://Scripts/HUD/hud.gd" id="8_tlxux"]
 [ext_resource type="Texture2D" uid="uid://drjg05nehki7g" path="res://Assets/UI/BarraFondoVacia.png" id="9_tmaw3"]
-[ext_resource type="Texture2D" uid="uid://dckf1x4c1lkhj" path="res://Assets/UI/barraroja.png" id="10_ydkh1"]
+[ext_resource type="Texture2D" uid="uid://dckf1x4c1lkhj" path="res://Assets/UI/BarraRoja.png" id="10_ydkh1"]
 [ext_resource type="Texture2D" uid="uid://dotcmvdb0oyk8" path="res://Assets/UI/cara_hombre.png" id="11_i2ul5"]
 [ext_resource type="Texture2D" uid="uid://bdic1f1qt88b2" path="res://Assets/UI/MarcoJefe.png" id="12_elvfs"]
 [ext_resource type="Texture2D" uid="uid://b51svlyykax23" path="res://Assets/Backgrounds/MenuPrincipal/ColorNegro.png" id="13_c7ue8"]
@@ -18,7 +18,6 @@
 [ext_resource type="PackedScene" uid="uid://bnyt1jvjd1sv8" path="res://Scenes/Menu/MenuPause/MenuPause.tscn" id="17_3kjqe"]
 [ext_resource type="PackedScene" uid="uid://c6k7e4swskhh2" path="res://Scenes/Menu/GameOver/gameover.tscn" id="18_s6yug"]
 [ext_resource type="AudioStream" uid="uid://cvxr2f3rcikrl" path="res://Assets/Sounds/SonidoLevel1/hitslab-ethnic-tribal-jungle-music-457833.mp3" id="19_6fx3y"]
-[ext_resource type="PackedScene" uid="uid://ctkmjfy253wt6" path="res://Scenes/Dialogos/Dialogo1/interfaz_dialogo.tscn" id="20_crfk5"]
 [ext_resource type="PackedScene" uid="uid://b2pffrr0nfnkh" path="res://Scenes/Score/interfaz_hud.tscn" id="21_pwnby"]
 [ext_resource type="PackedScene" uid="uid://8h4sfufmn1gs" path="res://Scenes/Enemigos/mono.tscn" id="22_hpprk"]
 [ext_resource type="PackedScene" uid="uid://b7vvwlrgc6toi" path="res://Scenes/Enemigos/Volador.tscn" id="23_4d1qb"]
@@ -31,7 +30,6 @@
 [ext_resource type="PackedScene" uid="uid://dr5vc7jla0sqa" path="res://Scenes/Fruit/chontaduro.tscn" id="30_e2pqu"]
 [ext_resource type="PackedScene" uid="uid://ccl6kbobl7mnw" path="res://Scenes/Controles/Controles.tscn" id="30_sa3st"]
 [ext_resource type="PackedScene" uid="uid://6ueytw10lrl8" path="res://Scenes/ZonaMuerte/zona_muerte.tscn" id="31_catpl"]
-
 [sub_resource type="Animation" id="Animation_0ygfx"]
 resource_name = "Fade_out"
 length = 2.6666667
@@ -271,35 +269,6 @@ nine_patch_stretch = true
 texture_progress = ExtResource("10_ydkh1")
 texture_progress_offset = Vector2(-1.905, 2.01)
 
-[node name="Control2" type="Control" parent="HUD/Control" unique_id=1350325594]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = 267.5
-offset_top = 3.75
-offset_right = 291.25
-offset_bottom = 25.25
-grow_horizontal = 2
-
-[node name="BotonPausa" type="TextureButton" parent="HUD/Control/Control2" unique_id=268144977]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.587
-anchor_top = 0.23700002
-anchor_right = 0.587
-anchor_bottom = 0.23700002
-offset_left = -11.441242
-offset_top = -2.3455005
-offset_right = 7.058758
-offset_bottom = 15.154499
-grow_horizontal = 2
-grow_vertical = 2
-texture_normal = ExtResource("15_tmlpq")
-texture_pressed = ExtResource("16_bjnph")
-ignore_texture_size = true
-stretch_mode = 0
-
 [node name="Transicion" type="Sprite2D" parent="HUD" unique_id=1360975346]
 visible = false
 position = Vector2(591.187, 191.87)
@@ -328,8 +297,6 @@ visible = false
 [node name="MusicaAmbiente" type="AudioStreamPlayer" parent="." unique_id=1970783696]
 stream = ExtResource("19_6fx3y")
 volume_db = -10.0
-
-[node name="InterfazDialogo" parent="." unique_id=498964823 instance=ExtResource("20_crfk5")]
 
 [node name="InterfazHUD" parent="." unique_id=1805701083 instance=ExtResource("21_pwnby")]
 
@@ -534,7 +501,24 @@ libraries/ = SubResource("AnimationLibrary_6iwq4")
 [node name="ZonaMuerte" parent="." unique_id=682039928 instance=ExtResource("31_catpl")]
 position = Vector2(55, 720)
 
-[connection signal="pressed" from="HUD/Control/Control2/BotonPausa" to="." method="_on_boton_pausa_pressed"]
+[node name="HUDBotones" type="CanvasLayer" parent="."]
+layer = 11
+
+[node name="BotonPausa" type="TextureButton" parent="HUDBotones"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -70.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 70.0
+grow_horizontal = 0
+texture_normal = ExtResource("15_tmlpq")
+texture_pressed = ExtResource("16_bjnph")
+ignore_texture_size = true
+stretch_mode = 0
+
+[connection signal="pressed" from="HUDBotones/BotonPausa" to="." method="_on_boton_pausa_pressed"]
 [connection signal="body_entered" from="TriggerJefe" to="." method="_on_trigger_jefe_body_entered"]
 
 [editable path="Enemigos/Jefe/Rey Mono"]

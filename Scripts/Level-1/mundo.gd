@@ -130,7 +130,7 @@ func mostrar_dialogo_y_esperar(textos: Array) -> void:
 	var ya_bloqueado = jugador and not jugador.is_physics_processing()
 	if jugador and not ya_bloqueado:
 		bloquear_jugador()
-	var touch = get_node_or_null("TouchControls")
+	var touch = get_node_or_null("Controles")
 	if touch and touch.has_method("bloquear"):
 		touch.bloquear()
 	

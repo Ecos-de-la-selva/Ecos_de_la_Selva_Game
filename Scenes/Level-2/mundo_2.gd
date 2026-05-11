@@ -211,6 +211,13 @@ func iniciar_cinematica_jefe():
 # =========================================================
 func mostrar_dialogo_y_esperar(textos: Array) -> void:
 
+	var ya_bloqueado = jugador and not jugador.is_physics_processing()
+	if jugador and not ya_bloqueado:
+		bloquear_jugador()
+	var touch = get_node_or_null("Controles")
+	if touch and touch.has_method("bloquear"):
+		touch.bloquear()
+
 	var d = preload(
 		"res://Scenes/Dialogos/Dialogo1/interfaz_dialogo.tscn"
 	).instantiate()
@@ -220,6 +227,11 @@ func mostrar_dialogo_y_esperar(textos: Array) -> void:
 	d.iniciar_dialogo(textos)
 
 	await d.dialogo_terminado
+
+	if jugador and not ya_bloqueado:
+		desbloquear_jugador()
+	if touch and touch.has_method("desbloquear"):
+		touch.desbloquear()
 
 
 # =========================================================

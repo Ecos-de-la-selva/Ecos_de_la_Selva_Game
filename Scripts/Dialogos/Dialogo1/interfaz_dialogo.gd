@@ -16,6 +16,8 @@ func _ready():
 	timer_letras.process_mode = Node.PROCESS_MODE_ALWAYS
 
 func iniciar_dialogo(nuevos_dialogos: Array):
+	$NinePatchRect.visible = true
+	$Skip.visible = true
 	dialogos = nuevos_dialogos
 	frase_actual = 0
 	mostrar_frase()

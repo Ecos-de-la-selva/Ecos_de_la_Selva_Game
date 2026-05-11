@@ -4,6 +4,17 @@ extends CanvasLayer
 var color_presionado = Color(0.357, 0.357, 0.678, 1.0)
 var color_normal = Color(1, 1, 1, 1)
 
+# Oculta los controles y suelta cualquier accion presionada.
+# Util durante dialogos o cinematicas para que el jugador no se mueva.
+func bloquear() -> void:
+	hide()
+	for accion in [&"ui_left", &"ui_right", &"ui_up", &"ui_down", &"ui_accept", &"click_izquierdo", &"atacar"]:
+		if Input.is_action_pressed(accion):
+			Input.action_release(accion)
+
+func desbloquear() -> void:
+	show()
+
 # IZQUIERDA
 func _on_izq_pressed() -> void:
 	$Node2D/izq.modulate = color_presionado
