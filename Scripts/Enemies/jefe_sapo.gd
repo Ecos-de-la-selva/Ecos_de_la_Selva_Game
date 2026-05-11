@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 # --- CONFIGURACIÓN DE JEFE ---
-var vida = 3
+var vida = 90
 var fase = 1
 var muerto = false
 var puede_recibir_danio = false

@@ -264,7 +264,7 @@ func esperar_lacayos():
 # =========================================================
 func mostrar_dialogo(textos: Array):
 	var d = preload("res://Scenes/Dialogos/Dialogo1/interfaz_dialogo.tscn").instantiate()
-		get_tree().current_scene.add_child(d)
+	get_tree().current_scene.add_child(d)
 	d.iniciar_dialogo(textos)
 	await d.dialogo_terminado
 
@@ -274,7 +274,8 @@ func morir():
 	bloqueado = true
 	
 	# 1. Detener sonidos y ocultar interfaz
-	audio_boss.stop()
+	if audio_boss:
+		audio_boss.stop()
 	if hud: 
 		hud.ocultar_barra_jefe()
 
@@ -290,17 +291,39 @@ func morir():
 	])
 
 	# 4. Efecto de desvanecimiento (Tween)
-	# Esto hace que se vuelva transparente mientras cae un poco
 	var tw = create_tween()
 	tw.set_parallel(true)
-	tw.tween_property(anim, "modulate:a", 0.0, 1.5) # Desaparece en 1.5 segundos
-	tw.tween_property(self, "global_position:y", global_position.y + 100, 1.5) # Cae un poco
+	tw.tween_property(anim, "modulate:a", 0.0, 1.5) 
+	tw.tween_property(self, "global_position:y", global_position.y + 100, 1.5) 
 	
 	await tw.finished
-	
-	# 5. Eliminar al jefe de la escena
-	queue_free()
 
+	# 5. TRANSICIÓN Y CAMBIO AL NIVEL 3
+	# Buscamos el AnimationPlayer del nivel para el efecto visual
+	var escena_actual = get_tree().current_scene
+	var anim_player = escena_actual.find_child("AnimationPlayer", true, false)
+	
+	if anim_player and anim_player.has_animation("Fade_out"):
+		anim_player.play("Fade_out")
+		await anim_player.animation_finished
+	else:
+		# Si no hay animación, esperamos un segundo para que no sea brusco
+		await get_tree().create_timer(1.0).timeout
+
+	# 6. CARGAR MUNDO 3
+	# Revisa que esta ruta sea EXACTAMENTE igual a la de tus archivos
+	var ruta_nivel_3 = "res://Scenes/Level-3/mundo3.tscn"
+	
+	var error = get_tree().change_scene_to_file(ruta_nivel_3)
+	
+	if error != OK:
+		print("Error al cargar Nivel 3. Verificando ruta...")
+		# Si falla por la ruta, intentamos volver al menú principal
+		get_tree().change_scene_to_file("res://Scenes/Menus/MenuPrincipal.tscn")
+	
+	# 7. Eliminar al jefe de la escena
+	queue_free()
+	
 func _on_area_ataque_body_entered(body):
 	if muerto:
 		return

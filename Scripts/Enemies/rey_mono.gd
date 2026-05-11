@@ -145,20 +145,24 @@ func recibir_danio(dmg: int, _posicion: Vector2):
 
 # -------- MUERTE FINAL --------
 func morir():
-	audio_boss.stop()
-	audio_boss.pitch_scale = 0.7  # más grave aún
-	audio_boss.play()
+	# 1. AUDIO Y ESTADO INICIAL
+	if audio_boss:
+		audio_boss.stop()
+		audio_boss.pitch_scale = 0.7  # Efecto de voz grave
+		audio_boss.play()
+	
 	if muerto:
 		return
 	
 	muerto = true
 	
+	# 2. LIMPIEZA DE INTERFAZ Y FÍSICAS
 	if hud:
 		hud.ocultar_barra_jefe()
 
 	velocity = Vector2.ZERO
 
-	# ❌ Desactivar colisiones
+	# Desactivar colisiones y detección
 	set_deferred("collision_layer", 0)
 	set_deferred("collision_mask", 0)
 
@@ -169,7 +173,7 @@ func morir():
 
 	anim.play("idle")
 
-	# 🟢 DIÁLOGO FINAL
+	# 3. DIÁLOGO FINAL
 	await mostrar_dialogo([
 		"Hemos triunfado...",
 		"Hemos recolectado la basura que afectaba",
@@ -177,20 +181,50 @@ func morir():
 		"La selva comienza a sanar..."
 	])
 
-	# ⚡ PARPADEO
+	# 4. EFECTO VISUAL DE DESAPARICIÓN (TWEEN)
 	var tween = create_tween()
-
 	for i in range(6):
 		tween.tween_property(anim, "modulate:a", 0.2, 0.1)
 		tween.tween_property(anim, "modulate:a", 1.0, 0.1)
 
-	# 🌫️ DESAPARECER
 	tween.tween_property(anim, "modulate:a", 0.0, 0.5)
-
 	await tween.finished
 
-	queue_free()
+	# 5. TRANSICIÓN DE PANTALLA (FADE OUT)
+	var escena_actual = get_tree().current_scene
+	var anim_player = escena_actual.find_child("AnimationPlayer", true, false)
+	
+	if anim_player:
+		# Verifica que el nombre sea EXACTO. Si no, usará la primera que encuentre.
+		if anim_player.has_animation("Fade_out"):
+			anim_player.play("Fade_out")
+		else:
+			anim_player.play(anim_player.get_animation_list()[0])
+		
+		# Esperar a que termine la animación (Asegúrate que NO tenga activado el LOOP)
+		await anim_player.animation_finished
+	else:
+		# Si no hay animación, esperamos un segundo para que no sea brusco
+		await get_tree().create_timer(1.0).timeout
 
+	# 6. CAMBIO DE NIVEL (LÓGICA SEGURA)
+	# Obtenemos el nombre de la escena actual para saber a dónde ir
+	var nombre_fichero = escena_actual.scene_file_path.to_lower()
+	
+	# --- SISTEMA DE RUTAS DIRECTO ---
+	# Esto evita errores de Autoloads mal configurados
+	if "mundo.tscn" in nombre_fichero: # Si estás en Mundo 1
+		get_tree().change_scene_to_file("res://Scenes/Level-2/mundo2.tscn")
+	elif "mundo2.tscn" in nombre_fichero:
+		get_tree().change_scene_to_file("res://Scenes/Level-3/mundo3.tscn")
+	elif "mundo3.tscn" in nombre_fichero:
+		get_tree().change_scene_to_file("res://Scenes/Level-4/mundo4.tscn")
+	else:
+		# Si es el último nivel o no reconoce el nombre, vuelve al menú
+		get_tree().change_scene_to_file("res://Scenes/Menus/MenuPrincipal.tscn")
+	
+	# 7. ELIMINAR AL JEFE
+	queue_free()
 
 # -------- DIÁLOGO --------
 func mostrar_dialogo(textos: Array):

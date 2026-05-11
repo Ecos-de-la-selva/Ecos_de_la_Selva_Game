@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://h6n4vuqn2hbi" path="res://Assets/Backgrounds/Backgrounds_Sky/4.png" id="6_wlqe5"]
 [ext_resource type="Script" uid="uid://5bw5l4ypcbif" path="res://Scripts/HUD/hud.gd" id="8_sb711"]
 [ext_resource type="Texture2D" uid="uid://drjg05nehki7g" path="res://Assets/UI/BarraFondoVacia.png" id="9_d6kwy"]
-[ext_resource type="Texture2D" uid="uid://dckf1x4c1lkhj" path="res://Assets/UI/BarraRoja.png" id="10_as245"]
+[ext_resource type="Texture2D" uid="uid://dckf1x4c1lkhj" path="res://Assets/UI/barraroja.png" id="10_as245"]
 [ext_resource type="Texture2D" uid="uid://dotcmvdb0oyk8" path="res://Assets/UI/cara_hombre.png" id="11_qmi6c"]
 [ext_resource type="Texture2D" uid="uid://bdic1f1qt88b2" path="res://Assets/UI/MarcoJefe.png" id="12_2kauq"]
 [ext_resource type="Texture2D" uid="uid://b51svlyykax23" path="res://Assets/Backgrounds/MenuPrincipal/ColorNegro.png" id="13_jby3c"]
@@ -23,7 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://b7vvwlrgc6toi" path="res://Scenes/Enemigos/Volador.tscn" id="23_thtw2"]
 [ext_resource type="PackedScene" uid="uid://dn21rnnh5e6ec" path="res://Scenes/Enemigos/Hongo.tscn" id="24_4them"]
 [ext_resource type="PackedScene" uid="uid://vy46ny003hmt" path="res://Scenes/Enemigos/murcielago.tscn" id="25_lkjv6"]
-[ext_resource type="PackedScene" uid="uid://dbwa5rhrm40pt" path="res://Scenes/Enemigos/rey_volador.tscn" id="25_uo1fr"]
+[ext_resource type="PackedScene" path="res://Scenes/Enemigos/rey_volador.tscn" id="25_uo1fr"]
 [ext_resource type="AudioStream" uid="uid://6pj6repvvjvx" path="res://Assets/Sounds/Boss/theeoffender1-final-fight-320156.mp3" id="29_n0h7a"]
 [ext_resource type="PackedScene" uid="uid://dd5ykjjnldjr3" path="res://Scenes/Animals/Azulejo.tscn" id="29_wlqe5"]
 [ext_resource type="PackedScene" uid="uid://c350k78d0b0re" path="res://Scenes/Animals/Canario.tscn" id="30_865ds"]
@@ -32,6 +32,7 @@
 [ext_resource type="PackedScene" uid="uid://xgjpytt12e6e" path="res://Scenes/Animals/Rojillo.tscn" id="32_a86h2"]
 [ext_resource type="PackedScene" uid="uid://6ueytw10lrl8" path="res://Scenes/ZonaMuerte/zona_muerte.tscn" id="33_a86h2"]
 [ext_resource type="PackedScene" uid="uid://dr5vc7jla0sqa" path="res://Scenes/Fruit/chontaduro.tscn" id="33_cicb5"]
+
 [sub_resource type="Animation" id="Animation_0ygfx"]
 resource_name = "Fade_out"
 length = 2.6666667
@@ -158,7 +159,7 @@ tile_map_data = PackedByteArray("AAAmAA0AAQAGAAEAAAAnAA0AAQAHAAEAAAAoAA0AAQAIAAE
 position = Vector2(13130, 244)
 
 [node name="Marker2D" type="Marker2D" parent="." unique_id=1289461182]
-position = Vector2(164, 440)
+position = Vector2(119, 424)
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=1948266623]
 
@@ -533,10 +534,10 @@ libraries/ = SubResource("AnimationLibrary_uo1fr")
 [node name="ZonaMuerte" parent="." unique_id=682039928 instance=ExtResource("33_a86h2")]
 position = Vector2(55, 720)
 
-[node name="HUDBotones" type="CanvasLayer" parent="."]
+[node name="HUDBotones" type="CanvasLayer" parent="." unique_id=1906278267]
 layer = 11
 
-[node name="BotonPausa" type="TextureButton" parent="HUDBotones"]
+[node name="BotonPausa" type="TextureButton" parent="HUDBotones" unique_id=212639984]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -550,5 +551,5 @@ texture_pressed = ExtResource("16_pn3jo")
 ignore_texture_size = true
 stretch_mode = 0
 
-[connection signal="pressed" from="HUDBotones/BotonPausa" to="." method="_on_boton_pausa_pressed"]
 [connection signal="body_entered" from="TriggerJefe" to="." method="_on_trigger_jefe_body_entered"]
+[connection signal="pressed" from="HUDBotones/BotonPausa" to="." method="_on_boton_pausa_pressed"]
