@@ -301,13 +301,6 @@ func reemplazar_por_montado(
 # DIÁLOGOS
 # =========================================================
 func lanzar_dialogo(textos):
-
-	var d = preload(
-		"res://Scenes/Dialogos/Dialogo1/interfaz_dialogo.tscn"
-	).instantiate()
-
-	get_tree().current_scene.add_child(d)
-
-	d.iniciar_dialogo(textos)
-
-	await d.dialogo_terminado
+	if not is_inside_tree():
+		return
+	await Global.mostrar_dialogo_modal(textos)

@@ -1,5 +1,48 @@
 extends Node
 
+const ESCENA_INTERFAZ_DIALOGO := preload("res://Scenes/Dialogos/Dialogo1/interfaz_dialogo.tscn")
+
+func _ready() -> void:
+	# Necesario para poder await el diálogo mientras get_tree().paused = true
+	process_mode = Node.PROCESS_MODE_ALWAYS
+
+
+## Pausa el juego, oculta controles táctiles y el botón de pausa, muestra el diálogo y restaura al terminar.
+func mostrar_dialogo_modal(textos: Array) -> void:
+	var tree := get_tree()
+	if tree == null:
+		return
+	var escena := tree.current_scene
+	if escena == null:
+		return
+
+	var ya_pausado := tree.paused
+	if not ya_pausado:
+		tree.paused = true
+
+	var ctrl := escena.get_node_or_null("Controles")
+	if ctrl and ctrl.has_method("bloquear"):
+		ctrl.bloquear()
+
+	var hud_btn := escena.get_node_or_null("HUDBotones")
+	var hud_btn_visible := true
+	if hud_btn:
+		hud_btn_visible = hud_btn.visible
+		hud_btn.hide()
+
+	var d := ESCENA_INTERFAZ_DIALOGO.instantiate()
+	escena.add_child(d)
+	d.iniciar_dialogo(textos)
+	await d.dialogo_terminado
+
+	if hud_btn:
+		hud_btn.visible = hud_btn_visible
+	if ctrl and ctrl.has_method("desbloquear"):
+		ctrl.desbloquear()
+	if not ya_pausado:
+		tree.paused = false
+
+
 # --- DATOS PERSISTENTES ---
 var personaje_seleccionado : String = ""
 var basura_total : int = 0  

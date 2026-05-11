@@ -263,10 +263,9 @@ func esperar_lacayos():
 # DIÁLOGOS Y MUERTE
 # =========================================================
 func mostrar_dialogo(textos: Array):
-	var d = preload("res://Scenes/Dialogos/Dialogo1/interfaz_dialogo.tscn").instantiate()
-	get_tree().current_scene.add_child(d)
-	d.iniciar_dialogo(textos)
-	await d.dialogo_terminado
+	if not is_inside_tree() or get_tree().current_scene == null:
+		return
+	await Global.mostrar_dialogo_modal(textos)
 
 func morir():
 	if muerto: return # Seguridad para no ejecutar dos veces

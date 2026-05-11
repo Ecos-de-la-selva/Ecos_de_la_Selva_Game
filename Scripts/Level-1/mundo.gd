@@ -126,24 +126,7 @@ func iniciar_cinematica_jefe():
 
 # -------- DIÁLOGO --------
 func mostrar_dialogo_y_esperar(textos: Array) -> void:
-	# Bloquea al jugador y oculta los controles táctiles mientras se muestra el diálogo
-	var ya_bloqueado = jugador and not jugador.is_physics_processing()
-	if jugador and not ya_bloqueado:
-		bloquear_jugador()
-	var touch = get_node_or_null("Controles")
-	if touch and touch.has_method("bloquear"):
-		touch.bloquear()
-	
-	var d = preload("res://Scenes/Dialogos/Dialogo1/interfaz_dialogo.tscn").instantiate()
-	add_child(d)
-	d.iniciar_dialogo(textos)
-	await d.dialogo_terminado
-	
-	# Desbloquea solo si nosotros lo bloqueamos aquí
-	if jugador and not ya_bloqueado:
-		desbloquear_jugador()
-	if touch and touch.has_method("desbloquear"):
-		touch.desbloquear()
+	await Global.mostrar_dialogo_modal(textos)
 
 
 # -------- CÁMARA --------
