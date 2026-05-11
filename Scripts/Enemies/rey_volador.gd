@@ -264,7 +264,7 @@ func esperar_lacayos():
 # =========================================================
 func mostrar_dialogo(textos: Array):
 	var d = preload("res://Scenes/Dialogos/Dialogo1/interfaz_dialogo.tscn").instantiate()
-		get_tree().current_scene.add_child(d)
+	get_tree().current_scene.add_child(d)
 	d.iniciar_dialogo(textos)
 	await d.dialogo_terminado
 
@@ -297,8 +297,16 @@ func morir():
 	tw.tween_property(self, "global_position:y", global_position.y + 100, 1.5) # Cae un poco
 	
 	await tw.finished
-	
-	# 5. Eliminar al jefe de la escena
+
+	# 6. TRANSICIÓN AL NIVEL 3
+	var anim_transicion = get_tree().current_scene.find_child("AnimationPlayer", true, false)
+	if anim_transicion and anim_transicion.has_animation("Fade_out"):
+		anim_transicion.play("Fade_out")
+		await anim_transicion.animation_finished
+
+	get_tree().change_scene_to_file("res://Scenes/Level-3/mundo3.tscn")
+
+	# 7. Eliminar al jefe de la escena
 	queue_free()
 
 func _on_area_ataque_body_entered(body):

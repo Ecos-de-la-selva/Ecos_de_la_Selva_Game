@@ -189,6 +189,14 @@ func morir():
 
 	await tween.finished
 
+	# 🎬 TRANSICIÓN AL NIVEL 2
+	var anim_transicion = get_tree().current_scene.find_child("AnimationPlayer", true, false)
+	if anim_transicion and anim_transicion.has_animation("Fade_out"):
+		anim_transicion.play("Fade_out")
+		await anim_transicion.animation_finished
+
+	get_tree().change_scene_to_file("res://Scenes/Level-2/mundo2.tscn")
+
 	queue_free()
 
 
