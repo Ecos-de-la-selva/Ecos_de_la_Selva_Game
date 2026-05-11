@@ -97,11 +97,12 @@ func _on_trigger_jefe_body_entered(body: Node2D) -> void:
 
 # -------- CINEMÁTICA --------
 func iniciar_cinematica_jefe():
+	
 	fijar_camara()
 	bloquear_jugador()
 	
 	await llevar_jugador_a_posicion()
-	tremor_pantalla()
+	
 	
 	# 🧠 DIÁLOGO PREVIO
 	await mostrar_dialogo_y_esperar([
@@ -131,10 +132,13 @@ func mostrar_dialogo_y_esperar(textos: Array) -> void:
 
 # -------- CÁMARA --------
 func fijar_camara():
-	posicion_camara_guardada = camara.global_position
-	camara.reparent(self)
-	camara.global_position = posicion_camara_guardada
-
+	var pos_actual = camara.global_position
+	
+	# DESACTIVAR SUAVIZADO ANTES DEL CAMBIO
+	camara.position_smoothing_enabled = false 
+	
+	camara.reparent(get_tree().current_scene)
+	camara.global_position = pos_actual
 
 # -------- MOVIMIENTO --------
 func llevar_jugador_a_posicion():
@@ -153,12 +157,8 @@ func desbloquear_jugador():
 
 
 # -------- EFECTO --------
-func tremor_pantalla():
-	var tween = create_tween()
-	for i in range(10):
-		var offset = Vector2(randf_range(-10, 10), randf_range(-10, 10))
-		tween.tween_property(camara, "offset", offset, 0.05)
-	tween.tween_property(camara, "offset", Vector2.ZERO, 0.1)
+
+
 
 
 # -------- DESACTIVAR ARENA (cuando gane) --------

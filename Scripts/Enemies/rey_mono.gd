@@ -20,33 +20,35 @@ func _ready():
 
 
 # -------- INICIO PELEA --------
+# -------- INICIO PELEA (Corregido) --------
 func iniciar_pelea(hud_ref):
-	
-	audio_boss.stop()
-	audio_boss.pitch_scale = 0.8  # más grave = más épico
-	audio_boss.play()
 	hud = hud_ref
 	visible = true
 	
+	# Mantenemos la música sin cortes posteriores
+	audio_boss.pitch_scale = 0.8
+	audio_boss.play()
+	
 	var spawn = get_tree().current_scene.get_node("SpawnBoss")
-	global_position = spawn.global_position + Vector2(500, 0)
+	
+	# 🟢 CORRECCIÓN: Nos aseguramos de que empiece en la Y del suelo (spawn.global_position.y)
+	global_position = Vector2(spawn.global_position.x + 500, spawn.global_position.y)
 	
 	anim.play("run")
 	anim.flip_h = true
 	
 	var tween = create_tween()
+	# Forzamos que el destino sea exactamente la posición del spawn sin subir
 	tween.tween_property(self, "global_position", spawn.global_position, 2.0)
 	await tween.finished
 	
 	anim.play("idle")
-	
 	await mostrar_dialogo([
 		"El Rey Mono ha aparecido...",
 		"¡Derrotalo!"
 	])
 	
-	hud.mostrar_barra_jefe(vida)
-	
+	if hud: hud.mostrar_barra_jefe(vida)
 	iniciar_fase()
 
 
@@ -226,6 +228,12 @@ func morir():
 func mostrar_dialogo(textos: Array):
 	if not is_inside_tree():
 		return
-	if get_tree().current_scene == null:
+	
+	var escena = get_tree().current_scene
+	if escena == null:
 		return
-	await Global.mostrar_dialogo_modal(textos)
+	
+	var d = preload("res://Scenes/Dialogos/Dialogo1/interfaz_dialogo.tscn").instantiate()
+	escena.add_child(d)
+	d.iniciar_dialogo(textos)
+	await d.dialogo_terminado

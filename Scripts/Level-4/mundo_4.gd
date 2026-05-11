@@ -103,7 +103,7 @@ func iniciar_cinematica_jefe():
 	bloquear_jugador()
 	
 	await llevar_jugador_a_posicion()
-	tremor_pantalla()
+
 	
 	# 🧠 DIÁLOGO PREVIO
 	await mostrar_dialogo_y_esperar([
@@ -156,12 +156,6 @@ func desbloquear_jugador():
 
 
 # -------- EFECTO --------
-func tremor_pantalla():
-	var tween = create_tween()
-	for i in range(10):
-		var offset = Vector2(randf_range(-10, 10), randf_range(-10, 10))
-		tween.tween_property(camara, "offset", offset, 0.05)
-	tween.tween_property(camara, "offset", Vector2.ZERO, 0.1)
 
 
 # -------- DESACTIVAR ARENA (cuando gane) --------

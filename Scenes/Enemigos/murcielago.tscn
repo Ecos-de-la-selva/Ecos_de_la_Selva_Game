@@ -75,7 +75,7 @@ radius = 5.0
 height = 14.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_n8opq"]
-radius = 25.75
+radius = 43.784985
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j01sp"]
 radius = 5.0
@@ -95,12 +95,11 @@ frame_progress = 0.02051939
 position = Vector2(-2, 0)
 shape = SubResource("CapsuleShape2D_4xmiu")
 
-[node name="Area2D" type="Area2D" parent="." unique_id=1309134755]
+[node name="ZonaDeteccion" type="Area2D" parent="." unique_id=1309134755]
 scale = Vector2(4, 4)
 collision_layer = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1757345336]
-visible = false
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZonaDeteccion" unique_id=1757345336]
 position = Vector2(1, 0)
 shape = SubResource("CircleShape2D_n8opq")
 
@@ -116,6 +115,7 @@ shape = SubResource("CircleShape2D_j01sp")
 stream = ExtResource("7_3atu4")
 volume_db = -0.5
 
-[connection signal="body_entered" from="Area2D" to="." method="_on_zona_deteccion_body_entered"]
-[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="ZonaDeteccion" to="." method="_on_zona_deteccion_body_entered"]
+[connection signal="body_exited" from="ZonaDeteccion" to="." method="_on_zona_deteccion_body_exited"]
 [connection signal="body_entered" from="AreaAtaque" to="." method="_on_area_ataque_body_entered"]
+[connection signal="body_exited" from="AreaAtaque" to="." method="_on_area_ataque_body_exited"]

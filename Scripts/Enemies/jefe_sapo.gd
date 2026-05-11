@@ -232,4 +232,7 @@ func morir():
 
 func lanzar_dialogo(textos: Array):
 	if not is_inside_tree(): return
-	await Global.mostrar_dialogo_modal(textos)
+	var d = preload("res://Scenes/Dialogos/Dialogo1/interfaz_dialogo.tscn").instantiate()
+	get_tree().current_scene.add_child(d)
+	d.iniciar_dialogo(textos)
+	await d.dialogo_terminado

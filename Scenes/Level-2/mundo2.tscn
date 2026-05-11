@@ -23,7 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://b7vvwlrgc6toi" path="res://Scenes/Enemigos/Volador.tscn" id="23_thtw2"]
 [ext_resource type="PackedScene" uid="uid://dn21rnnh5e6ec" path="res://Scenes/Enemigos/Hongo.tscn" id="24_4them"]
 [ext_resource type="PackedScene" uid="uid://vy46ny003hmt" path="res://Scenes/Enemigos/murcielago.tscn" id="25_lkjv6"]
-[ext_resource type="PackedScene" path="res://Scenes/Enemigos/rey_volador.tscn" id="25_uo1fr"]
+[ext_resource type="PackedScene" uid="uid://dbwa5rhrm40pt" path="res://Scenes/Enemigos/rey_volador.tscn" id="25_uo1fr"]
 [ext_resource type="AudioStream" uid="uid://6pj6repvvjvx" path="res://Assets/Sounds/Boss/theeoffender1-final-fight-320156.mp3" id="29_n0h7a"]
 [ext_resource type="PackedScene" uid="uid://dd5ykjjnldjr3" path="res://Scenes/Animals/Azulejo.tscn" id="29_wlqe5"]
 [ext_resource type="PackedScene" uid="uid://c350k78d0b0re" path="res://Scenes/Animals/Canario.tscn" id="30_865ds"]
@@ -162,26 +162,25 @@ position = Vector2(13130, 244)
 position = Vector2(97, 459)
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=1948266623]
-visible = false
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1463084015]
 position = Vector2(-8, -117)
 motion_scale = Vector2(0.8, 1)
-motion_mirroring = Vector2(1152, 0)
+motion_mirroring = Vector2(1280.05, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer" unique_id=1560988064]
-position = Vector2(584, 338.50003)
-scale = Vector2(2, 2.6327164)
+position = Vector2(648, 338.50003)
+scale = Vector2(2.2222223, 2.6327164)
 texture = ExtResource("3_wlqe5")
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1233044432]
 position = Vector2(-8, -117)
 motion_scale = Vector2(0.2, 1)
-motion_mirroring = Vector2(1152, 0)
+motion_mirroring = Vector2(1279.97, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2" unique_id=535079532]
-position = Vector2(583.99994, 338.5)
-scale = Vector2(1.9999998, 2.632716)
+position = Vector2(648, 338.5)
+scale = Vector2(2.222222, 2.632716)
 texture = ExtResource("4_mf368")
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground" unique_id=722290767]
@@ -190,18 +189,18 @@ motion_scale = Vector2(0.4, 1)
 motion_mirroring = Vector2(1152, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3" unique_id=589407246]
-position = Vector2(583.99994, 338.49997)
-scale = Vector2(1.9999998, 2.632716)
+position = Vector2(648, 338.49997)
+scale = Vector2(2.222222, 2.632716)
 texture = ExtResource("5_uo1fr")
 
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1084008769]
 position = Vector2(-8, -117)
 motion_scale = Vector2(0.6, 1)
-motion_mirroring = Vector2(1152, 0)
+motion_mirroring = Vector2(1281.005, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4" unique_id=677119190]
-position = Vector2(584, 338.5)
-scale = Vector2(2, 2.632716)
+position = Vector2(648.5, 338.5)
+scale = Vector2(2.2239585, 2.632716)
 texture = ExtResource("6_wlqe5")
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1044146416]
