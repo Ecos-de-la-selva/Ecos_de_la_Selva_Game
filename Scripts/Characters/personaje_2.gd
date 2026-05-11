@@ -179,7 +179,7 @@ func morir():
 		# Plan B: Reiniciar si no hay menú
 		await get_tree().create_timer(1.0).timeout
 		get_tree().reload_current_scene()
-		
+
 func decide_animation():
 	if esta_muerto or is_attacking: return
 	if anim.animation == "damage" and anim.is_playing(): return
