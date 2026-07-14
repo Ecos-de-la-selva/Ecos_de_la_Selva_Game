@@ -75,7 +75,7 @@ radius = 5.0
 height = 14.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_n8opq"]
-radius = 43.784985
+radius = 52.000603
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j01sp"]
 radius = 5.0
@@ -96,6 +96,7 @@ position = Vector2(-2, 0)
 shape = SubResource("CapsuleShape2D_4xmiu")
 
 [node name="ZonaDeteccion" type="Area2D" parent="." unique_id=1309134755]
+visible = false
 scale = Vector2(4, 4)
 collision_layer = 2
 

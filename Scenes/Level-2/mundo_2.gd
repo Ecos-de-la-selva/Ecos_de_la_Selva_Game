@@ -13,7 +13,7 @@ var camara
 var jugador
 
 # 👹 NUEVO JEFE VOLADOR
-@onready var jefe = $Enemigos/Jefe/volador
+@onready var jefe = $Enemigos/Jefe/JefeMurcielago
 @onready var punto_aparicion = $Marker2D
 @onready var capa_pausa = $CapaPausa
 @onready var hud = $HUD
@@ -171,40 +171,62 @@ func _on_trigger_jefe_body_entered(body: Node2D) -> void:
 # CINEMÁTICA
 # =========================================================
 func iniciar_cinematica_jefe():
-
-	# 🎥 fijar cámara
+	# 🎥 fijar cámara y bloquear inputs
 	fijar_camara()
-
-	# 🔒 bloquear jugador
 	bloquear_jugador()
 
-	# 🚶 mover jugador
+	# 🚶 mover jugador al centro de la arena
 	await llevar_jugador_a_posicion()
-
-	# 📳 temblor
 	tremor_pantalla()
 
-	# 💬 diálogo
+	# 💬 diálogo previo ambiental
 	await mostrar_dialogo_y_esperar([
 		"¿Escuchaste eso...?",
-		"Algo viene desde el cielo..."
+		"Algo gigante viene desde el cielo..."
 	])
 
 	# 🔇 apagar música normal
 	if musica_normal and musica_normal.playing:
 		musica_normal.stop()
 
-	# 🔥 música boss
+	# 🔥 encender música del boss ambiente
 	if audio_boss:
 		audio_boss.play()
 
-	# 👹 iniciar pelea
+	# 👹 Configurar posición inicial del jefe a la derecha
 	if jefe:
-		await jefe.iniciar_pelea(hud)
+		jefe.preparar_entrada()
+		
+		# 🟢 CORRECCIÓN: Buscamos el nodo correcto donde debe terminar el Jefe
+		var spawn = get_node_or_null("SpawnBoss")
+		if spawn == null:
+			# Si el nodo está dentro de otro grupo o carpeta, búscalo directamente en la escena actual
+			spawn = get_tree().current_scene.get_node("SpawnBoss")
+			
+		# EL TWEEN SE EJECUTA AQUÍ EN EL MUNDO: Movimiento Derecha a Izquierda
+		var tween_movimiento = create_tween()
+		tween_movimiento.tween_property(jefe, "global_position", spawn.global_position, 2.0)
+		await tween_movimiento.finished
+		
+		# El jefe frena y se queda quieto
+		if jefe.has_node("AnimatedSprite2D"):
+			jefe.get_node("AnimatedSprite2D").play("idle")
 
-	# 🔓 devolver control
+		# 💬 Diálogo de presentación del jefe
+		await mostrar_dialogo_y_esperar([
+			"¡El Murciélago Rey ha aparecido!",
+			"¡Prepárate para combatir a la plaga!"
+		])
+
+		# 🟢 LÍNEA CLAVE AÑADIDA: Conectamos el HUD del mapa con el script del jefe
+		if jefe and hud:
+			jefe.hud = hud
+
+		# 🚀 Arrancamos oficialmente el combate del jefe y su HUD
+		jefe.empezar_combate()
+
+	# 🔓 Devolver control al jugador de forma segura en mobile
 	desbloquear_jugador()
-
 
 # =========================================================
 # DIÁLOGOS

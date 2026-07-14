@@ -157,7 +157,7 @@ tile_map_data = PackedByteArray("AABCAAsAAQAIAAUAAABCAAwAAQAIAAYAAABCAA0AAQAIAAc
 position = Vector2(13130, 244)
 
 [node name="Marker2D" type="Marker2D" parent="." unique_id=1289461182]
-position = Vector2(89, 456)
+position = Vector2(11622, 378)
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=1948266623]
 

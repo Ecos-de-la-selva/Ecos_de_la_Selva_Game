@@ -1,0 +1,112 @@
+[gd_scene format=3 uid="uid://ukvlq4jju42q"]
+
+[ext_resource type="Script" uid="uid://ddopbaqjylyw6" path="res://Scripts/Enemies/jefe_murcielago.gd" id="1_tll6c"]
+[ext_resource type="Texture2D" uid="uid://cyg456agyrmqh" path="res://Assets/TheBaldur_Adventure/Enemies/Bat/PNGs/BatAttack.png" id="2_dui42"]
+[ext_resource type="Texture2D" uid="uid://conguuwbpdjnk" path="res://Assets/TheBaldur_Adventure/Enemies/Bat/PNGs/BatIdleMoving.png" id="3_whkv0"]
+[ext_resource type="AudioStream" uid="uid://cerucshw1fhvv" path="res://Assets/Sounds/Enemigos/ElevenLabs_Murciélago_chirriando_en_tono_alto,_vocalización_de_criatura_de_cueva,_chirrido_sonar,_aleteo_en_enj.mp3" id="4_3nw8i"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6x1d6"]
+atlas = ExtResource("2_dui42")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3atu4"]
+atlas = ExtResource("2_dui42")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ijwt"]
+atlas = ExtResource("2_dui42")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wxlc2"]
+atlas = ExtResource("2_dui42")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q4r0t"]
+atlas = ExtResource("3_whkv0")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q7rs1"]
+atlas = ExtResource("3_whkv0")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m7ckf"]
+atlas = ExtResource("3_whkv0")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f6awl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6x1d6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3atu4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ijwt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wxlc2")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q4r0t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q7rs1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m7ckf")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_j8nr4"]
+radius = 16.0
+height = 32.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0p4s4"]
+radius = 11.502717
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6872c"]
+radius = 5.0
+
+[node name="JefeMurcielago" type="CharacterBody2D" unique_id=2028943951 groups=["enemigos"]]
+collision_layer = 2
+collision_mask = 13
+script = ExtResource("1_tll6c")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=44089844]
+position = Vector2(48.5, 39.5)
+scale = Vector2(4.03125, 3.46875)
+sprite_frames = SubResource("SpriteFrames_f6awl")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2034061186]
+position = Vector2(45, 45)
+shape = SubResource("CapsuleShape2D_j8nr4")
+
+[node name="ZonaDeteccion" type="Area2D" parent="." unique_id=674940282]
+scale = Vector2(4, 4)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZonaDeteccion" unique_id=1660014974]
+position = Vector2(11.25, 11.25)
+shape = SubResource("CircleShape2D_0p4s4")
+
+[node name="AreaAtaque" type="Area2D" parent="." unique_id=1766366902]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaAtaque" unique_id=2095217558]
+position = Vector2(45, 45)
+shape = SubResource("CircleShape2D_6872c")
+
+[node name="SonidoMurcielago" type="AudioStreamPlayer2D" parent="." unique_id=149969015]
+stream = ExtResource("4_3nw8i")
+volume_db = -0.5

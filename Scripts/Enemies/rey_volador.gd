@@ -46,29 +46,23 @@ func iniciar_pelea(hud_ref):
 	visible = true
 	jugador = get_tree().get_first_node_in_group("jugador")
 
-	audio_boss.pitch_scale = 0.8 # Un tono más grave para que suene imponente
+	audio_boss.pitch_scale = 0.8 
 	audio_boss.play()
 
+	# Posicionar al jefe a la derecha del Spawn antes de entrar
 	var spawn = get_tree().current_scene.get_node("SpawnBoss")
 	global_position = spawn.global_position + Vector2(900, -200)
 
 	anim.play("fly")
 	
-	# Entrada suave con Tween
+	# Entrada suave con Tween (Derecha a Izquierda)
 	var tween = create_tween()
+	# Usamos transiciones suaves aptas para mobile
+	tween.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	tween.tween_property(self, "global_position", spawn.global_position, 3.0)
-	await tween.finished
-
-	await mostrar_dialogo([
-		"El Rey Peste apareció...",
-		"¡Cuidado con sus ataques aéreos!"
-	])
-
-	if hud: hud.mostrar_barra_jefe(vida)
 	
-	bloqueado = false
-	iniciar_fase()
-
+	# Retornamos el tween para que el mundo sepa exactamente cuándo termina de moverse
+	return tween
 # =========================================================
 # CONTROL DE FASES (AQUÍ SE REPITE EL CICLO)
 # =========================================================

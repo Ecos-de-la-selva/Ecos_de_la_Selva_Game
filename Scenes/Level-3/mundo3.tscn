@@ -31,6 +31,7 @@
 [ext_resource type="PackedScene" uid="uid://xgjpytt12e6e" path="res://Scenes/Animals/Rojillo.tscn" id="29_jlayy"]
 [ext_resource type="AudioStream" uid="uid://6pj6repvvjvx" path="res://Assets/Sounds/Boss/theeoffender1-final-fight-320156.mp3" id="30_b5c52"]
 [ext_resource type="PackedScene" uid="uid://dr5vc7jla0sqa" path="res://Scenes/Fruit/chontaduro.tscn" id="31_8q4gn"]
+[ext_resource type="PackedScene" uid="uid://dx6h87lr3raja" path="res://Scenes/Characters/Personaje2_Montado.tscn" id="31_dko3h"]
 [ext_resource type="PackedScene" uid="uid://b0hcagfeyx8bi" path="res://Scenes/Jaguar/encuentro_jaguar.tscn" id="34_0n4j3"]
 [ext_resource type="PackedScene" uid="uid://ccl6kbobl7mnw" path="res://Scenes/Controles/Controles.tscn" id="34_dko3h"]
 [ext_resource type="PackedScene" uid="uid://6ueytw10lrl8" path="res://Scenes/ZonaMuerte/zona_muerte.tscn" id="35_dko3h"]
@@ -168,7 +169,7 @@ position = Vector2(164, 476)
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1463084015]
 position = Vector2(-8, -117)
 motion_scale = Vector2(0.8, 1)
-motion_mirroring = Vector2(1279.86, 0)
+motion_mirroring = Vector2(1279.06, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer" unique_id=1560988064]
 position = Vector2(648, 306.50006)
@@ -499,6 +500,7 @@ scale = Vector2(2, 2)
 
 [node name="EncuentroJaguar" parent="EventoJaguar" unique_id=1720820441 instance=ExtResource("34_0n4j3")]
 position = Vector2(7004, 452)
+personaje_montado_mujer = ExtResource("31_dko3h")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1659333645]
 

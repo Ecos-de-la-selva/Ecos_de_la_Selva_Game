@@ -9,3 +9,6 @@
 position = Vector2(50.999992, 31.000008)
 scale = Vector2(0.7431192, 0.6382979)
 texture = ExtResource("2_hfubg")
+
+[node name="CollisionShape2D" parent="." index="1" unique_id=657922333]
+visible = false

@@ -68,6 +68,7 @@ theme_override_constants/separation = 20
 
 [node name="BotonContinuar" type="TextureButton" parent="VBoxContainer" unique_id=423268533]
 process_mode = 3
+custom_minimum_size = Vector2(4.53, 0)
 layout_mode = 2
 texture_normal = ExtResource("2_6upvg")
 texture_pressed = ExtResource("3_nha8i")

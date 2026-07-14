@@ -4,7 +4,7 @@ extends CharacterBody2D
 #                JEFE: MURCIÉLAGO REY
 # =========================================================
 
-var vida = 100
+var vida = 90
 var fase = 1
 
 var puede_recibir_danio = false
@@ -14,9 +14,9 @@ var muerto = false
 
 var hud
 
-@onready var audio_boss = $AudioBoss
-# 🟢 CAMBIO: Ahora precarga murciélagos pequeños en lugar de monos
-@export var escena_lacayo = preload("res://Scenes/Enemigos/volador.tscn") 
+# 🟢 CORRECCIÓN: Usando el nodo correcto de audio
+@onready var sonido_murcielago = $SonidoMurcielago
+@export var escena_lacayo = preload("res://Scenes/Enemigos/murcielago.tscn") 
 @onready var anim = $AnimatedSprite2D
 
 func _ready():
@@ -25,15 +25,17 @@ func _ready():
 # -------- PREPARAR ENTRADA (Llamado desde el Mundo) --------
 func preparar_entrada():
 	visible = true
-	if audio_boss:
-		audio_boss.pitch_scale = 0.8
-		audio_boss.play()
+	if sonido_murcielago:
+		sonido_murcielago.pitch_scale = 0.8
+		sonido_murcielago.play()
 	
 	var spawn = get_tree().current_scene.get_node("SpawnBoss")
-	# Aparece a la derecha en la misma altura del spawn
 	global_position = Vector2(spawn.global_position.x + 500, spawn.global_position.y)
-	anim.play("run") # O tu animación de vuelo rápido/caminar
-	anim.flip_h = true
+	
+	anim.play("idle") # O el nombre real de tu animación
+	
+	# 🟢 CAMBIA ESTO A FALSE para que mire a la izquierda durante el viaje
+	anim.flip_h = false
 
 # -------- INICIAR OLEADAS (Llamado tras los diálogos del Mundo) --------
 func empezar_combate():
@@ -44,10 +46,10 @@ func empezar_combate():
 # -------- FASE --------
 func iniciar_fase():
 	if muerto: return
-	if audio_boss:
-		audio_boss.stop()
-		audio_boss.pitch_scale = randf_range(0.8, 1.0)
-		audio_boss.play()
+	if sonido_murcielago:
+		sonido_murcielago.stop()
+		sonido_murcielago.pitch_scale = randf_range(0.8, 1.0)
+		sonido_murcielago.play()
 		
 	puede_recibir_danio = false
 	en_recuperacion = false
@@ -63,14 +65,12 @@ func spawn_lacayos(cantidad):
 
 	for i in cantidad:
 		var mini_bat = escena_lacayo.instantiate()
-		# Aparecen distribuidos horizontalmente cerca del jefe
 		mini_bat.global_position = global_position + Vector2(randf_range(-150, 150), randf_range(-50, 50))
 		
-		# Tamaño secuaces visible en mobile
-		mini_bat.scale = Vector2(2, 2)
+		# Tamaño secuaces
+		mini_bat.scale = Vector2(3, 3)
 		get_parent().call_deferred("add_child", mini_bat)
 
-		# Conectar muerte usando la sintaxis moderna de Godot 4
 		mini_bat.tree_exited.connect(_on_lacayo_muerto)
 
 		if jugador:
@@ -88,9 +88,8 @@ func _on_lacayo_muerto():
 func mostrar_debilidad():
 	if muerto or en_recuperacion: return
 	puede_recibir_danio = true
-	anim.play("dizzy") # Animación de cansado si tiene, o idle
+	anim.play("idle")
 	
-	# Llamamos al diálogo seguro a través del Mundo para no trabar las físicas móviles
 	var mundo = get_tree().current_scene
 	if mundo.has_method("mostrar_dialogo_y_esperar"):
 		await mundo.mostrar_dialogo_y_esperar([
@@ -109,13 +108,15 @@ func recibir_danio(dmg: int, _posicion: Vector2):
 	
 	en_recuperacion = true
 	puede_recibir_danio = false
-	anim.play("idle")
+	
+	if sonido_murcielago:
+		sonido_murcielago.play() # Sonido de dolor/grito
 	
 	var mundo = get_tree().current_scene
 	if mundo.has_method("mostrar_dialogo_y_esperar"):
 		await mundo.mostrar_dialogo_y_esperar([
 			"¡Retrocede!",
-			"Se está recuperando en las sombras..."
+			"Se está recuperando..."
 		])
 	
 	await get_tree().create_timer(1.5).timeout
@@ -132,10 +133,10 @@ func morir():
 	if muerto: return
 	muerto = true
 	
-	if audio_boss:
-		audio_boss.stop()
-		audio_boss.pitch_scale = 0.7 
-		audio_boss.play()
+	if sonido_murcielago:
+		sonido_murcielago.stop()
+		sonido_murcielago.pitch_scale = 0.6 
+		sonido_murcielago.play()
 	
 	if hud:
 		hud.ocultar_barra_jefe()

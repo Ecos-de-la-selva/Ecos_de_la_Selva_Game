@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://d1nu214qy0cbc" path="res://Assets/UI/Buttons/Checkbox.png" id="4_deomx"]
 [ext_resource type="Texture2D" uid="uid://b51svlyykax23" path="res://Assets/Backgrounds/MenuPrincipal/ColorNegro.png" id="7_deomx"]
 [ext_resource type="Script" uid="uid://c4rvwweptrlsg" path="res://Scripts/Transicion/transicion.gd" id="8_fuuaj"]
-[ext_resource type="AudioStream" uid="uid://dgl6yqca4g2do" path="res://Assets/Sounds/SonidosSeleccion/Blip_Select.mp3" id="9_opwho"]
+[ext_resource type="AudioStream" uid="uid://b6t8usxvhchr1" path="res://Assets/Sounds/SonidosSeleccion/344299__musiclegends__blip_select11.wav" id="9_opwho"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2g6od"]
 bg_color = Color(0.9294305, 0.7367929, 0.6585123, 1)
@@ -200,16 +200,15 @@ stretch_mode = 6
 
 [node name="Label" type="Label" parent="." unique_id=363215332]
 layout_mode = 1
-anchors_preset = 7
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 0.0
 anchor_right = 0.5
-anchor_bottom = 0.0
 offset_left = -184.0
 offset_top = 30.0
 offset_right = 184.0
 offset_bottom = 82.0
 grow_horizontal = 2
+grow_vertical = 0
 scale = Vector2(2, 2)
 pivot_offset = Vector2(184, 26)
 theme_override_colors/font_color = Color(0.9999997, 0.9199436, 0.7371252, 1)
